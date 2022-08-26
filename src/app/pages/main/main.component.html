@@ -1,0 +1,15 @@
+<!-- Navbar -->
+<!-- *ngIf="isLoggedIn" -->
+<app-navbar ></app-navbar>
+<!-- Main Sidebar Container -->
+<app-sidebar-menu></app-sidebar-menu>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 576px;">
+    <app-page-header></app-page-header>
+    <section class="content">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div><!-- /.container-fluid -->
+    </section>
+</div>

@@ -1,0 +1,496 @@
+<!-- Main content -->
+<form>
+
+    <!-- 1st row -->
+    <div class="row">
+
+        <!-- left upper pane -->
+        <div class="col-md-6">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Incident/Case Details</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body" formGroupName="personalInfo">
+                            <div class="form-group">
+                                <label for="inputName">SOCO Case Number</label>
+                                
+                                    <input type="text" formControlName="firstname" class="form-control"
+                                        placeholder="Case# ex. SOCO RFU COR - E 001 - 2022" readonly/>
+                               
+                            </div>
+                            <div class="form-group">
+                                <label for="">Case Nature</label>
+                                <select formControlName="civilStatus" class="form-control custom-select">
+
+                                    <option>Regular</option>
+                                    <option>Financier</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDescription">Requesting Party</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                            data-target="#modal-borrowers">Select...</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+
+            </div>
+        </div>
+
+        <!-- right upper pane -->
+        <div class="col-md-6">
+            <div class="card card-outline card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Collateral</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+        
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body" formGroupName="personalInfo">
+                            <div class="form-group">
+                                <label for="inputName">DTPO</label>
+                                <input type="text" formControlName="firstname" class="form-control"
+                                    placeholder="Account Code" />
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName">Investigator</label>
+                                <input type="text" formControlName="firstname" class="form-control"
+                                    placeholder="Account Code" />
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDescription">Collateral Description</label>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                            data-target="#modal-collaterals">Select Collateral...</button>
+                                    </span>
+                                </div>
+                            </div>
+        
+        
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+        
+            </div>
+        </div>
+    </div>
+    <!-- end of first row -->
+
+    <!-- left lower pane -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Enter Incident/Case Details</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body" formGroupName="personalInfo">
+                            <div class="form-group">
+                                <input type="text" formControlName="firstname" class="form-control"
+                                    placeholder="Incident/Case Title..." />
+                                
+                            </div>
+                            <div class="form-group">
+                                <!-- <label for="inputDescription">Description</label> -->
+                                <textarea id="textarea" class="form-control" style="height: 300px" placeholder="Enter incident/case description..." >
+                                </textarea> 
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+
+            </div>
+        </div>
+
+        
+    </div>
+    <!-- end: left lower pane  -->
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-outline card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Evidence Recovered</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-lg">
+                            <i class="fas fa-user-plus"></i> Add...
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Fullname</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Doe</td>
+                                <td><span class="tag tag-success">Approved</span></td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Alexander Pierce</td>
+                                <td><span class="tag tag-warning">Pending</span></td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Bob Doe</td>
+                                <td><span class="tag tag-primary">Approved</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card card-outline card-warning">
+                <div class="card-header">
+                    <h3 class="card-title">Photos Taken</h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-lg">
+                            <i class="fas fa-user-plus"></i> Add...
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Fullname</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img class="direct-chat-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR33pPXso3HVQjobpRqanz5D_f2sVV33vwtsA&usqp=CAU" /></td>
+                                <td><span class="tag tag-success">Approved</span></td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Alexander Pierce</td>
+                                <td><span class="tag tag-warning">Pending</span></td>
+                                
+                            </tr>
+                            <tr>
+                                <td>Bob Doe</td>
+                                <td><span class="tag tag-primary">Approved</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- buttons -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-3 float-right">
+                <button class="btn btn-secondary">Cancel</button> <span> | </span>
+                <button class="btn btn-success pull-right " type="submit">Create</button>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- /.content -->
+
+
+<!-- modal dialog for selecting borrowers -->
+<div class="modal fade" id="modal-borrowers" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h6 class="modal-title">Select Borrower</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right"
+                                    placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size: smaller;">
+
+                                    <th>Borrower's Fullname</th>
+                                    <th>Address</th>
+                                    <th>Date of Birth</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Status</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>Ayala ave., Makati</td>
+                                    <td>11-7-2014</td>
+                                    <td>M</td>
+                                    <td>34</td>
+                                    <td><span class="tag tag-success">Approved</span></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Alexander Pierce</td>
+                                    <td>Ayala ave., Makati</td>
+                                    <td>11-7-2014</td>
+                                    <td>M</td>
+                                    <td>34</td>
+                                    <td><span class="tag tag-warning">Pending</span></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Bob Doe</td>
+                                    <td>McKinley, BGC</td>
+                                    <td>11-7-2014</td>
+                                    <td>M</td>
+                                    <td>31</td>
+                                    <td><span class="tag tag-primary">Approved</span></td>
+                                </tr>
+                                <tr>
+
+                                    <td>Mike Manabat</td>
+                                    <td>McKinley, BGC</td>
+                                    <td>11-7-2014</td>
+                                    <td>M</td>
+                                    <td>31</td>
+                                    <td><span class="tag tag-danger">Denied</span></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- modal dialog for selecting co-makers -->
+<div class="modal fade" id="modal-lg" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-primary">
+                <h6 class="modal-title">Select Co-Makers</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right"
+                                    placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr style="font-size: smaller;">
+
+                                    <th>Fullname</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td>John Doe</td>
+                                    <td>11-7-2014</td>
+                                    <td><span class="tag tag-success">Approved</span></td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                                checked>
+                                            <label class="custom-control-label" for="customCheck1"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>Alexander Pierce</td>
+                                    <td>11-7-2014</td>
+                                    <td><span class="tag tag-warning">Pending</span></td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                                checked>
+                                            <label class="custom-control-label" for="customCheck1"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>Bob Doe</td>
+                                    <td>11-7-2014</td>
+                                    <td><span class="tag tag-primary">Approved</span></td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                                checked>
+                                            <label class="custom-control-label" for="customCheck1"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td>Mike Doe</td>
+                                    <td>11-7-2014</td>
+                                    <td><span class="tag tag-danger">Denied</span></td>
+                                    <td>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
+                                                checked>
+                                            <label class="custom-control-label" for="customCheck1"></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- modal dialog for selecting Collaterals -->
+<div class="modal fade" id="modal-collaterals" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h6 class="modal-title">Select Collaterals</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"></h3>
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" name="table_search" class="form-control float-right"
+                                    placeholder="Search">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
+                            <thead>
+
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fas fa-car"></i> Auto</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-mountain"></i> Real Property</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-home"></i> House & Lot</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-motorcycle"></i> Motorcycle</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
