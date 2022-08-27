@@ -7,6 +7,7 @@ import { FallbackPageComponent } from './pages/fallback-page/fallback-page.compo
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
 
+
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: '', component: MainComponent, children: [

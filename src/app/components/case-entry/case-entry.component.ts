@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-case-entry',
   templateUrl: './case-entry.component.html',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CaseEntryComponent implements OnInit {
 
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+ 
 }

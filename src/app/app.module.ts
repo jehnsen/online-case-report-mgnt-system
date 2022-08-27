@@ -4,7 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2OrderModule} from 'ng2-order-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { SidebarMenuComponent } from './components/layouts/sidebar-menu/sidebar-menu.component';
@@ -22,6 +27,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { FallbackPageComponent } from './pages/fallback-page/fallback-page.component';
 import { CaseEntryComponent } from './components/case-entry/case-entry.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,14 +45,20 @@ import { CaseEntryComponent } from './components/case-entry/case-entry.component
     CaseListComponent,
     LoginComponent,
     FallbackPageComponent,
-    CaseEntryComponent
+    CaseEntryComponent,
+
   ],
   imports: [
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    FormsModule,
+    Ng2SearchPipeModule,
+    Ng2OrderModule,
+    NgxPaginationModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot() // ToastrModule added,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,41 +1,63 @@
 <div class="card">
-    <div class="card-header">
-        <div class="col-md-6">
-            <h3 class="card-title">List of Cases</h3>
-        </div>
-        <button type="button" 
-          class="btn btn-success btn-sm float-right"
-          [routerLink]="['entry']" routerLinkActive="router-link-active" 
-        >
-          <i class="fas fa-user-plus"></i> Add New
-        </button>
+  <div class="card-header">
+    <div class="col-md-6">
+      <h3 class="card-title">List of Cases</h3>
     </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-      <table id="example1" class="table table-bordered table-striped">
-        <thead>
-        <tr>
-          <th>Id</th>
-          <th>Case No.</th>
-          <th>Nature of Case</th>
-          <th>Incident/Case</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody >
-        <tr *ngFor="let case of cases">
-            <td>{{ case.id }}</td>
-            <td>{{ case.caseNo }}</td>
-            <td>{{ case.caseNature }}</td>
-            <td>{{ case.caseTitle }}</td>
-            <td>
-                <button type="button" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></button> <span> | </span>
-                <button type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></button>
-            </td>
-        </tr>
-        </tbody>
-       
-      </table>
-    </div>
-    <!-- /.card-body -->
+    <button type="button" class="btn btn-success btn-sm float-right" [routerLink]="['entry']"
+      routerLinkActive="router-link-active">
+      <i class="fas fa-user-plus"></i> Add New
+    </button>
   </div>
+  <!-- /.card-header -->
+  <div class="card-body">
+    
+    <div class="row">
+      <div class="col-md-6">
+        
+          <div class="form-group">
+            <input class="form-control" type="text" name="caseTitle" [(ngModel)]="caseTitle" (ngModelChange)="Search()"
+              placeholder="Search..." />
+          </div>
+       
+      </div>
+    </div>
+
+    <div class="row">
+      
+      
+      <div class="col-md-12 ml-auto mr-auto">
+        <div class="table-responsive">
+          <table id="example1" class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Case No.</th>
+                <th>Nature of Case</th>
+                <th>Incident/Case</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let case of cases | paginate: {itemsPerPage: 5, currentPage: p};">
+                <td>{{ case.id }}</td>
+                <td>{{ case.caseNo }}</td>
+                <td>{{ case.caseNature }}</td>
+                <td>{{ case.caseTitle }}</td>
+                <td>
+                  <button type="button" class="btn btn-primary btn-xs"><i class="fas fa-edit"></i></button> <span> |
+                  </span>
+                  <button type="button" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            </tbody>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </table>
+        </div>
+      </div>
+    </div>
+   
+
+
+  </div>
+  <!-- /.card-body -->
+</div>
