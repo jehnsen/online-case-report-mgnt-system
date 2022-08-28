@@ -1,0 +1,72 @@
+<div class="card card-outline card-info">
+    <div class="card-header">
+        <h3 class="card-title">List of Evidence Recovered</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-outline-info btn-tool" data-toggle="modal" data-target="#modalAddEvidence">
+                <i class="fas fa-plus"></i> Add Evidence...
+            </button>
+        </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name/Description of Evidence</th>
+                    <!-- <th>Status</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let evidence of evidences">
+                    <td>{{ evidence.description }}</td>
+                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeEvidence(evidence.description)">
+                        <i class="fas fa-times"></i>
+                    </button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+
+
+<!-- modal dialog for adding evidence recovered -->
+<div class="modal fade" id="modalAddEvidence" style="display: none;" aria-hidden="true" >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h6 class="modal-title">Add Evidence</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                   
+                    <div class="input-group input-group-sm">
+                        <input type="text" #evidenceNameInput 
+                        class="form-control"
+                        [(ngModel)]="evidenceDescription" 
+                        (ngModelChange)="onChange($event)" />
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline btn-secondary" data-dismiss="modal">Close</button>
+                <button 
+                    type="button" 
+                    (click)="addEvidence(1, evidenceNameInput.value)" 
+                    data-dismiss="modal" #modalAddEvidence
+                    class="btn btn-outline btn-info">
+                    Add
+                </button>
+              </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

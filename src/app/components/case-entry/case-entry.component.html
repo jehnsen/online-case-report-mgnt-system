@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Incident/Case Details</h3>
+                    <h3 class="card-title">Incident/Event Details</h3>
                     <div class="card-tools"> </div>
                 </div>
                 <!-- /.card-header -->
@@ -16,28 +16,58 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="inputName">SOCO Case Number</label>
-                                
+                                <p for="inputName" class="h6">SOCO Case Number</p>
+                                <div class="input-group input-group-sm">
                                     <input type="text" class="form-control"
                                         placeholder="Case# ex. SOCO RFU COR - E 001 - 2022" readonly/>
-                               
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="">Case Nature</label>
-                                <select class="form-control custom-select">
-
-                                    <option>Regular</option>
-                                    <option>Financier</option>
-                                </select>
+                                <p for="" class="h6">Nature of Case</p>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control custom-select">
+                                        <option>Shooting Incident</option>
+                                        <option>Found Dead Body</option>
+                                        <option>Hacking Incident</option>
+                                        <option>Robbery</option>
+                                        <option>Drowning</option>
+                                        <option>Alleged Suicide</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputDescription">Requesting Party</label>
+                                <p for="inputDescription" class="h6">Requesting Party</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control">
                                     <span class="input-group-append">
-                                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                            data-target="#modal-borrowers">Select...</button>
+                                        <div class="input-group input-group-sm">
+                                            <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                data-target="#modal-borrowers">Select...</button>
+                                        </div>
                                     </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Investigator on Case</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control"
+                                    placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p for="" class="h6">Disposition of Case</p>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control custom-select">
+                                            <option>Convicted</option>
+                                            <option>Acquitted</option>
+                                            <option>Dismissed</option>
+                                            <option>No charges filed/Charges dropped</option>
+                                            <option>Vacated</option>
+                                            <option>Sealed</option>
+                                            <option>Expunged</option>
+                                            <option>Pending</option>
+                                            <option>Diversion/Deferred Prosecution</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -53,38 +83,74 @@
         <div class="col-md-6">
             <div class="card card-outline card-success">
                 <div class="card-header">
-                    <h3 class="card-title">Collateral</h3>
+                    <h3 class="card-title">DTPO & Suspect/Victim</h3>
                     <div class="card-tools"> </div>
                 </div>
                 <!-- /.card-header -->
-        
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="inputName">DTPO</label>
-                                <input type="text" class="form-control"
-                                    placeholder="Account Code" />
                                 
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p for="inputName" class="h6">Date</p>
+                                        <div class="input-group input-group-sm">
+                                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" [ngStyle]="{'backgroundColor': 'white'}" readonly>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">📅</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p for="inputName" class="h6">Time</p>
+                                            <div class="input-group input-group-sm date" id="timepicker" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input" data-target="#timepicker">
+                                                <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputName">Investigator</label>
-                                <input type="text" class="form-control"
-                                    placeholder="Account Code" />
-                                
+                                <p for="inputName" class="h6">Place of Occurence</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control"
+                                    placeholder="" />
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputDescription">Collateral Description</label>
+                                <p for="inputDescription" class="h6">Victim</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control">
                                     <span class="input-group-append">
-                                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                            data-target="#modal-collaterals">Select Collateral...</button>
+                                        <div class="input-group input-group-sm">
+                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                    data-target="#modal-collaterals">Select...</button>
+                                        </div>
                                     </span>
                                 </div>
                             </div>
-        
-        
+                            <div class="form-group">
+                                <p for="inputDescription" class="h6">Suspect</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-append">
+                                        <div class="input-group input-group-sm">
+                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                    data-target="#modal-collaterals">Select...</button>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Reported By</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control"
+                                    placeholder="" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -100,7 +166,7 @@
         <div class="col-md-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Enter Incident/Case Details</h3>
+                    <h3 class="card-title">Description of Incident/Event</h3>
                     <div class="card-tools"> </div>
                 </div>
                 <!-- /.card-header -->
@@ -115,7 +181,13 @@
                             </div>
                             <div class="form-group">
                                 <!-- <label for="inputDescription">Description</label> -->
-                                <textarea id="textarea" class="form-control" style="height: 300px" placeholder="Enter incident/case description..." >
+                                <textarea id="textarea" 
+                                    class="form-control" 
+                                    rows="4" 
+                                    style="height: 300px" 
+                                    [(ngModel)]="caseDescription"
+                                    name="caseDescription"
+                                    placeholder="Enter incident/case description..." >
                                 </textarea> 
                             </div>
                         </div>
@@ -133,89 +205,13 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="card card-outline card-info">
-                <div class="card-header">
-                    <h3 class="card-title">Evidence Recovered</h3>
+            
+            <app-evidence-list></app-evidence-list>
 
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-lg">
-                            <i class="fas fa-user-plus"></i> Add...
-                        </button>
-                    </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Fullname</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>John Doe</td>
-                                <td><span class="tag tag-success">Approved</span></td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Alexander Pierce</td>
-                                <td><span class="tag tag-warning">Pending</span></td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Bob Doe</td>
-                                <td><span class="tag tag-primary">Approved</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
-            </div>
         </div>
 
         <div class="col-md-6">
-            <div class="card card-outline card-warning">
-                <div class="card-header">
-                    <h3 class="card-title">Photos Taken</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-lg">
-                            <i class="fas fa-user-plus"></i> Add...
-                        </button>
-                    </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
-
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Fullname</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><img class="direct-chat-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR33pPXso3HVQjobpRqanz5D_f2sVV33vwtsA&usqp=CAU" /></td>
-                                <td><span class="tag tag-success">Approved</span></td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Alexander Pierce</td>
-                                <td><span class="tag tag-warning">Pending</span></td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Bob Doe</td>
-                                <td><span class="tag tag-primary">Approved</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /.card-body -->
-            </div>
+            <app-photos-list></app-photos-list>
         </div>
 
     </div>
@@ -238,7 +234,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content ">
             <div class="modal-header bg-info">
-                <h6 class="modal-title">Select Borrower</h6>
+                <h6 class="modal-title">Requesting Parties</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -262,59 +258,21 @@
                     <!-- /.card-header -->
                     <div class="card-body table-responsive p-0">
                         <table class="table table-hover">
-                            <thead>
-                                <tr style="font-size: smaller;">
 
-                                    <th>Borrower's Fullname</th>
-                                    <th>Address</th>
-                                    <th>Date of Birth</th>
-                                    <th>Gender</th>
-                                    <th>Age</th>
-                                    <th>Status</th>
-
-                                </tr>
-                            </thead>
                             <tbody>
-                                <tr>
-                                    <td>John Doe</td>
-                                    <td>Ayala ave., Makati</td>
-                                    <td>11-7-2014</td>
-                                    <td>M</td>
-                                    <td>34</td>
-                                    <td><span class="tag tag-success">Approved</span></td>
+                                
+                                <tr *ngFor="let party of requestingParties">
+                                    <td>{{ party.name }}</td>
                                 </tr>
-                                <tr>
-
-                                    <td>Alexander Pierce</td>
-                                    <td>Ayala ave., Makati</td>
-                                    <td>11-7-2014</td>
-                                    <td>M</td>
-                                    <td>34</td>
-                                    <td><span class="tag tag-warning">Pending</span></td>
-                                </tr>
-                                <tr>
-
-                                    <td>Bob Doe</td>
-                                    <td>McKinley, BGC</td>
-                                    <td>11-7-2014</td>
-                                    <td>M</td>
-                                    <td>31</td>
-                                    <td><span class="tag tag-primary">Approved</span></td>
-                                </tr>
-                                <tr>
-
-                                    <td>Mike Manabat</td>
-                                    <td>McKinley, BGC</td>
-                                    <td>11-7-2014</td>
-                                    <td>M</td>
-                                    <td>31</td>
-                                    <td><span class="tag tag-danger">Denied</span></td>
-
-                                </tr>
+                                
                             </tbody>
+                            
                         </table>
                     </div>
                     <!-- /.card-body -->
+                    <div class="card-footer">
+                        <p class="text-info text-sm">#Tip: Click to select</p>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -327,112 +285,9 @@
     <!-- /.modal-dialog -->
 </div>
 
-<!-- modal dialog for selecting co-makers -->
-<div class="modal fade" id="modal-lg" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content ">
-            <div class="modal-header bg-primary">
-                <h6 class="modal-title">Select Co-Makers</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
 
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right"
-                                    placeholder="Search">
 
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr style="font-size: smaller;">
 
-                                    <th>Fullname</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="tag tag-success">Approved</span></td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                checked>
-                                            <label class="custom-control-label" for="customCheck1"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Alexander Pierce</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="tag tag-warning">Pending</span></td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                checked>
-                                            <label class="custom-control-label" for="customCheck1"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Bob Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="tag tag-primary">Approved</span></td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                checked>
-                                            <label class="custom-control-label" for="customCheck1"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-
-                                    <td>Mike Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="tag tag-danger">Denied</span></td>
-                                    <td>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="customCheck1"
-                                                checked>
-                                            <label class="custom-control-label" for="customCheck1"></label>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
-
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
 
 <!-- modal dialog for selecting Collaterals -->
 <div class="modal fade" id="modal-collaterals" style="display: none;" aria-hidden="true">
