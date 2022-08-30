@@ -7,6 +7,22 @@ export class DataService {
   selectedProduct$ = this.product$.asObservable();
   private productListBus$ = new BehaviorSubject<any>([]);
   productList$ = this.productListBus$.asObservable();
+
+  private case$ = new BehaviorSubject<any>({});
+  selectedCase$ = this.case$.asObservable();
+
+  private caseListBus$ = new BehaviorSubject<any>([]);
+  caseList$ = this.caseListBus$.asObservable();
+
+  private party$ = new BehaviorSubject<any>({});
+  selectedParty$ = this.party$.asObservable();
+
+  private victim$ = new BehaviorSubject<any>({});
+  selectedVictim$ = this.victim$.asObservable();
+
+  private suspect$ = new BehaviorSubject<any>({});
+  selectedSuspect$ = this.suspect$.asObservable();
+
   constructor() {}
 
   setProduct(id: any, description: any) {
@@ -15,4 +31,24 @@ export class DataService {
   setProductList(products: any) {
     this.productListBus$.next(products);
   }
+
+  setCase(caseObject: any) {
+    this.case$.next(caseObject);
+  }
+  setCaseList(cases: any){
+    this.caseListBus$.next(cases);
+  }
+
+  setSelectedParty(party){
+    this.party$.next(party);
+  }
+
+  setSelectedVictim(name){
+    this.victim$.next(name);
+  }
+
+  setSelectedSuspect(name){
+    this.suspect$.next(name);
+  }
+
 }

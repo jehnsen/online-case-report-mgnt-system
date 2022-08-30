@@ -46,10 +46,35 @@ export class CaseService {
       location:       data.location,
       victim:         data.victimName,
       suspect:        data.suspectName,
-      incident_date:  JSON.stringify(data.dtpo.incidentDate),
+      incident_date:  data.incidentDate,
       evidences:      data.evidences,
       status: 1
     }, httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  public update(data, id): Observable<any> {
+    console.log(data)
+    return this.httpClient.put(`${this.API_SERVER}/${id}`, {
+      case_no:        data.caseNo,
+      case_nature:    data.caseNature,
+      investigator:   data.investigator,
+      requesting_party:     data.requestingParty,
+      incident_title:       data.incidentTitle,
+      incident_description: data.incidentDescription,
+      disposition:    data.disposition,
+      incident_time:  data.incidentTime,
+      location:       data.location,
+      victim:         data.victimName,
+      suspect:        data.suspectName,
+      incident_date:  data.incidentDate,
+      reported_by:    data.reportedBy
+    }, httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  public delete(id): Observable<any> {
+    return this.httpClient.delete(`${this.API_SERVER}/${id}`, httpOptions)
     .pipe(catchError(this.handleError));
   }
 

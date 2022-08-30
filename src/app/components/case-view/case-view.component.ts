@@ -28,7 +28,7 @@ export class CaseViewComponent implements OnInit {
     this.caseService.getById(id).subscribe(response => {
       if(response.data.data && Array.isArray(response.data.data[0])) 
         this.selectedCase = response.data.data[0];
-        console.log(this.selectedCase)
+        // console.log(this.selectedCase)
         // console.log(response.data.data[0])
         setTimeout(() => {  
           this.selectedCase = response.data.data[0]

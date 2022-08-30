@@ -19,7 +19,8 @@
                                 <p for="inputName" class="h6">SOCO Case Number</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="caseNo"
-                                        placeholder="Case# ex. SOCO RFU COR - E 001 - 2022" value="SOCO RFU COR - E 001 - 2022"/>
+                                        placeholder="Case# ex. SOCO RFU COR - E 001 - 2022"/>
+                                        <!-- <control-messages [control]="incidentData.get('caseNo')"></control-messages> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -93,34 +94,41 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p for="inputName" class="h6">Date</p>
-                                        <div class="input-group input-group-sm" formGroupName="dtpo">
+                                        <!-- formGroupName="dtpo" -->
+                                        <div *ngIf="isAdd" class="input-group input-group-sm" > 
                                             <input 
                                                 class="form-control" 
-                                                placeholder="yyyy-mm-dd" 
-                                                name="dp" 
+                                                placeholder="mm/dd/yyyy" 
+                                                name="dp"
                                                 [(ngModel)]="model" 
                                                 ngbDatepicker #d="ngbDatepicker" 
                                                 [ngStyle]="{'backgroundColor': 'white'}"
                                                 formControlName="incidentDate" 
+                                                (dateSelect)="onDateSelect($event)"
                                                 readonly
                                             >
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">📅</button>
                                             </div>
                                         </div>
+                                        <div *ngIf="!isAdd" class="input-group input-group-sm">
+                                            <input type="text" class="form-control" formControlName="incidentDateEdit" />
+                                        </div>
                                     </div>
                                     <div class="col-md-6">
                                         <p for="inputName" class="h6">Time</p>
-                                            <div class="input-group input-group-sm date" id="timepicker" data-target-input="nearest">
+                                            <div *ngIf="isAdd" class="input-group input-group-sm date" id="timepicker" data-target-input="nearest">
                                                 <input 
-                                                    type="text" 
+                                                    type="time" 
                                                     class="form-control datetimepicker-input" 
                                                     data-target="#timepicker"
                                                     formControlName="incidentTime"
+                                                    min="09:00" max="18:00" required
                                                 >
-                                                <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="far fa-clock"></i></div>
-                                                </div>
+                                            </div>
+
+                                            <div *ngIf="!isAdd" class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="incidentTimeEdit" />
                                             </div>
                                     </div>
                                 </div>
@@ -138,7 +146,7 @@
                                     <span class="input-group-append">
                                         <div class="input-group input-group-sm">
                                                 <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-collaterals">Select...</button>
+                                                    data-target="#modal-persons">Select...</button>
                                         </div>
                                     </span>
                                 </div>
@@ -150,7 +158,7 @@
                                     <span class="input-group-append">
                                         <div class="input-group input-group-sm">
                                                 <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-collaterals">Select...</button>
+                                                    data-target="#modal-suspects">Select...</button>
                                         </div>
                                     </span>
                                 </div>
@@ -194,7 +202,7 @@
                                     class="form-control" 
                                     rows="4" 
                                     style="height: 300px" 
-                                    [(ngModel)]="caseDescription"
+                                    [(ngModel)]="incidentDescription"
                                     name="caseDescription"
                                     placeholder="Enter incident/case description..."
                                     formControlName="incidentDescription" >
@@ -230,129 +238,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="mb-3 float-right">
-                <button class="btn btn-secondary">Cancel</button> <span> | </span>
-                <button class="btn btn-success pull-right " type="submit">Create</button>
+                <button class="btn btn-secondary mr-3">Cancel</button>
+                
+                <button class="btn btn-success pull-right " type="submit">
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span *ngIf="isLoading" class="sr-only">Loading...</span>
+                    {{ isLoading ? 'Saving...' : 'Save' }}
+                </button>
+                <!-- [disabled]="!incidentData.valid" -->
             </div>
         </div>
     </div>
 </form>
 <!-- /.content -->
 
-
-<!-- modal dialog for selecting borrowers -->
-<div class="modal fade" id="modal-borrowers" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content ">
-            <div class="modal-header bg-info">
-                <h6 class="modal-title">Requesting Parties</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right"
-                                    placeholder="Search">
-
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
-
-                            <tbody>
-                                
-                                <tr *ngFor="let party of requestingParties">
-                                    <td>{{ party.name }}</td>
-                                </tr>
-                                
-                            </tbody>
-                            
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <p class="text-info text-sm">#Tip: Click to select</p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
-
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-
-
-<!-- modal dialog for selecting Collaterals -->
-<div class="modal fade" id="modal-collaterals" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content ">
-            <div class="modal-header bg-info">
-                <h6 class="modal-title">Select Collaterals</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title"></h3>
-
-                        <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right"
-                                    placeholder="Search">
-
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive p-0">
-                        <table class="table table-hover">
-                            <thead>
-
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><i class="fas fa-car"></i> Auto</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-mountain"></i> Real Property</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-home"></i> House & Lot</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fas fa-motorcycle"></i> Motorcycle</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.card-body -->
-                </div>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
-
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+<app-parties></app-parties>
+<app-person></app-person>
+<app-suspect></app-suspect>

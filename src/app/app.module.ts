@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -30,8 +29,10 @@ import { EvidenceListComponent } from './components/evidence-list/evidence-list.
 import { PhotosListComponent } from './components/photos-list/photos-list.component';
 import { CaseViewComponent } from './components/case-view/case-view.component';
 import { DataService } from './services/data.service';
-
-
+import { ControlMessagesComponent } from './components/control-messages/control-messages.component';
+import { PartiesComponent } from './components/parties/parties.component';
+import { PersonComponent } from './components/person/person.component';
+import { SuspectComponent } from './components/suspect/suspect.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,10 @@ import { DataService } from './services/data.service';
     EvidenceListComponent,
     PhotosListComponent,
     CaseViewComponent,
-
+    ControlMessagesComponent,
+    PartiesComponent,
+    PersonComponent,
+    SuspectComponent
   ],
   imports: [
     HttpClientModule,
@@ -64,8 +68,7 @@ import { DataService } from './services/data.service';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot() // ToastrModule added,
-    
+    ToastrModule.forRoot()// ToastrModule added,
   ],
   providers: [authInterceptorProviders, DataService],
   bootstrap: [AppComponent]

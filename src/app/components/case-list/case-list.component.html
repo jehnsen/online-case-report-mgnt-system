@@ -52,9 +52,9 @@
                 <td>{{ case.requesting_party }}</td>
                 <td><small class="badge badge-success text-wrap" ><i class="fa fa-check"></i> {{ case.disposition }}</small></td>
                 <td>
-                  <button type="button" class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
+                  <button type="button" (click)="onSelectEdit(case)" class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
                   <button type="button" [routerLink]="['view', case.id]" class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
-                  <button type="button" class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
+                  <button type="button" (click)="onDelete(case.id)" class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>
