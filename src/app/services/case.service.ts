@@ -32,18 +32,29 @@ export class CaseService {
     return this.httpClient.get(`${this.API_SERVER}`).pipe(catchError(this.handleError));
   }
 
-  public create(caseData): Observable<any> {
+  public create(data): Observable<any> {
+    console.log(data)
     return this.httpClient.post(`${this.API_SERVER}`, {
-      firstname:    caseData.personalInfo.firstname,
-      middlename:   caseData.personalInfo.middlename,
-      lastname:     caseData.personalInfo.lastname,
-      address:      caseData.personalInfo.address,
-      age:          caseData.personalInfo.age,
-      gender:       caseData.personalInfo.gender,
-      birthdate:    caseData.personalInfo.birthdate,
-      civil_status: caseData.personalInfo.civilStatus
+      case_no:        data.caseNo,
+      case_nature:    data.caseNature,
+      investigator:   data.investigator,
+      requesting_party:     data.requestingParty,
+      incident_title:       data.incidentTitle,
+      incident_description: data.incidentDescription,
+      disposition:    data.disposition,
+      incident_time:  data.incidentTime,
+      location:       data.location,
+      victim:         data.victimName,
+      suspect:        data.suspectName,
+      incident_date:  JSON.stringify(data.dtpo.incidentDate),
+      evidences:      data.evidences,
+      status: 1
     }, httpOptions)
     .pipe(catchError(this.handleError));
+  }
+
+  public getById(id: number): Observable<any> {
+    return this.httpClient.get(`${this.API_SERVER}/${id}`).pipe(catchError(this.handleError));
   }
 
 }

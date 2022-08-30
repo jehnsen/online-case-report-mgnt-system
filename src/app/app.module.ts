@@ -9,7 +9,6 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { Ng2OrderModule} from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { authInterceptorProviders } from './helpers/auth.interceptor';
 import { AppComponent } from './app.component';
@@ -29,6 +28,8 @@ import { FallbackPageComponent } from './pages/fallback-page/fallback-page.compo
 import { CaseEntryComponent } from './components/case-entry/case-entry.component';
 import { EvidenceListComponent } from './components/evidence-list/evidence-list.component';
 import { PhotosListComponent } from './components/photos-list/photos-list.component';
+import { CaseViewComponent } from './components/case-view/case-view.component';
+import { DataService } from './services/data.service';
 
 
 
@@ -51,6 +52,7 @@ import { PhotosListComponent } from './components/photos-list/photos-list.compon
     CaseEntryComponent,
     EvidenceListComponent,
     PhotosListComponent,
+    CaseViewComponent,
 
   ],
   imports: [
@@ -60,13 +62,12 @@ import { PhotosListComponent } from './components/photos-list/photos-list.compon
     NgbModule,
     FormsModule,
     Ng2SearchPipeModule,
-    Ng2OrderModule,
     NgxPaginationModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added,
     
   ],
-  providers: [authInterceptorProviders],
+  providers: [authInterceptorProviders, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

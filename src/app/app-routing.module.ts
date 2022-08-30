@@ -7,21 +7,23 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FallbackPageComponent } from './pages/fallback-page/fallback-page.component';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
-
+import { CaseViewComponent } from './components/case-view/case-view.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: '', canActivate: [AdminGuard], component: MainComponent, children: [
+  { path: '', component: LoginComponent },
+  { path: 'main', canActivate: [AdminGuard], component: MainComponent, children: [
     { path: 'dashboard', component: DashboardComponent},
     { path: 'cases', component: CaseListComponent },
-    { path: 'cases/entry', component: CaseEntryComponent }
+    { path: 'cases/entry', component: CaseEntryComponent },
+    { path: 'cases/entry/:id', component: CaseEntryComponent },
+    { path: 'cases/view/:id', component: CaseViewComponent }
   ]},
   { path: '**', component: FallbackPageComponent}
 ];
 
 @NgModule({
   declarations: [],
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

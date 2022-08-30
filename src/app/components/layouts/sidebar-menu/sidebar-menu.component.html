@@ -46,7 +46,7 @@
                             <li class="nav-item">
                                 <a href="javascript:" class="nav-link" [routerLink]="['cases']" routerLinkActive="router-link-active" >
                                     <i class="nav-icon fas fa-layer-group"></i>
-                                    <p>Cases <span class="badge badge-primary right">6</span></p>
+                                    <p>Incident/Event <span class="badge badge-primary right">6</span></p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -81,7 +81,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item" (click)="logout()">
                                 <a href="javascript:" class="nav-link" >
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
                                     <p>Logout</p>

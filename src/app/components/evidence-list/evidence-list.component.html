@@ -19,9 +19,9 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let evidence of evidences">
-                    <td>{{ evidence.description }}</td>
-                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeEvidence(evidence.description)">
+                <tr *ngFor="let evidence of evidenceList">
+                    <td>{{ evidence }}</td>
+                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeEvidence(evidence)">
                         <i class="fas fa-times"></i>
                     </button></td>
                 </tr>

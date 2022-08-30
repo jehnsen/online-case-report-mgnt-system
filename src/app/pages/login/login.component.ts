@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   isLoginFailed: boolean = false;
   errorMessage = '';
   roles: string[] = [];
+  isLoading: boolean = false;
 
   loginForm: FormGroup;
 
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/main/dashboard'])
     }
 
     this.loginForm = new FormGroup({
@@ -46,14 +47,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log(this.loginForm.value);
-    
+    this.isLoading = true;
     this.authService.login(this.loginForm.value).subscribe(
       data => {
-        console.log(data);
-        
+
         this.tokenStorage.saveToken(data.access_token);
         this.tokenStorage.saveUser(data);
 
+        this.isLoading = false;
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
@@ -61,12 +62,12 @@ export class LoginComponent implements OnInit {
 
         this.toastr.success('Login successful!', 'Login');
         // if authentication successful, then redirect to dashboard 
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/main/dashboard'])
       },
       err => {
         console.log(err);
         
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.message;
         this.isLoginFailed = true;
         this.event.emit(this.isLoggedIn)
         this.toastr.error(this.errorMessage, 'Login');
