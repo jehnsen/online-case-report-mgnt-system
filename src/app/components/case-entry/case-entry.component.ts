@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap, Router  } from '@angular/router'
 import { NgbDateStruct, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CaseService } from '../../services/case.service';
+import { FileService } from '../../services/file.service';
 import { EvidenceListComponent } from '../evidence-list/evidence-list.component';
 import { DataService } from '../../services/data.service';
 import { Time24to12Format } from '../../pipes/time24to12.pipe';
@@ -26,6 +27,7 @@ export class CaseEntryComponent implements OnInit {
   isAdd: boolean = true;
   isLoading: boolean;
   evidences: any = [];
+  files: any = [];
   selectedEvidence: any;
   caseId: number;
   selectedIncident: any;
@@ -38,6 +40,7 @@ export class CaseEntryComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private caseService: CaseService, 
+    private fileService: FileService,
     private toastrService: ToastrService, 
     private calendar: NgbCalendar, 
     private dataService: DataService,
@@ -108,9 +111,11 @@ export class CaseEntryComponent implements OnInit {
     if(Object.keys(this.selectedIncident).length === 0 && !this.isAdd){
       this.router.navigate(['/main/cases']);
     }
+    // get the files related to this case/incident & store in cache
+    this.getCaseFiles(this.caseId);
 
     if(this.caseId > 0){
-      console.log(this.incidentData.controls)
+      
       const _incident = this.selectedIncident
       this.incidentData.setValue({
         'caseNo':         _incident.case_no,
@@ -134,9 +139,7 @@ export class CaseEntryComponent implements OnInit {
       this.incidentDescription = _incident.incident_description
       // set the entry mode
       this.isAdd = false;
-      console.log('this.date');
-      
-      console.log(this.incidentData.controls)
+     
     }
 
   }
@@ -212,6 +215,13 @@ export class CaseEntryComponent implements OnInit {
       this.dataService.setCaseList(response.data)
     })
 
+  }
+
+  getCaseFiles(id: number){
+    this.fileService.getFiles(id).subscribe((response: any) => {
+      // store the result in state
+      this.dataService.setFilesList(response.data);
+    })
   }
 
   ngAfterContentChecked(): void {

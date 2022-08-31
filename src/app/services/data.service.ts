@@ -23,6 +23,9 @@ export class DataService {
   private suspect$ = new BehaviorSubject<any>({});
   selectedSuspect$ = this.suspect$.asObservable();
 
+  private fileListBus$ = new BehaviorSubject<any>([]);
+  fileList$ = this.fileListBus$.asObservable();
+
   constructor() {}
 
   setProduct(id: any, description: any) {
@@ -49,6 +52,10 @@ export class DataService {
 
   setSelectedSuspect(name){
     this.suspect$.next(name);
+  }
+
+  setFilesList(files: any){
+    this.fileListBus$.next(files);
   }
 
 }

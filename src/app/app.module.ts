@@ -33,6 +33,7 @@ import { ControlMessagesComponent } from './components/control-messages/control-
 import { PartiesComponent } from './components/parties/parties.component';
 import { PersonComponent } from './components/person/person.component';
 import { SuspectComponent } from './components/suspect/suspect.component';
+import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { SuspectComponent } from './components/suspect/suspect.component';
     ControlMessagesComponent,
     PartiesComponent,
     PersonComponent,
-    SuspectComponent
+    SuspectComponent,
+    PhotoUploaderComponent
   ],
   imports: [
     HttpClientModule,

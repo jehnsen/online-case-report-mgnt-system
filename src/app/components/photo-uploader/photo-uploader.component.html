@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+
+    <div class="input-group">
+        
+            <input class="form-control" type="file" (change)="uploadPhoto($event)">
+            
+        <div class="input-group-append">
+            <button class="btn btn-warning pull-right " type="submit">
+                <span *ngIf="isUploading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span *ngIf="isUploading" class="sr-only">Loading...</span>
+                {{ isUploading ? 'Uploading' : 'Upload' }}
+            </button>
+        </div>
+    </div>
+
+    <!-- <div *ngIf="submitted && f.image.errors" class="btn-danger"></div> -->
+
+   
+</form>

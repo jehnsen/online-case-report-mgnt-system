@@ -1,72 +1,39 @@
 <div class="card card-outline card-warning">
     <div class="card-header">
-        <h3 class="card-title">Photos Taken</h3>
+        <h3 class="card-title">Case/Incident Files</h3>
 
         <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-toggle="modal" data-target="#modal-lg">
-                <i class="fas fa-plus"></i> Add...
-            </button>
+            <i class="text-secondary text-xs">*Note: You can upload images, PDF, MS Word, Excel & other types of files.</i>
         </div>
+
     </div>
     <!-- /.card-header -->
     <div class="card-body table-responsive p-0">
 
+        <div class="col-md-12 p-3">
+            <app-photo-uploader></app-photo-uploader>
+        </div>
+        <!-- http://127.0.0.1:8000/storage/photos/fuck.jpg -->
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Fullname</th>
-                    <th>Status</th>
+                    <th>File</th>
+                    <th>Filename</th>
+                    <th>Filetype</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td><img class="direct-chat-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR33pPXso3HVQjobpRqanz5D_f2sVV33vwtsA&usqp=CAU" /></td>
-                    <td><span class="tag tag-success">Approved</span></td>
-                    
-                </tr>
-                <tr>
-                    <td>Alexander Pierce</td>
-                    <td><span class="tag tag-warning">Pending</span></td>
-                    
-                </tr>
-                <tr>
-                    <td>Bob Doe</td>
-                    <td><span class="tag tag-primary">Approved</span></td>
+                <tr *ngFor="let file of files">
+                    <td><img class="direct-chat-img" [src]="baseUrl+urlPath+file.filename" /></td>
+                    <td>{{ file.filename.split('.')[0] }}</td>
+                    <td><span class="tag tag-success">{{ file.filetype }}</span></td>
+                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)">
+                        <i class="fas fa-times"></i>
+                    </button></td>
                 </tr>
             </tbody>
         </table>
+
     </div>
     <!-- /.card-body -->
-</div>
-
-
-<!-- modal dialog for uploading photos -->
-<div class="modal fade" id="modal-lg" style="display: none;" aria-hidden="true" >
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content ">
-            <div class="modal-header bg-primary">
-                <h6 class="modal-title">Add Photos</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                   
-                    <div class="input-group input-group-sm">
-                        <input type="text" class="form-control"
-                        placeholder="" />
-                    </div>
-                </div>
-            </div>
-            
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline btn-primary">Add</button>
-              </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
 </div>

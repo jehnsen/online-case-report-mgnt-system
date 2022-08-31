@@ -71,6 +71,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
         this.event.emit(this.isLoggedIn)
         this.toastr.error(this.errorMessage, 'Login');
+        this.isLoading = false;
       }
     );
   }
