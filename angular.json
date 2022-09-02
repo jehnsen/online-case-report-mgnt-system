@@ -45,8 +45,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -82,6 +82,11 @@
             "development": {
               "browserTarget": "case-report-mgnt-system:build:development"
             }
+          },
+          "options": {
+            "browserTarget": "project-name:build",
+            "disableHostCheck": true,
+            "proxyConfig": "src/proxy.conf.json"
           },
           "defaultConfiguration": "development"
         },

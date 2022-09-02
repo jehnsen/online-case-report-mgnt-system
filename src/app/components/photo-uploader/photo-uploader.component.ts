@@ -61,7 +61,6 @@ export class PhotoUploaderComponent implements OnInit {
     console.log(payload)
     this.fileService.create(payload).subscribe(() => {
       
-      
       this.fileService.getFiles(0).subscribe((response: any) => {
         // update the state
         this.dataService.setFilesList(response.data);

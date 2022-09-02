@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notification-dropdown.component.css']
 })
 export class NotificationDropdownComponent implements OnInit {
+  sessionData: any;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.sessionData = JSON.parse(window.sessionStorage.getItem('auth-user'))
   }
 
 }

@@ -58,6 +58,8 @@ export class CaseEntryComponent implements OnInit {
       console.log(`activated route: ${this.caseId}`);
     })
 
+    this.dataService.setIsViewValue(false);
+
     // initialize form group
     this.incidentData = this.fb.group({
       'caseNo':           [''],
@@ -191,30 +193,52 @@ export class CaseEntryComponent implements OnInit {
       evidences:      this.evidences
     }
     this.isLoading = true;
-    console.log(payload)
-    // crate new incident record
-    if(this.isAdd){
-      this.caseService.create(payload).subscribe(() => {
-        this.toastrService.success('New Incident/Event was added to database!', 'New Entry')
-      }, 
-      err => this.toastrService.error(err, 'Server Issue Encountered'))
-      this.isLoading = false;
+    
 
-    } else {
-
-      // update
-      this.caseService.update(payload, this.caseId).subscribe(() => {
-        this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record')
-      }, 
-      err => this.toastrService.error(err, 'Server Issue Encountered'))
-      this.isLoading = false;
-    }
-
-    this.caseService.getCases().subscribe((response: any) => {
-      // Update the case/incident list in state
-      this.dataService.setCaseList(response.data)
+    let isDataExist: any;
+    this.caseService.getByCaseNo(payload.caseNo).subscribe(response => {
+    
+      console.log('isDataExist');
+      isDataExist = response.data;
+      console.log(isDataExist)
+      if(isDataExist.length > 0) {
+        this.toastrService.error('Case Number already exist in the database!', 'Duplicate Record Found')
+        return;
+      }
+        
     })
 
+
+    
+    // if(!isDataExist){
+      // crate new incident record
+      if(this.isAdd){
+        this.caseService.create(payload).subscribe((response) => {
+
+          this.toastrService.success('New Incident/Event was added to database!', 'New Entry')
+          
+        }, 
+        err => this.toastrService.error(err, 'Server Issue Encountered'))
+        this.isLoading = false;
+
+      } else {
+
+        // update
+        this.caseService.update(payload, this.caseId).subscribe(() => {
+          this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record')
+        }, 
+        err => this.toastrService.error(err, 'Server Issue Encountered'))
+        this.isLoading = false;
+      }
+      
+
+      this.caseService.getCases().subscribe((response: any) => {
+        // Update the case/incident list in state
+        this.dataService.setCaseList(response.data)
+      })
+      console.log(this.isLoading )
+    // }
+    
   }
 
   getCaseFiles(id: number){

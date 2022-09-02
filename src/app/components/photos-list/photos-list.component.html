@@ -2,7 +2,7 @@
     <div class="card-header">
         <h3 class="card-title">Case/Incident Files</h3>
 
-        <div class="card-tools">
+        <div class="card-tools" *ngIf="!isViewOnly">
             <i class="text-secondary text-xs">*Note: You can upload images, PDF, MS Word, Excel & other types of files.</i>
         </div>
 
@@ -10,7 +10,7 @@
     <!-- /.card-header -->
     <div class="card-body table-responsive p-0">
 
-        <div class="col-md-12 p-3">
+        <div class="col-md-12 p-3" *ngIf="!isViewOnly">
             <app-photo-uploader></app-photo-uploader>
         </div>
         <!-- http://127.0.0.1:8000/storage/photos/fuck.jpg -->
@@ -27,7 +27,7 @@
                     <td><img class="direct-chat-img" [src]="baseUrl+urlPath+file.filename" /></td>
                     <td>{{ file.filename.split('.')[0] }}</td>
                     <td><span class="tag tag-success">{{ file.filetype }}</span></td>
-                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)">
+                    <td *ngIf="!isViewOnly"><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)">
                         <i class="fas fa-times"></i>
                     </button></td>
                 </tr>

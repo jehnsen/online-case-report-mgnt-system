@@ -12,13 +12,16 @@ export class PhotosListComponent implements OnInit {
   files: any;
   baseUrl: string = environment.apiUrl;
   urlPath: string = "/storage/photos/";
+  isViewOnly: boolean;
   constructor(private dataService: DataService, private toastr: ToastrService, private fileService: FileService) { }
 
   ngOnInit(): void {
+    this.dataService.viewValue$.subscribe((value) => {
+      this.isViewOnly = value;
+    });
     this.dataService.fileList$.subscribe((value) => {
       this.files = value;
     });
-    
   }
 
   removeFile(file: any){
@@ -30,8 +33,6 @@ export class PhotosListComponent implements OnInit {
       this.toastr.warning('File was successfully deleted! \n\n' + file.filename, 'Delete File')
     }, 
     err => this.toastr.error(err, 'Server Issue Encountered!'))
-
-    
   }
 
 }

@@ -3,6 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class DataService {
+
+  private isView$ = new BehaviorSubject<any>({});
+  viewValue$ = this.isView$.asObservable();
+
   private product$ = new BehaviorSubject<any>({});
   selectedProduct$ = this.product$.asObservable();
   private productListBus$ = new BehaviorSubject<any>([]);
@@ -27,6 +31,10 @@ export class DataService {
   fileList$ = this.fileListBus$.asObservable();
 
   constructor() {}
+
+  setIsViewValue(value: boolean){
+    this.isView$.next(value);
+  }
 
   setProduct(id: any, description: any) {
     this.product$.next({id, description});

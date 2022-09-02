@@ -49,6 +49,7 @@ export class CaseService {
       suspect:        data.suspectName,
       incident_date:  data.incidentDate,
       evidences:      data.evidences,
+      reported_by:    data.reportedBy,
       status: 1
     }, httpOptions)
     .pipe(catchError(this.handleError));
@@ -81,6 +82,10 @@ export class CaseService {
 
   public getById(id: number): Observable<any> {
     return this.httpClient.get(`${this.URL_ENDPOINT}/${id}`).pipe(catchError(this.handleError));
+  }
+
+  public getByCaseNo(id: number): Observable<any> {
+    return this.httpClient.get(`${this.URL_ENDPOINT}/case/case-number/${id}`).pipe(catchError(this.handleError));
   }
 
 }
