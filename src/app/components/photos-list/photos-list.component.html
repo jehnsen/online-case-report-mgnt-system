@@ -24,7 +24,9 @@
             </thead>
             <tbody>
                 <tr *ngFor="let file of files">
-                    <td><img class="direct-chat-img" [src]="baseUrl+urlPath+file.filename" /></td>
+                    <td (click)="onSelectFile(file.filename.split('.')[0], baseUrl+urlPath+file.filename)" data-toggle="modal" data-target="#modal-file-viewer">
+                        <img class="direct-chat-img" [src]="baseUrl+urlPath+file.filename"/>
+                    </td>
                     <td>{{ file.filename.split('.')[0] }}</td>
                     <td><span class="tag tag-success">{{ file.filetype }}</span></td>
                     <td *ngIf="!isViewOnly"><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)">
@@ -37,3 +39,5 @@
     </div>
     <!-- /.card-body -->
 </div>
+
+<app-file-viewer [filePath]="fileSrc" [filename]="filename"></app-file-viewer>

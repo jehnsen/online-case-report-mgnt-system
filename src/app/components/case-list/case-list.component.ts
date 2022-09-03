@@ -30,6 +30,7 @@ export class CaseListComponent implements OnInit {
   getCases(): void {
     this.caseService.getCases().subscribe((response: any) => {
       this.cases = response.data
+      console.log(this.cases);
       // store the result in state
       this.onCacheList(this.cases);
     })

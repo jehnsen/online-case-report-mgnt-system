@@ -3,7 +3,8 @@
     <a href="javascript:void(0)" class="brand-link">
         <img src="assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
             style="opacity: .8">
-        <span class="brand-text font-weight-light">Record Mgnt System</span>
+        <span *ngIf="isMobileView" class="brand-text font-weight-light">RMS</span>
+        <span *ngIf="!isMobileView" class="brand-text font-weight-light">Record Mgnt System</span>
     </a>
 
     <!-- Sidebar -->
@@ -30,64 +31,85 @@
                         </div>
                     </div> -->
 
-                   
-
                     <!-- Sidebar Menu -->
-                    <nav class="mt-2">
+                    <nav class="mt-2" attr.data-widget="{{ isMobileView ? 'pushmenu' : '' }}">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                             data-accordion="false">
-                            <li class="nav-item ">
-                                <a href="javascript:" class="nav-link active" [routerLink]="['dashboard']" routerLinkActive="router-link-active" >
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" [routerLink]="['dashboard']"
+                                    routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
-                                    <p> Dashboard </p>
+                                    <p> Dashboard</p>
                                 </a>
-                              
                             </li>
                             <li class="nav-item">
-                                <a href="javascript:" class="nav-link" [routerLink]="['cases']" routerLinkActive="router-link-active" >
+                                <a href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    [routerLink]="['cases']"
+                                    routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-layer-group"></i>
-                                    <p>Incident/Event <span class="badge badge-primary right">6</span></p>
+                                    <p>Incidents/Events
+                                        <span *ngIf="this.count > 0" class="badge badge-primary right">
+                                            {{ this.count ? this.count : null }}
+                                        </span>
+                                    </p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="javascript:" class="nav-link" [routerLink]="['accounts']" routerLinkActive="router-link-active" >
-                                    <i class="nav-icon fas fa-file-invoice"></i>
-                                    <p>Accounts <span class="badge badge-primary right">23</span></p>
+                                <a href="javascript:void(0)" class="nav-link" routerLinkActive="router-link-active">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>User Accounts
+                                        <!-- <span class="badge badge-primary right">23</span> -->
+                                    </p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="javascript:" class="nav-link">
+                                <a href="javascript:void(0)" class="nav-link">
                                     <i class="nav-icon fas fa-copy"></i>
                                     <p>Data Entries<i class="fas fa-angle-left right"></i></p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="javascript:" class="nav-link">
+                                        <a href="javascript:void(0)" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Nature of Case</p>
+                                            <p>Nature of Cases</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="javascript:" class="nav-link">
+                                        <a href="javascript:void(0)" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Dis</p>
+                                            <p>Suspects</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="javascript:" class="nav-link">
+                                        <a href="jjavascript:void(0)" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Victims</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="javascript:void(0)" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Requesting Parties</p>
                                         </a>
                                     </li>
                                 </ul>
                             </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" class="nav-link" routerLinkActive="router-link-active">
+                                    <i class="nav-icon fa fa-wrench"></i>
+                                    <p>Settings
+                                        <!-- <span class="badge badge-primary right">23</span> -->
+                                    </p>
+                                </a>
+                            </li>
                             <li class="nav-item" (click)="logout()">
-                                <a href="javascript:" class="nav-link" >
+                                <a href="javascript:void(0)" class="nav-link">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>
                                     <p>Logout</p>
                                 </a>
                             </li>
-                            
+
                         </ul>
                     </nav>
                     <!-- /.sidebar-menu -->

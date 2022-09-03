@@ -34,6 +34,8 @@ import { PartiesComponent } from './components/parties/parties.component';
 import { PersonComponent } from './components/person/person.component';
 import { SuspectComponent } from './components/suspect/suspect.component';
 import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
+import { FileViewerComponent } from './components/file-viewer/file-viewer.component';
+import { CaseStatusComponent } from './components/case-status/case-status.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { PhotoUploaderComponent } from './components/photo-uploader/photo-upload
     PartiesComponent,
     PersonComponent,
     SuspectComponent,
-    PhotoUploaderComponent
+    PhotoUploaderComponent,
+    FileViewerComponent,
+    CaseStatusComponent
   ],
   imports: [
     HttpClientModule,

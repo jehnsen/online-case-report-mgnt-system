@@ -34,7 +34,9 @@ export class CaseService {
   }
 
   public create(data): Observable<any> {
-    console.log(data)
+    // console.log(data)
+    let newEvidencesArray = []
+    data.evidences.map(m => newEvidencesArray.push(m.description))
     return this.httpClient.post(this.URL_ENDPOINT, {
       case_no:        data.caseNo,
       case_nature:    data.caseNature,
@@ -48,7 +50,7 @@ export class CaseService {
       victim:         data.victimName,
       suspect:        data.suspectName,
       incident_date:  data.incidentDate,
-      evidences:      data.evidences,
+      evidences:      newEvidencesArray,
       reported_by:    data.reportedBy,
       status: 1
     }, httpOptions)
@@ -87,5 +89,22 @@ export class CaseService {
   public getByCaseNo(id: number): Observable<any> {
     return this.httpClient.get(`${this.URL_ENDPOINT}/case/case-number/${id}`).pipe(catchError(this.handleError));
   }
+
+  public getEvidencesByCaseId(id: number): Observable<any> {
+    return this.httpClient.get(`${this.URL_ENDPOINT}/evidence/${id}`).pipe(catchError(this.handleError));
+  }
+
+  public insertEvidenceDuringUpdate(data): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}/api/evidence`, {
+      case_id:        data.case_id,
+      description:    data.description
+    }, httpOptions)
+    .pipe(catchError(this.handleError));
+  }
+
+  public deleteEvidence(id): Observable<any> {
+    return this.httpClient.delete(`${environment.apiUrl}/api/evidence/${id}`, httpOptions)
+    .pipe(catchError(this.handleError));
+  } 
 
 }

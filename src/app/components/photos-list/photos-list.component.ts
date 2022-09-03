@@ -8,11 +8,14 @@ import { environment } from '../../../environments/environment';
   templateUrl: './photos-list.component.html',
   styleUrls: ['./photos-list.component.css']
 })
+
 export class PhotosListComponent implements OnInit {
   files: any;
   baseUrl: string = environment.apiUrl;
   urlPath: string = "/storage/photos/";
   isViewOnly: boolean;
+  fileSrc: string;
+  filename: string;
   constructor(private dataService: DataService, private toastr: ToastrService, private fileService: FileService) { }
 
   ngOnInit(): void {
@@ -33,6 +36,11 @@ export class PhotosListComponent implements OnInit {
       this.toastr.warning('File was successfully deleted! \n\n' + file.filename, 'Delete File')
     }, 
     err => this.toastr.error(err, 'Server Issue Encountered!'))
+  }
+
+  onSelectFile(filename: string, url: string){
+    this.fileSrc = url;
+    this.filename = filename;
   }
 
 }

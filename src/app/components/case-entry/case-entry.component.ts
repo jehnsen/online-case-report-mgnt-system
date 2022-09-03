@@ -8,7 +8,8 @@ import { FileService } from '../../services/file.service';
 import { EvidenceListComponent } from '../evidence-list/evidence-list.component';
 import { DataService } from '../../services/data.service';
 import { Time24to12Format } from '../../pipes/time24to12.pipe';
-
+import { Utils } from '../../helpers/utils';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-case-entry',
   templateUrl: './case-entry.component.html',
@@ -33,6 +34,7 @@ export class CaseEntryComponent implements OnInit {
   selectedIncident: any;
 
   caseNumber: any;
+  existingRecord: any;
 
   @ViewChild('dp') dp: NgbDatepicker;
   @ViewChild(EvidenceListComponent) evidenceList: any;
@@ -61,32 +63,16 @@ export class CaseEntryComponent implements OnInit {
     this.dataService.setIsViewValue(false);
 
     // initialize form group
-    this.incidentData = this.fb.group({
-      'caseNo':           [''],
-      'caseNature':       [''],
-      'investigator':     [''],
-      'requestingParty':  [''],
-      'incidentTitle':    [''],
-      'incidentDescription': [''],
-      'disposition':      [''],
-      'incidentTime':     [''],
-      'location':         [''],
-      'victimName':       [''],
-      'suspectName':      [''],
-      'reportedBy':       [''],
-      'incidentDate':     [''],
-      'incidentDateEdit': [''],
-      'incidentTimeEdit': ['']
-    })
+    this.clearFields();
 
-    this.dataService.selectedProduct$.subscribe((value) => {
-      this.selectedEvidence = value;
-     
+    this.dataService.selectedEvidence$.subscribe((value) => {
+      // this.selectedEvidence = value;
       if(Object.keys(value).length > 0){
-        this.evidences.push(value.description)
+        this.evidences.push(value)
       }
+
     });
-    this.dataService.setProductList(this.evidences);
+    this.dataService.setEvidenceList(this.evidences);
 
     // set the requesting party field
     this.dataService.selectedParty$.subscribe((party) => {
@@ -115,9 +101,11 @@ export class CaseEntryComponent implements OnInit {
     }
     // get the files related to this case/incident & store in cache
     this.getCaseFiles(this.caseId);
+    //get evidences related to this case/incident
+    this.getEvidences(this.caseId);
 
-    if(this.caseId > 0){
-      
+    // edit mode
+    if(this.caseId > 0){ 
       const _incident = this.selectedIncident
       this.incidentData.setValue({
         'caseNo':         _incident.case_no,
@@ -141,7 +129,12 @@ export class CaseEntryComponent implements OnInit {
       this.incidentDescription = _incident.incident_description
       // set the entry mode
       this.isAdd = false;
-     
+
+      // get evidence related to this case/incident
+      this.getEvidences(this.caseId);
+      this.dataService.evidenceList$.subscribe(e => this.evidences = e)
+     console.log('134')
+     console.log(this.evidences)
     }
 
   }
@@ -174,7 +167,7 @@ export class CaseEntryComponent implements OnInit {
     this.date = `${month}/${day}/${year}`;
    }
 
-  onSubmit(){
+  async onSubmit(){
     let control = this.incidentData.controls
     let payload = {
       caseNo:        control['caseNo'].value,
@@ -193,52 +186,54 @@ export class CaseEntryComponent implements OnInit {
       evidences:      this.evidences
     }
     this.isLoading = true;
-    
 
-    let isDataExist: any;
-    this.caseService.getByCaseNo(payload.caseNo).subscribe(response => {
+    // crate new incident record
+    if(this.isAdd){
+
+      this.caseService.getByCaseNo(payload.caseNo).subscribe((result: any) => {
     
-      console.log('isDataExist');
-      isDataExist = response.data;
-      console.log(isDataExist)
-      if(isDataExist.length > 0) {
-        this.toastrService.error('Case Number already exist in the database!', 'Duplicate Record Found')
-        return;
-      }
-        
+        setTimeout(() => {
+          // check if record already exist
+          if(!Utils.isEmpty(result.data)) {
+
+            this.toastrService.error('Case Number already exist in the database!', 'Duplicate Record Found')
+      
+          } else {
+
+            this.caseService.create(payload).subscribe((response) => {
+
+              this.toastrService.success('New Incident/Event was added to database!', 'New Entry')
+
+              // clear list after successfull submit
+              this.evidences = [];
+              this.dataService.setFilesList([]);
+              this.clearFields();
+              
+            }, 
+            err => this.toastrService.error(err, 'Server Issue Encountered'))
+          }
+        }, 0);
+      })
+
+    } else {
+      console.log('payload edit')
+      console.log(payload)
+      // update
+      this.caseService.update(payload, this.caseId).subscribe(() => {
+        this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record')
+      }, 
+      err => this.toastrService.error(err, 'Server Issue Encountered'))
+
+    }
+
+    this.caseService.getCases().subscribe((response: any) => {
+      // Update the case/incident list in state
+      this.dataService.setCaseList(response.data)
     })
 
+    // stop the loading animation
+    this.isLoading = false;
 
-    
-    // if(!isDataExist){
-      // crate new incident record
-      if(this.isAdd){
-        this.caseService.create(payload).subscribe((response) => {
-
-          this.toastrService.success('New Incident/Event was added to database!', 'New Entry')
-          
-        }, 
-        err => this.toastrService.error(err, 'Server Issue Encountered'))
-        this.isLoading = false;
-
-      } else {
-
-        // update
-        this.caseService.update(payload, this.caseId).subscribe(() => {
-          this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record')
-        }, 
-        err => this.toastrService.error(err, 'Server Issue Encountered'))
-        this.isLoading = false;
-      }
-      
-
-      this.caseService.getCases().subscribe((response: any) => {
-        // Update the case/incident list in state
-        this.dataService.setCaseList(response.data)
-      })
-      console.log(this.isLoading )
-    // }
-    
   }
 
   getCaseFiles(id: number){
@@ -248,8 +243,35 @@ export class CaseEntryComponent implements OnInit {
     })
   }
 
+  getEvidences(id: number){
+    this.caseService.getEvidencesByCaseId(id).subscribe((response: any) => {
+      // store the result in state
+      this.dataService.setEvidenceList(response.data);
+    })
+  }
+
   ngAfterContentChecked(): void {
     this.changeDetector.detectChanges();
+  }
+
+  clearFields(): void{
+    this.incidentData = this.fb.group({
+      'caseNo':           [''],
+      'caseNature':       [''],
+      'investigator':     [''],
+      'requestingParty':  [''],
+      'incidentTitle':    [''],
+      'incidentDescription': [''],
+      'disposition':      [''],
+      'incidentTime':     [''],
+      'location':         [''],
+      'victimName':       [''],
+      'suspectName':      [''],
+      'reportedBy':       [''],
+      'incidentDate':     [''],
+      'incidentDateEdit': [''],
+      'incidentTimeEdit': ['']
+    })
   }
 
 }

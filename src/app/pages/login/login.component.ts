@@ -46,11 +46,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    
     this.isLoading = true;
     this.authService.login(this.loginForm.value).subscribe(
       data => {
-
+        
         this.tokenStorage.saveToken(data.access_token);
         this.tokenStorage.saveUser(data);
 
@@ -65,9 +65,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/main/dashboard'])
       },
       err => {
-        console.log(err);
         
         this.errorMessage = err.message;
+        if(err.status == 401){
+          this.errorMessage = 'Invalid Credentials';
+        }
+        
         this.isLoginFailed = true;
         this.event.emit(this.isLoggedIn)
         this.toastr.error(this.errorMessage, 'Login');
