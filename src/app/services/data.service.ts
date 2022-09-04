@@ -20,9 +20,13 @@ export class DataService {
 
   private party$ = new BehaviorSubject<any>({});
   selectedParty$ = this.party$.asObservable();
+  private requestingPartiesBus$ = new BehaviorSubject<any>([]);
+  requestingParties$ = this.requestingPartiesBus$.asObservable();
 
   private victim$ = new BehaviorSubject<any>({});
   selectedVictim$ = this.victim$.asObservable();
+  private victimListBus$ = new BehaviorSubject<any>([]);
+  victimList$ = this.victimListBus$.asObservable();
 
   private suspect$ = new BehaviorSubject<any>({});
   selectedSuspect$ = this.suspect$.asObservable();
@@ -54,8 +58,16 @@ export class DataService {
     this.party$.next(party);
   }
 
+  setRequestingPartiesList(list: any){
+    this.requestingPartiesBus$.next(list);
+  }
+
   setSelectedVictim(name){
     this.victim$.next(name);
+  }
+
+  setVictimsList(list: any){
+    this.victimListBus$.next(list);
   }
 
   setSelectedSuspect(name){

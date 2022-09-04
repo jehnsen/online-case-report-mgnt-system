@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-md-6">
+        
+        <form [formGroup]="formData" (ngSubmit)="onSubmit()">
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Add Victim/Suspect</h3>
+                            <div class="card-tools"> </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <p for="inputName" class="h6">Firstname</p>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" formControlName="firstname"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <p for="inputDescription" class="h6">Middlename</p>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" formControlName="middlename" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p for="inputName" class="h6">Laststname</p>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" formControlName="lastname"/>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <p for="inputDescription" class="h6">Address</p>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" formControlName="address" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p for="inputDescription" class="h6">Age</p>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="form-control" formControlName="age" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p for="" class="h6">Gender</p>
+                                        <div class="input-group input-group-sm">
+                                            <select class="form-control custom-select" formControlName="gender">
+                                                <option>Male</option>
+                                                <option>Female</option>
+                                                <option>Compicated</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p for="" class="h6">Civil Status</p>
+                                        <div class="input-group input-group-sm">
+                                            <select class="form-control custom-select" formControlName="civilStatus">
+                                                <option>Single</option>
+                                                <option>Married</option>
+                                                <option>Separated</option>
+                                                <option>Widowed</option>
+                                                <option>Complicated</option>
+                                                <option>Others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="card-footer">
+                                    <button class="btn btn-success float-right " type="submit">
+                                        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        <span *ngIf="isLoading" class="sr-only">Saving to database...</span>
+                                        Save
+                                    </button>
+                                </div>
+        
+                            </div>
+        
+                        </div>
+                        <!-- /.card-body -->
+        
+                    </div>
+                </div>
+        
+            </div>
+        
+        </form>
+
+    </div>
+
+    <div class="col-md-6">
+        <app-person [isAdd]="true"></app-person>
+    </div>
+
+</div>

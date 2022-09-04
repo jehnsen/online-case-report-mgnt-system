@@ -9,7 +9,7 @@ import { EvidenceListComponent } from '../evidence-list/evidence-list.component'
 import { DataService } from '../../services/data.service';
 import { Time24to12Format } from '../../pipes/time24to12.pipe';
 import { Utils } from '../../helpers/utils';
-import { ThisReceiver } from '@angular/compiler';
+
 @Component({
   selector: 'app-case-entry',
   templateUrl: './case-entry.component.html',

@@ -1,70 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PersonService } from '../../services/person.service';
 import { DataService } from '../../services/data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-person',
   templateUrl: './person.component.html',
   styleUrls: ['./person.component.css']
 })
 export class PersonComponent implements OnInit {
-
+  p: number = 1;
   persons: any;
   nameSearchKey: string;
-  constructor(private dataService: DataService) { }
+
+  @Input() isAdd: boolean = false;
+  constructor(private dataService: DataService, private personService: PersonService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
+    this.p = 1;
     this.getPersons();
+    console.log(this.persons)
   }
 
   getPersons(){
-    this.persons = [
-      {
-        id: 1,
-        firstname: 'JOHN',
-        lastname: 'WICK',
-        address: 'LUBUAGAN, TABUK, KALINGA'
-      },
-      {
-        id: 1,
-        firstname: 'DECKARD',
-        lastname: 'SHAW',
-        address: 'TABUK CITY, KALINGA'
-      },
-      {
-        id: 1,
-        firstname: 'JASON',
-        lastname: 'BOURNE',
-        address: 'BULANAO, TABUK, KALINGA'
-      },
-      {
-        id: 1,
-        firstname: 'JAMES',
-        lastname: 'BOND',
-        address: 'POBLACION, TABUK, KALINGA'
-      },
-      {
-        id: 1,
-        firstname: 'ETHAN',
-        lastname: 'HUNT',
-        address: 'RIZAL, TABUK, KALINGA'
-      },
-      {
-        id: 1,
-        firstname: 'JOHN',
-        lastname: 'MCLAIN',
-        address: 'TANUDAN, TABUK, KALINGA'
-      },
-      {
-        id: 1,
-        firstname: 'JOHN',
-        lastname: 'RAMBO',
-        address: 'TINGLAYAN, TABUK, KALINGA'
-      }
-    ]
+    this.personService.get().subscribe((response: any) => {
+      this.persons = response.data
+      const sorted = this.persons.sort((a,b) => b.id - a.id)
+      // store the result in state
+      this.dataService.setVictimsList(sorted);
+    })
   }
 
   onSelect(name: any){
-    this.dataService.setSelectedVictim(name);
+    // disable selection in entry page
+    if(!this.isAdd){
+      this.dataService.setSelectedVictim(name);
+    }
+  }
+
+  onDelete(id: number){
+    this.personService.delete(id).subscribe((response: any) => {
+      if(response.data){
+        this.toastrService.success('Successfully removed from database!', 'Delete');
+        this.getPersons();
+      }
+    }, err => this.toastrService.error(err, 'Server Issue Encountered'));
   }
 
   Search(event){

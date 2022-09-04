@@ -11,7 +11,7 @@ export class FileViewerComponent implements OnInit {
   @Input() filePath: string;
   @Input() filename: string;
   ngOnInit(): void {
-
+    
   }
 
 }

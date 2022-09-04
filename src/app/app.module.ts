@@ -36,6 +36,11 @@ import { SuspectComponent } from './components/suspect/suspect.component';
 import { PhotoUploaderComponent } from './components/photo-uploader/photo-uploader.component';
 import { FileViewerComponent } from './components/file-viewer/file-viewer.component';
 import { CaseStatusComponent } from './components/case-status/case-status.component';
+import { PersonEntryComponent } from './components/person-entry/person-entry.component';
+import { RequesterEntryComponent } from './components/requester-entry/requester-entry.component';
+import { CaseNaturesEntryComponent } from './components/case-natures-entry/case-natures-entry.component';
+import { ModalRequestingPartiesComponent } from './components/modals/modal-requesting-parties/modal-requesting-parties.component';
+import { ModalSelectPersonsComponent } from './components/modals/modal-select-persons/modal-select-persons.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +68,12 @@ import { CaseStatusComponent } from './components/case-status/case-status.compon
     SuspectComponent,
     PhotoUploaderComponent,
     FileViewerComponent,
-    CaseStatusComponent
+    CaseStatusComponent,
+    PersonEntryComponent,
+    RequesterEntryComponent,
+    CaseNaturesEntryComponent,
+    ModalRequestingPartiesComponent,
+    ModalSelectPersonsComponent
   ],
   imports: [
     HttpClientModule,

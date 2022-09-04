@@ -14,7 +14,7 @@
             <app-photo-uploader></app-photo-uploader>
         </div>
         <!-- http://127.0.0.1:8000/storage/photos/fuck.jpg -->
-        <table class="table table-hover">
+        <table class="table table-hover" *ngIf="files.length > 0">
             <thead>
                 <tr>
                     <th>File</th>
@@ -35,7 +35,9 @@
                 </tr>
             </tbody>
         </table>
-
+        <tfoot *ngIf="files.length == 0" class="text-left">
+            <p class="text-secondary m-2 ml-3 text-sm">No files/photos uploaded.</p>
+        </tfoot>
     </div>
     <!-- /.card-body -->
 </div>

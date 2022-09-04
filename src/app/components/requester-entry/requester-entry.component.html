@@ -1,0 +1,57 @@
+<form [formGroup]="formData" (ngSubmit)="onSubmit()">
+    <div class="row">
+        
+        <div class="col-md-6">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Manage Requesting Parties</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Name of Requesting Party</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="requestingPartyName"/>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <p for="inputDescription" class="h6">Address</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="address" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-success float-right" type="submit">
+                                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                <span *ngIf="isLoading" class="sr-only">Saving...</span>
+                                Add Requesting Party
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+
+        <!-- <div class="row">
+            <div class="col-md-6">
+                
+            </div>
+        </div> -->
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <app-parties [isAdd]="true"></app-parties>
+        </div>
+    </div>
+
+</form>
