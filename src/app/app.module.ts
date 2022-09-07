@@ -41,6 +41,7 @@ import { RequesterEntryComponent } from './components/requester-entry/requester-
 import { CaseNaturesEntryComponent } from './components/case-natures-entry/case-natures-entry.component';
 import { ModalRequestingPartiesComponent } from './components/modals/modal-requesting-parties/modal-requesting-parties.component';
 import { ModalSelectPersonsComponent } from './components/modals/modal-select-persons/modal-select-persons.component';
+import { DispositionFormComponent } from './components/disposition-form/disposition-form.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { ModalSelectPersonsComponent } from './components/modals/modal-select-pe
     RequesterEntryComponent,
     CaseNaturesEntryComponent,
     ModalRequestingPartiesComponent,
-    ModalSelectPersonsComponent
+    ModalSelectPersonsComponent,
+    DispositionFormComponent
   ],
   imports: [
     HttpClientModule,

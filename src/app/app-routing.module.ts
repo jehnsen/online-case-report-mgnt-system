@@ -11,6 +11,7 @@ import { CaseViewComponent } from './components/case-view/case-view.component';
 import { CaseNaturesEntryComponent } from './components/case-natures-entry/case-natures-entry.component';
 import { RequesterEntryComponent } from './components/requester-entry/requester-entry.component';
 import { PersonEntryComponent } from './components/person-entry/person-entry.component';
+import { DispositionFormComponent } from './components/disposition-form/disposition-form.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -22,7 +23,8 @@ const routes: Routes = [
     { path: 'cases/view/:id', component: CaseViewComponent },
     { path: 'cases/manage/categories', component: CaseNaturesEntryComponent },
     { path: 'cases/manage/requesting-parties', component: RequesterEntryComponent },
-    { path: 'manage/persons', component: PersonEntryComponent }
+    { path: 'manage/persons', component: PersonEntryComponent },
+    { path: 'manage/dispositions', component: DispositionFormComponent }
   ]},
   { path: '**', component: FallbackPageComponent}
 ];
