@@ -16,7 +16,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   login(credentials): Observable<any> {
-    return this.httpClient.post(`http://54.211.177.170:8000/api/login`, {
+    return this.httpClient.post(`${BASE_URL}/api/login`, {
       username: credentials.username,
       password: credentials.password
     }, httpOptions);
