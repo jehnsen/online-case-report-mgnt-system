@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build prod base-href=http://54.211.177.170",
+    "build": "ng build prod",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
