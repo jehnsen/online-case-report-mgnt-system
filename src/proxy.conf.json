@@ -1,6 +1,6 @@
 {
     "/api/*": {
-        "target": "...",
+        "target": "http://54.211.177.170",
         "secure": false,
         "logLevel": "debug",
         "changeOrigin": true,

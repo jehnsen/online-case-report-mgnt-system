@@ -5,6 +5,8 @@ import { NgbDateStruct, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-boot
 import { ToastrService } from 'ngx-toastr';
 import { CaseService } from '../../services/case.service';
 import { FileService } from '../../services/file.service';
+import { CategoryService } from '../../services/category.service';
+import { DispositionService } from '../../services/disposition.service';
 import { EvidenceListComponent } from '../evidence-list/evidence-list.component';
 import { DataService } from '../../services/data.service';
 import { Time24to12Format } from '../../pipes/time24to12.pipe';
@@ -28,13 +30,16 @@ export class CaseEntryComponent implements OnInit {
   isAdd: boolean = true;
   isLoading: boolean;
   evidences: any = [];
+  categories: any =[];
   files: any = [];
+  dispositions: any = [];
   selectedEvidence: any;
   caseId: number;
   selectedIncident: any;
 
   caseNumber: any;
   existingRecord: any;
+  selectedCategory: any;
 
   @ViewChild('dp') dp: NgbDatepicker;
   @ViewChild(EvidenceListComponent) evidenceList: any;
@@ -43,6 +48,8 @@ export class CaseEntryComponent implements OnInit {
     private fb: FormBuilder,
     private caseService: CaseService, 
     private fileService: FileService,
+    private categoryService: CategoryService,
+    private dispositionService: DispositionService,
     private toastrService: ToastrService, 
     private calendar: NgbCalendar, 
     private dataService: DataService,
@@ -103,7 +110,10 @@ export class CaseEntryComponent implements OnInit {
     this.getCaseFiles(this.caseId);
     //get evidences related to this case/incident
     this.getEvidences(this.caseId);
-
+    // case natures
+    this.getCategories();
+    // get dispositions
+    this.getDispositions();
     // edit mode
     if(this.caseId > 0){ 
       const _incident = this.selectedIncident
@@ -216,15 +226,17 @@ export class CaseEntryComponent implements OnInit {
       })
 
     } else {
-      console.log('payload edit')
-      console.log(payload)
+
       // update
       this.caseService.update(payload, this.caseId).subscribe(() => {
         this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record')
       }, 
       err => this.toastrService.error(err, 'Server Issue Encountered'))
 
+      // this.fileService.getFiles(this.caseId).subscribe(f => this.files = f.data)
     }
+    // update newly added files on edit mode
+    this.fileService.updateFileByCaseId(this.caseId).subscribe(f => console.log(f))
 
     this.caseService.getCases().subscribe((response: any) => {
       // Update the case/incident list in state
@@ -247,6 +259,19 @@ export class CaseEntryComponent implements OnInit {
     this.caseService.getEvidencesByCaseId(id).subscribe((response: any) => {
       // store the result in state
       this.dataService.setEvidenceList(response.data);
+    })
+  }
+
+  getCategories(){
+    this.categoryService.get().subscribe(c => {
+      c.data.map(v => this.categories.push(v.description))
+    })
+  }
+
+  getDispositions(){
+    this.dispositionService.getDispositions().subscribe(r => {
+      console.log(r)
+      r.data.map(dis => this.dispositions.push(dis.description))
     })
   }
 
@@ -274,4 +299,11 @@ export class CaseEntryComponent implements OnInit {
     })
   }
 
+  updateCategorySelection(e){
+    this.selectedCategory = e.target.value
+  }
+
+  back(): void {
+    this.router.navigate(['/main/cases']);
+  }
 }

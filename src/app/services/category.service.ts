@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders   } from '@angular/common/http';
 import {  Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
+
 @Injectable({
   providedIn: 'root'
 })
-export class FileService {
+export class CategoryService {
 
   constructor(private httpClient: HttpClient) { }
 
@@ -27,31 +28,22 @@ export class FileService {
     return throwError(errorMessage);
   }
 
-  public getFiles(caseId): Observable<any> {
-    return this.httpClient.get(`${environment.apiUrl}/api/file/case/${caseId}`).pipe(catchError(this.handleError));
+  public get(): Observable<any> {
+    return this.httpClient.get(`${environment.apiUrl}/api/category`).pipe(catchError(this.handleError));
   }
 
   public create(data): Observable<any> {
-    console.log(data)
-    return this.httpClient.post(`${environment.apiUrl}/api/file`, {
-      case_id:  data.caseId,
-      filename: data.filename,
-      filetype: data.filetype
-    }, httpOptions)
+    return this.httpClient.post(`${environment.apiUrl}/api/category`, { description:  data.categoryDescription }, httpOptions)
     .pipe(catchError(this.handleError));
+  }
+
+  update(data: any, id: number){
+    return this.httpClient.put(`${environment.apiUrl}/api/category/${id}`, { description:  data.categoryDescription }, httpOptions)
   }
 
   public delete(id): Observable<any> {
-    return this.httpClient.delete(`${environment.apiUrl}/api/file/${id}`, httpOptions)
+    return this.httpClient.delete(`${environment.apiUrl}/api/category/${id}`, httpOptions)
     .pipe(catchError(this.handleError));
-  }
-
-  upload(data){
-    return this.httpClient.post(`${environment.apiUrl}/api/image-upload`, data, {})
-  }
-
-  updateFileByCaseId(caseId: number): Observable<any> {
-    return this.httpClient.put(`${environment.apiUrl}/api/file/case/${caseId}`, {}, httpOptions).pipe(catchError(this.handleError))
   }
 
 }

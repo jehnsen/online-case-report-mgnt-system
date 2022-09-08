@@ -26,14 +26,20 @@
                             <div class="form-group">
                                 <p for="" class="h6">Nature of Case</p>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control custom-select" formControlName="caseNature">
-                                        <option>Shooting Incident</option>
-                                        <option>Found Dead Body</option>
-                                        <option>Hacking Incident</option>
-                                        <option>Robbery</option>
-                                        <option>Drowning</option>
-                                        <option>Alleged Suicide</option>
+                                    <select 
+                                    (change)="updateCategorySelection($event)"
+                                    class="form-control custom-select" 
+                                    formControlName="caseNature">
+                                        <option *ngFor="let category of categories" [value]="category">
+                                            {{ category }}
+                                        </option>
                                     </select>
+                                    <!-- <option>Shooting Incident</option>
+                                    <option>Found Dead Body</option>
+                                    hacking incident
+                                    <option>Robbery</option>
+                                    <option>Drowning</option>
+                                    <option>Alleged Suicide</option> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -58,16 +64,20 @@
                                 <p for="" class="h6">Disposition of Case</p>
                                 <div class="input-group input-group-sm">
                                     <select class="form-control custom-select" formControlName="disposition">
-                                            <option>Convicted</option>
-                                            <option>Acquitted</option>
-                                            <option>Dismissed</option>
-                                            <option>No charges filed/Charges dropped</option>
-                                            <option>Vacated</option>
-                                            <option>Sealed</option>
-                                            <option>Expunged</option>
-                                            <option>Pending</option>
-                                            <option>Diversion/Deferred Prosecution</option>
+                                        <option *ngFor="let disposition of dispositions" [value]="disposition">
+                                            {{ disposition }}
+                                        </option>
+                                            
                                     </select>
+                                        <!-- <option>Convicted</option>
+                                        <option>Acquitted</option>
+                                        <option>Dismissed</option>
+                                        <option>No charges filed/Charges dropped</option>
+                                        <option>Vacated</option>
+                                        <option>Sealed</option>
+                                        <option>Expunged</option>
+                                        <option>Pending</option>
+                                        <option>Diversion/Deferred Prosecution</option> -->
                                 </div>
                             </div>
                         </div>
@@ -239,7 +249,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="mb-3 float-right">
-                <button class="btn btn-secondary mr-3">Cancel</button>
+                <button class="btn btn-secondary mr-3" type="button" (click)="back()">Cancel</button>
                 
                 <button class="btn btn-success pull-right " type="submit">
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

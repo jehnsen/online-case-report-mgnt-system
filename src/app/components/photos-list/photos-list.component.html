@@ -19,16 +19,49 @@
                 <tr>
                     <th>File</th>
                     <th>Filename</th>
-                    <th>Filetype</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let file of files">
-                    <td (click)="onSelectFile(file.filename.split('.')[0], baseUrl+urlPath+file.filename)" data-toggle="modal" data-target="#modal-file-viewer">
-                        <img class="direct-chat-img" [src]="baseUrl+urlPath+file.filename"/>
+
+                    <td *ngIf="file.filetype === 'image/jpeg' || file.filetype === 'image/png'" (click)="onSelectFile(file.filename.split('.')[0], baseUrl+urlPath+file.filename)" data-toggle="modal" data-target="#modal-file-viewer">
+                        <img style="cursor: pointer;" class="direct-chat-img" [src]="baseUrl+urlPath+file.filename"/>
                     </td>
+                    <td *ngIf="file.filetype === 'application/pdf'">
+                        <a [href]="baseUrl+urlPath+file.filename" [download]="file.filename">
+                            <img class="direct-chat-img" src="./assets/icons/pdf.png"/>
+                        </a>
+                    </td>
+                    <td *ngIf="file.filetype === 'application/excel' || file.filetype.includes('spreadsheet')">
+                        <a [href]="baseUrl+urlPath+file.filename" [download]="file.filename">
+                            <img class="direct-chat-img" src="./assets/icons/excel.png"/>
+                        </a>
+                    </td>
+                    <td *ngIf="file.filetype === 'application/docx' || file.filetype.includes('wordprocessing')">
+                        <a [href]="baseUrl+urlPath+file.filename" [download]="file.filename">
+                            <img class="direct-chat-img" src="./assets/icons/msword.png"/>
+                        </a>
+                    </td>
+                    <td *ngIf="file.filetype === 'application/x-zip-compressed'">
+                        <a [href]="baseUrl+urlPath+file.filename" [download]="file.filename">
+                            <img class="direct-chat-img" src="./assets/icons/zip.png"/>
+                        </a>
+                    </td>
+                    <td *ngIf="file.filetype === 'text/plain'">
+                        <a [href]="baseUrl+urlPath+file.filename" [download]="file.filename">
+                            <img class="direct-chat-img" src="./assets/icons/txt.png"/>
+                        </a>
+                    </td>
+
+                    <td *ngIf="file.filetype === 'video/mp4'">
+                        <a [href]="baseUrl+urlPath+file.filename" [download]="file.filename">
+                            <img class="direct-chat-img" src="./assets/icons/video.png"/>
+                        </a>
+                    </td>
+
                     <td>{{ file.filename.split('.')[0] }}</td>
-                    <td><span class="tag tag-success">{{ file.filetype }}</span></td>
+                    <td><a [href]="baseUrl+urlPath+file.filename" [download]="file.filename"><i class="fas fa-download"></i></a></td>
                     <td *ngIf="!isViewOnly"><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)">
                         <i class="fas fa-times"></i>
                     </button></td>
