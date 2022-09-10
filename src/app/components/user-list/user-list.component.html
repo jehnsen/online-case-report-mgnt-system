@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <h3 class="card-title">User Accounts</h3>
+                <div class="card-tools">
+                    <button type="button"
+                        class="btn btn-success btn-sm float-right"
+                        data-toggle="modal"
+                        data-target="#modal-user-registration">
+                        <i class="fas fa-user-plus"></i> New User
+                    </button>
+                </div>
+                    
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                    <thead>
+        
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let user of users | paginate: {itemsPerPage: 5, currentPage: p, id: users };">
+                            <td>
+                                <i class="fas fa-user text-info mr-1" ></i> {{ user.firstname }} {{ user.lastname }}
+                            </td>
+                            <td>
+                                <span *ngIf="user.usertype !== 'encoder'" class="badge badge-pill badge-primary font-weight-bold mr-1">
+                                    administrator
+                                </span>
+                                <span *ngIf="user.usertype === 'encoder'" class="badge badge-pill badge-warning font-weight-bold mr-1">
+                                    {{ user.usertype }}
+                                </span>
+                            </td>
+                            <td>
+                               
+                                <button type="button" class="btn btn-danger btn-xs float-right" (click)="onDelete(user.id)">
+                                    <i class="fas fa-times"></i>
+                                </button>
+
+                                <button type="button" 
+                                    class="btn btn-primary btn-xs float-right mr-2" 
+                                    data-toggle="modal"
+                                    data-target="#modal-user-registration"
+                                >
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        
+            <div class="card-footer clearfix">
+                <pagination-controls (pageChange)="p = $event" [id]="users"></pagination-controls>
+            </div>
+        </div>
+    </div>
+
+    <app-modal-user-registration></app-modal-user-registration>
+
+</div>

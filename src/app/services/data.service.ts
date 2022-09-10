@@ -4,6 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class DataService {
 
+  private userListBus$ = new BehaviorSubject<any>([]);
+  userList$ = this.userListBus$.asObservable();
+
   private isView$ = new BehaviorSubject<any>({});
   viewValue$ = this.isView$.asObservable();
 
@@ -35,6 +38,10 @@ export class DataService {
   fileList$ = this.fileListBus$.asObservable();
 
   constructor() {}
+
+  setUserList(list: any) {
+    this.userListBus$.next(list);
+  }
 
   setIsViewValue(value: boolean){
     this.isView$.next(value);

@@ -61,7 +61,9 @@
                     </td>
 
                     <td>{{ file.filename.split('.')[0] }}</td>
+
                     <td><a [href]="baseUrl+urlPath+file.filename" [download]="file.filename"><i class="fas fa-download"></i></a></td>
+                    
                     <td *ngIf="!isViewOnly"><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)">
                         <i class="fas fa-times"></i>
                     </button></td>

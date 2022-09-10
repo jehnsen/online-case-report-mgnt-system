@@ -42,6 +42,9 @@ import { CaseNaturesEntryComponent } from './components/case-natures-entry/case-
 import { ModalRequestingPartiesComponent } from './components/modals/modal-requesting-parties/modal-requesting-parties.component';
 import { ModalSelectPersonsComponent } from './components/modals/modal-select-persons/modal-select-persons.component';
 import { DispositionFormComponent } from './components/disposition-form/disposition-form.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { ModalUserRegistrationComponent } from './components/modals/modal-user-registration/modal-user-registration.component';
+import { DatabaseBackupComponent } from './components/database-backup/database-backup.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +78,10 @@ import { DispositionFormComponent } from './components/disposition-form/disposit
     CaseNaturesEntryComponent,
     ModalRequestingPartiesComponent,
     ModalSelectPersonsComponent,
-    DispositionFormComponent
+    DispositionFormComponent,
+    UserListComponent,
+    ModalUserRegistrationComponent,
+    DatabaseBackupComponent
   ],
   imports: [
     HttpClientModule,

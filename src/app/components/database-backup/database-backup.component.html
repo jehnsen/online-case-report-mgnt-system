@@ -1,0 +1,80 @@
+<form [formGroup]="formData" (ngSubmit)="onBackup()">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Backup Database</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body">
+
+                            <div class="input-group">
+
+                                <input class="form-control" type="file">
+
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-success float-right" type="submit">
+                                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true"></span>
+                                <span *ngIf="isLoading" class="sr-only">Saving...</span>
+                                Backup
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+
+<form [formGroup]="formData" (ngSubmit)="onBackup()">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Backup Files</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body">
+
+                            <div class="input-group">
+
+                                <input class="form-control" type="file">
+
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-success float-right" type="submit">
+                                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                                    aria-hidden="true"></span>
+                                <span *ngIf="isLoading" class="sr-only">Saving...</span>
+                                Backup
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+
+    </div>
+
+</form>

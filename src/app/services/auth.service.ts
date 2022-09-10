@@ -31,4 +31,8 @@ export class AuthService {
     }, httpOptions);
   }
 
+  get(): Observable<any>{
+    return this.httpClient.get(`${BASE_URL}/api/user`, httpOptions);
+  }
+
 }

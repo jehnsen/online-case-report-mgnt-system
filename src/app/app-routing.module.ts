@@ -12,6 +12,8 @@ import { CaseNaturesEntryComponent } from './components/case-natures-entry/case-
 import { RequesterEntryComponent } from './components/requester-entry/requester-entry.component';
 import { PersonEntryComponent } from './components/person-entry/person-entry.component';
 import { DispositionFormComponent } from './components/disposition-form/disposition-form.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { DatabaseBackupComponent } from './components/database-backup/database-backup.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -24,7 +26,9 @@ const routes: Routes = [
     { path: 'cases/manage/categories', component: CaseNaturesEntryComponent },
     { path: 'cases/manage/requesting-parties', component: RequesterEntryComponent },
     { path: 'manage/persons', component: PersonEntryComponent },
-    { path: 'manage/dispositions', component: DispositionFormComponent }
+    { path: 'manage/dispositions', component: DispositionFormComponent },
+    { path: 'users', component: UserListComponent },
+    { path: 'manage/database', component: DatabaseBackupComponent },
   ]},
   { path: '**', component: FallbackPageComponent}
 ];

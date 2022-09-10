@@ -5,7 +5,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3>{{ totalCases }}</h3>
 
                     <p>Total No. of Cases/Incidents</p>
                 </div>
@@ -20,7 +20,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h3>5<sup style="font-size: 20px"></sup></h3>
+                    <h3>{{ totalHackingIncident }}<sup style="font-size: 20px"></sup></h3>
 
                     <p>Hacking Incident/Reports</p>
                 </div>
@@ -35,7 +35,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>18</h3>
+                    <h3>{{ totalRobberyIncident }}</h3>
 
                     <p>Robbery Incidents</p>
                 </div>
@@ -50,7 +50,7 @@
             <!-- small box -->
             <div class="small-box bg-primary">
                 <div class="inner">
-                    <h3>50</h3>
+                    <h3>{{ totalShootingIncident }}</h3>
 
                     <p>Shooting Incidents</p>
                 </div>
@@ -65,7 +65,7 @@
             <!-- small box -->
             <div class="small-box bg-purple">
                 <div class="inner">
-                    <h3>22</h3>
+                    <h3>{{ totalDrowningIncident }}</h3>
 
                     <p>Drowning Incidents</p>
                 </div>
@@ -80,7 +80,7 @@
             <!-- small box -->
             <div class="small-box bg-fuchsia">
                 <div class="inner">
-                    <h3>14</h3>
+                    <h3>{{ totalSuicideIncident }}</h3>
 
                     <p>Suicide Incidents</p>
                 </div>
@@ -110,7 +110,7 @@
             <!-- small box -->
             <div class="small-box bg-orange">
                 <div class="inner">
-                    <h3>10</h3>
+                    <h3>{{ requestingParties.length }}</h3>
 
                     <p>Requesting Parties</p>
                 </div>
@@ -145,63 +145,19 @@
                         <thead>
                             <tr>
                                 <th><span class="font-weight-normal">BARANGAY</span></th>
-                                <th><span class="font-weight-normal">TOTAL CASES/INCIDENTS</span></th>
+                                <th class="text-center"><span class="font-weight-normal">TOTAL CASES/INCIDENTS</span></th>
                                 <!-- <th>Sales</th>
                                 <th>More</th> -->
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let location of locations">
                                 <td>
-                                    BULANAO
+                                    {{ location.name }}
                                 </td>
-                                <td>
-                                    <span class="font-weight-bold text-primary mr-1">
-                                        23
-                                    </span>
-                                </td>
-                                
-                            </tr>
-                            <tr>
-                                <td>
-                                    POBLACION
-                                </td>
-                                <td>
-                                    <span class="font-weight-bold text-primary mr-1">
-                                        120
-                                    </span>
-                                </td>
-                                
-                            </tr>
-                            <tr>
-                                <td>
-                                    DANGWA
-                                </td>
-                                <td>
-                                    <span class="font-weight-bold text-primary mr-1">
-                                        60
-                                    </span>
-                                </td>
-                                
-                            </tr>
-                            <tr>
-                                <td>
-                                    NAMBARAN
-                                </td>
-                                <td>
-                                    <span class="font-weight-bold text-primary mr-1">
-                                        45
-                                    </span>
-                                </td>
-                                
-                            </tr>
-                            <tr>
-                                <td>
-                                    MAGSAYSAY
-                                </td>
-                                <td>
-                                    <span class="font-weight-bold text-primary mr-1">
-                                        2
+                                <td class="text-center">
+                                    <span class="badge badge-pill badge-info font-weight-bold mr-1">
+                                        {{ location.count }}
                                     </span>
                                 </td>
                                 
