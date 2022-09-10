@@ -23,12 +23,7 @@ export class AuthService {
   }
 
   register(user): Observable<any> {
-    return this.httpClient.post(`${BASE_URL}/api/register`, {
-      firstname: user.firstname,
-      lastname: user.lastname,
-      username: user.username,
-      password: user.password
-    }, httpOptions);
+    return this.httpClient.post(`${BASE_URL}/api/register`, user, httpOptions);
   }
 
   get(): Observable<any>{

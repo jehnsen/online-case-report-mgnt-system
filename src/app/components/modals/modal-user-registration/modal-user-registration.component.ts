@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-// import { PersonService } from '../../services/person.service';
+import { AuthService } from '../../../services/auth.service';
 import { DataService } from '../../../services/data.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class ModalUserRegistrationComponent implements OnInit {
 
   constructor(
     private fbuilder: FormBuilder,
+    private authService: AuthService,
     private dataService: DataService, 
     private toastrService: ToastrService
     ) { }
@@ -25,20 +26,31 @@ export class ModalUserRegistrationComponent implements OnInit {
     
     this.clearFields();
 
+    this.dataService.userList$.subscribe(users => {
+      const sorted = users.sort((a,b) => b.id - a.id)
+      this.users = sorted;
+    })
+
 
   }
 
   onSubmit(){
+    console.log(this.formData.value)
+    this.authService.register(this.formData.value).subscribe(response => {
+      this.dataService.setUserList([...this.users, response.user]);
+    })
 
+    this.clearFields();
   }
-  
+
   clearFields(){
     this.formData = this.fbuilder.group({
       'firstname': [''],
       'lastname': [''],
       'username': [''],
       'password': [''],
-      'usertype': ['']
+      'usertype': [''],
+      'division': ['']
     })
   }
 

@@ -1,14 +1,16 @@
-<body class="login-page" style="min-height: 512.8px;">
+<body class="login login-page" style="min-height: 512.8px;">
   <div class="login-box">
     <div class="login-logo">
-      <!-- <a href="../../index2.html"><b>Enrique</b> Bank</a> -->
-      <a href="../../index2.html"><b>Incident Records Management</b> System</a>
+      <img src="/assets/logo.png" class="img-circle img-fluid" width="180px" height="180px"/>
     </div>
     <!-- /.login-logo -->
-    <div class="card">
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+       
+        <a href="javascript:void(0)"><b>Incident Records Management</b> System</a>
+      </div>
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
-
+        
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="input-group mb-3">
             <input name="username" formControlName="username" type="text" class="form-control"

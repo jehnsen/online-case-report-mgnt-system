@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-9">
         <div class="card card-outline card-info">
             <div class="card-header">
                 <h3 class="card-title">User Accounts</h3>
@@ -8,7 +8,7 @@
                         class="btn btn-success btn-sm float-right"
                         data-toggle="modal"
                         data-target="#modal-user-registration">
-                        <i class="fas fa-user-plus"></i> New User
+                        <i class="fas fa-user-plus mr-1"></i> Add New User
                     </button>
                 </div>
                     
@@ -18,18 +18,30 @@
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                     <thead>
-        
+                        <th>User Fullname</th>
+                        <th>Username</th>
+                        <th>Division</th>
+                        <th>Access Level</th>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let user of users | paginate: {itemsPerPage: 5, currentPage: p, id: users };">
+                        <tr *ngFor="let user of users | paginate: {itemsPerPage: 10, currentPage: p, id: users };">
                             <td>
                                 <i class="fas fa-user text-info mr-1" ></i> {{ user.firstname }} {{ user.lastname }}
                             </td>
                             <td>
-                                <span *ngIf="user.usertype !== 'encoder'" class="badge badge-pill badge-primary font-weight-bold mr-1">
-                                    administrator
+                                {{ user.username }}
+                            </td>
+                            <td>
+                                {{ user.division }}
+                            </td>
+                            <td>
+                                <span *ngIf="user.usertype === 'Administrator'" class="badge badge-pill badge-success font-weight-bold mr-1">
+                                    Administrator
                                 </span>
-                                <span *ngIf="user.usertype === 'encoder'" class="badge badge-pill badge-warning font-weight-bold mr-1">
+                                <span *ngIf="user.usertype === 'Encoder'" class="badge badge-pill bg-purple font-weight-bold mr-1">
+                                    {{ user.usertype }}
+                                </span>
+                                <span *ngIf="user.usertype === 'Examiner'" class="badge badge-pill bg-fuchsia font-weight-bold mr-1">
                                     {{ user.usertype }}
                                 </span>
                             </td>

@@ -12,10 +12,13 @@ export class SidebarMenuComponent implements OnInit {
 
   count: number;
   isMobileView: boolean = false;
+  division: string;
 
   constructor(private tokenStorageService: TokenStorageService, private dataService: DataService, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.division = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
 
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
       this.isMobileView = true;
