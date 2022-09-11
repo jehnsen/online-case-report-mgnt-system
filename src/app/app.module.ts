@@ -45,6 +45,12 @@ import { DispositionFormComponent } from './components/disposition-form/disposit
 import { UserListComponent } from './components/user-list/user-list.component';
 import { ModalUserRegistrationComponent } from './components/modals/modal-user-registration/modal-user-registration.component';
 import { DatabaseBackupComponent } from './components/database-backup/database-backup.component';
+import { FirearmsListComponent } from './components/firearms-list/firearms-list.component';
+import { FirearmsEntryComponent } from './components/firearms-entry/firearms-entry.component';
+import { CriminalDrugTestListComponent } from './components/criminal-drug-test-list/criminal-drug-test-list.component';
+import { CriminalDrugTestEntryComponent } from './components/criminal-drug-test-entry/criminal-drug-test-entry.component';
+import { DangerousDrugsListComponent } from './components/dangerous-drugs-list/dangerous-drugs-list.component';
+import { DangerousDrugsEntryComponent } from './components/dangerous-drugs-entry/dangerous-drugs-entry.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +87,13 @@ import { DatabaseBackupComponent } from './components/database-backup/database-b
     DispositionFormComponent,
     UserListComponent,
     ModalUserRegistrationComponent,
-    DatabaseBackupComponent
+    DatabaseBackupComponent,
+    FirearmsListComponent,
+    FirearmsEntryComponent,
+    CriminalDrugTestListComponent,
+    CriminalDrugTestEntryComponent,
+    DangerousDrugsListComponent,
+    DangerousDrugsEntryComponent
   ],
   imports: [
     HttpClientModule,

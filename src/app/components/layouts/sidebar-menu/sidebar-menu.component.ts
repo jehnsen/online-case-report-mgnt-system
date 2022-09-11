@@ -11,6 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 export class SidebarMenuComponent implements OnInit {
 
   count: number;
+  firearmInventoryCount: number;
   isMobileView: boolean = false;
   division: string;
 
@@ -26,6 +27,11 @@ export class SidebarMenuComponent implements OnInit {
 
     this.dataService.caseList$.subscribe((value) => {
       this.count = value.length
+    });
+
+    this.dataService.firearmInventoryList$.subscribe((value) => {
+      this.firearmInventoryCount = value.length
+      console.log(this.firearmInventoryCount)
     });
   }
 

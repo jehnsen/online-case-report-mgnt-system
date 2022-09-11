@@ -1,0 +1,324 @@
+<!-- Main content -->
+<form [formGroup]="formData" (ngSubmit)="onSubmit()">
+
+    <!-- 1st row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Evidence Details</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body">
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+
+                                    <div class="row">
+
+                                        <div class="form-group">
+                                            <p for="inputName" class="h6">Case Number</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="case_no"
+                                                    placeholder="ex. FAIS-000-XXXX" />
+                                                <!-- <control-messages [control]="incidentData.get('caseNo')"></control-messages> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p for="inputDescription" class="h6">Suspect</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="suspect_name">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p for="" class="h6">Mother Unit</p>
+                                            <div class="input-group input-group-sm">
+                                                <select class="form-control custom-select" formControlName="mother_unit">
+                                                    <option>CIDG</option>
+                                                    <option>PDEA</option>
+                                                    <option>PROCOR</option>
+                                                    <option>BJMP</option>
+                                                    <option>OTHERS</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p for="" class="h6">Type of Operation</p>
+                                            <div class="input-group input-group-sm">
+                                                <select class="form-control custom-select" formControlName="operation_type">
+                                                    <option>BUY-BUST</option>
+                                                    <option>SEARCH WARRANT</option>
+                                                    <option>INFLAGRANTE DE LICTO</option>
+                                                    <option>RECOVERED</option>
+                                                    <option>TEST BUY</option>
+                                                    <option>OPLAN-GALUGAD</option>
+                                                    <option>CHECKPOINT</option>
+                                                    <option>SEARCH</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p for="inputName" class="h6">Examiner</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="examiner" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p for="inputName" class="h6">Investigator on Case</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="investigator" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p for="inputName" class="h6">Date</p>
+                                                    <!-- formGroupName="dtpo" -->
+                                                    <div *ngIf="isAdd" class="input-group input-group-sm">
+                                                        <input class="form-control" placeholder="mm/dd/yyyy" name="dp"
+                                                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"
+                                                            [ngStyle]="{'backgroundColor': 'white'}" formControlName="incident_date"
+                                                            (dateSelect)="onDateSelect($event)" readonly>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                                                type="button">📅</button>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="!isAdd" class="input-group input-group-sm">
+                                                        <input type="text" class="form-control"
+                                                            formControlName="incident_date_edit" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p for="inputName" class="h6">Time</p>
+                                                    <div *ngIf="isAdd" class="input-group input-group-sm date" id="timepicker"
+                                                        data-target-input="nearest">
+                                                        <input type="time" class="form-control datetimepicker-input"
+                                                            data-target="#timepicker" formControlName="incident_time" min="09:00"
+                                                            max="18:00" required>
+                                                    </div>
+            
+                                                    <div *ngIf="!isAdd" class="input-group input-group-sm">
+                                                        <input type="text" class="form-control"
+                                                            formControlName="incident_time_edit" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p for="inputName" class="h6">No. of Specimen</p>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" formControlName="speciment_count" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <p for="inputName" class="h6">No. of PPH</p>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" formControlName="pph_count" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p for="inputName" class="h6">Quantity Received</p>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" formControlName="qty_received" />
+                                                    </div>
+                                                </div>
+                                        
+                                                <div class="col-md-6">
+                                                    <p for="inputName" class="h6">Gross Weight</p>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control" formControlName="gross_weight" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p for="inputName" class="h6">Classification</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="classification" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p for="inputName" class="h6">Delivered By</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="delivered_by" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Description</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="description" />
+                                                </div>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Received By (Evidence Custodian)</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="received_by" />
+                                                </div>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <p for="" class="h6">Status of Evidence</p>
+                                                <div class="input-group input-group-sm">
+                                                    <select class="form-control custom-select" formControlName="evidence_status">
+                                                        <option>ACCOUNTED IN CUSTODY</option>
+                                                        <option>DEPOSITED TO COURT/PROSECUTOR</option>
+                                                        <option>WITHDRAWN BY REQUESTING PARTY</option>
+                                                        <option>TURNED-OVER TO FEO</option>
+                                                        <option>TURNED-OVER TO LSS</option>
+                                                    </select>
+    
+                                                </div>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Quantity Turned-Over</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="qty_turned_over" />
+                                                </div>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Date Last Withdrawn</p>
+                                                <div class="input-group input-group-sm">
+                                              
+                                                    <input class="form-control" placeholder="mm/dd/yyyy" name="dp"
+                                                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"
+                                                            [ngStyle]="{'backgroundColor': 'white'}" formControlName="date_last_withdrawn"
+                                                            (dateSelect)="onDateSelect($event)" readonly>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
+                                                                type="button">📅</button>
+                                                        </div>
+                                                </div>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Branch of Court / Cert. of No Case Filed</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="court_branch" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Criminal Case Number</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="criminal_case_no" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Quantity Remaining</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="qty_remaining" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">No Movement</p>
+                                                <div class="input-group input-group-sm">
+                                                    <select class="form-control custom-select" formControlName="is_no_movement">
+                                                        <option>Yes</option>
+                                                        <option>No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Remarks</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="remarks" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="form-group">
+                                                    <p for="inputName" class="h6">Requesting Party</p>
+                                                    <div class="input-group input-group-sm">
+                                                        <input type="text" class="form-control"
+                                                            formControlName="requesting_party" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- 3rd row -->
+    <!-- buttons -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mb-3 float-right">
+                <button class="btn btn-secondary mr-3" type="button" (click)="back()">Cancel</button>
+
+                <button class="btn btn-success pull-right " type="submit">
+                    <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                        aria-hidden="true"></span>
+                    <span *ngIf="isLoading" class="sr-only">Loading...</span>
+                    Save
+                </button>
+                <!-- [disabled]="!incidentData.valid" -->
+            </div>
+        </div>
+    </div>
+</form>
+<!-- /.content -->
+
+<!-- <app-parties></app-parties> -->
+<app-modal-requesting-parties></app-modal-requesting-parties>
+<app-modal-select-persons></app-modal-select-persons>
+<app-suspect></app-suspect>

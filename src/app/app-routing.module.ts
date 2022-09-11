@@ -14,6 +14,12 @@ import { PersonEntryComponent } from './components/person-entry/person-entry.com
 import { DispositionFormComponent } from './components/disposition-form/disposition-form.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { DatabaseBackupComponent } from './components/database-backup/database-backup.component';
+import { FirearmsListComponent } from './components/firearms-list/firearms-list.component';
+import { FirearmsEntryComponent } from './components/firearms-entry/firearms-entry.component';
+import { CriminalDrugTestListComponent } from './components/criminal-drug-test-list/criminal-drug-test-list.component';
+import { CriminalDrugTestEntryComponent } from './components/criminal-drug-test-entry/criminal-drug-test-entry.component';
+import { DangerousDrugsListComponent } from './components/dangerous-drugs-list/dangerous-drugs-list.component';
+import { DangerousDrugsEntryComponent } from './components/dangerous-drugs-entry/dangerous-drugs-entry.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -25,12 +31,18 @@ const routes: Routes = [
     { path: 'cases/view/:id', component: CaseViewComponent },
     { path: 'cases/manage/categories', component: CaseNaturesEntryComponent },
     { path: 'cases/manage/requesting-parties', component: RequesterEntryComponent },
+    { path: 'firearms', component: FirearmsListComponent },
+    { path: 'firearms/entry', component: FirearmsEntryComponent },
+    { path: 'drugtest', component: CriminalDrugTestListComponent },
+    { path: 'drugtest/entry', component: CriminalDrugTestEntryComponent },
+    { path: 'drugs', component: DangerousDrugsListComponent },
+    { path: 'drugs/entry', component: DangerousDrugsEntryComponent },
     { path: 'manage/persons', component: PersonEntryComponent },
     { path: 'manage/dispositions', component: DispositionFormComponent },
     { path: 'users', component: UserListComponent },
     { path: 'manage/database', component: DatabaseBackupComponent },
   ]},
-  { path: '**', component: FallbackPageComponent}
+  { path: '**', component: FallbackPageComponent }
 ];
 
 @NgModule({

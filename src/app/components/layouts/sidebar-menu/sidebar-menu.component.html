@@ -22,13 +22,13 @@
                 <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                        <div class="image">
+                        <!-- <div class="image">
                             <img src="assets/icons/org.png" class=" elevation-0"> 
                                 
-                        </div>
+                        </div> -->
                         
                         <div class="info text-wrap">
-                            <a href="javascript:void(0)" class="d-block text-sm">{{ division | uppercase }} DIVISION</a>
+                            <a href="javascript:void(0)" class="d-block text-sm ml-2">{{ division | uppercase }} DIVISION</a>
                         </div>
                     </div>
 
@@ -50,9 +50,48 @@
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-layer-group"></i>
                                     <p>Incidents/Events
-                                        <span *ngIf="this.count > 0" class="badge badge-primary right">
+                                        <span *ngIf="this.count > 0" class="badge badge-pill badge-primary right">
                                             {{ this.count ? this.count : null }}
                                         </span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    [routerLink]="['firearms']"
+                                    routerLinkActive="router-link-active">
+                                    <i class="nav-icon fa fa-cutlery"></i>
+                                    <p>Firearms Inventory
+                                        <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
+                                            {{ firearmInventoryCount ? firearmInventoryCount : null }}
+                                        </span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    [routerLink]="['drugtest']"
+                                    routerLinkActive="router-link-active">
+                                    <i class="nav-icon fa fa-cutlery"></i>
+                                    <p>Criminal Drug Test
+                                        <!-- <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
+                                            {{ firearmInventoryCount ? firearmInventoryCount : null }}
+                                        </span> -->
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    [routerLink]="['drugs']"
+                                    routerLinkActive="router-link-active">
+                                    <i class="nav-icon fa fa-cutlery"></i>
+                                    <p>Dangerous Drugs
+                                        <!-- <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
+                                            {{ firearmInventoryCount ? firearmInventoryCount : null }}
+                                        </span> -->
                                     </p>
                                 </a>
                             </li>
@@ -60,7 +99,7 @@
                                 <a href="javascript:void(0)" class="nav-link" [routerLink]="['users']"  routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>User Accounts
-                                        <!-- <span class="badge badge-primary right">23</span> -->
+                                        <!-- <span class="badge badge-pill badge-primary right">{{  }}</span> -->
                                     </p>
                                 </a>
                             </li>

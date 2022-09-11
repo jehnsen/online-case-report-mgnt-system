@@ -172,10 +172,10 @@ export class CaseEntryComponent implements OnInit {
 
   onDateSelect(event) {
     let year = event.year,
-        month = event.month <= 9 ? '0' + event.month : event.month,
-        day = event.day <= 9 ? '0' + event.day : event.day;
+      month = event.month <= 9 ? '0' + event.month : event.month,
+      day = event.day <= 9 ? '0' + event.day : event.day;
     this.date = `${month}/${day}/${year}`;
-   }
+  }
 
   async onSubmit(){
     let control = this.incidentData.controls
@@ -196,7 +196,7 @@ export class CaseEntryComponent implements OnInit {
       evidences:      this.evidences
     }
     this.isLoading = true;
-
+console.log(payload)
     // crate new incident record
     if(this.isAdd){
 

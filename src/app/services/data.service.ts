@@ -37,6 +37,9 @@ export class DataService {
   private fileListBus$ = new BehaviorSubject<any>([]);
   fileList$ = this.fileListBus$.asObservable();
 
+  private firearmInventoryListBus$ = new BehaviorSubject<any>([]);
+  firearmInventoryList$ = this.firearmInventoryListBus$.asObservable();
+
   constructor() {}
 
   setUserList(list: any) {
@@ -83,6 +86,10 @@ export class DataService {
 
   setFilesList(files: any){
     this.fileListBus$.next(files);
+  }
+
+  setFirearmInventoryList(data: any){
+    this.firearmInventoryListBus$.next(data);
   }
 
 }

@@ -1,14 +1,88 @@
 <!-- Main content -->
-<form [formGroup]="incidentData" (ngSubmit)="onSubmit()">
+<form [formGroup]="formData" (ngSubmit)="onSubmit()">
 
     <!-- 1st row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Evidence Details</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body">
+    
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p for="inputName" class="h6">Case Number</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="caseNo"
+                                                    placeholder="ex. FAIS-000-XXXX" />
+                                                <!-- <control-messages [control]="incidentData.get('caseNo')"></control-messages> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p for="" class="h6">Status</p>
+                                            <div class="input-group input-group-sm">
+                                                <select class="form-control custom-select" formControlName="status">
+                                                    <option>ACCOUNTED IN CUSTODY</option>
+                                                    <option>DEPOSITED TO COURT/PROSECUTOR</option>
+                                                    <option>WITHDRAWN BY REQUESTING PARTY</option>
+                                                    <option>TURNED-OVER TO FEO</option>
+                                                    <option>TURNED-OVER TO LSS</option>
+                                                </select>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p for="inputName" class="h6">Remarks</p>
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" class="form-control" formControlName="remarks" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <p for="inputName" class="h6">Requesting Party</p>
+                                                <div class="input-group input-group-sm">
+                                                    <input type="text" class="form-control" formControlName="requestingParty" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+    
+    </div>
+
+
+    <!-- 2nd row -->
     <div class="row">
 
         <!-- left upper pane -->
         <div class="col-md-6">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Incident/Event Details</h3>
+                    <h3 class="card-title">Type of Evidence</h3>
                     <div class="card-tools"> </div>
                 </div>
                 <!-- /.card-header -->
@@ -16,70 +90,36 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             
-                            <div class="form-group">
-                                <p for="inputName" class="h6">Case Number</p>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="caseNo"
-                                        placeholder="ex. SOCO RFU COR - E 001 - 2022"/>
-                                        <!-- <control-messages [control]="incidentData.get('caseNo')"></control-messages> -->
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p for="" class="h6">Nature of Case</p>
-                                <div class="input-group input-group-sm">
-                                    <select 
-                                        (change)="updateCategorySelection($event)"
-                                        class="form-control custom-select" 
-                                        formControlName="caseNature">
-                                        <option *ngFor="let category of categories" [value]="category">
-                                            {{ category }}
-                                        </option>
-                                    </select>
-                                    <!-- <option>Shooting Incident</option>
-                                    <option>Found Dead Body</option>
-                                    <option>hacking incident</option>
-                                    <option>Robbery</option>
-                                    <option>Drowning</option>
-                                    <option>Alleged Suicide</option> -->
-                                </div>
-                            </div>
+                            
                             
                             <div class="form-group">
-                                <p for="inputDescription" class="h6">Requesting Party</p>
+                                <p for="inputDescription" class="h6">Firearm</p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="requestingParty" >
-                                    <span class="input-group-append">
-                                        <div class="input-group input-group-sm">
-                                            <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                data-target="#modal-requesting-parties">Select...</button>
-                                        </div>
-                                    </span>
+                                    <input type="text" class="form-control" formControlName="firearmName" >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <p for="inputName" class="h6">Investigator on Case</p>
+                                <p for="inputDescription" class="h6">Cartridge</p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="investigator" />
+                                    <input type="text" class="form-control" formControlName="cartridge" >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <p for="" class="h6">Disposition of Case</p>
+                                <p for="inputDescription" class="h6">FCC</p>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control custom-select" formControlName="disposition">
-                                        <option *ngFor="let disposition of dispositions" [value]="disposition">
-                                            {{ disposition }}
-                                        </option>
-                                            
-                                    </select>
-                                        <!-- <option>Convicted</option>
-                                        <option>Acquitted</option>
-                                        <option>Dismissed</option>
-                                        <option>No charges filed/Charges dropped</option>
-                                        <option>Vacated</option>
-                                        <option>Sealed</option>
-                                        <option>Expunged</option>
-                                        <option>Pending</option>
-                                        <option>Diversion/Deferred Prosecution</option> -->
+                                    <input type="text" class="form-control" formControlName="fcc" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p for="inputDescription" class="h6">FB</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="fb" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p for="inputDescription" class="h6">Accessories</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="accessories" >
                                 </div>
                             </div>
                         </div>
@@ -92,6 +132,62 @@
         </div>
 
         <!-- right upper pane -->
+        <div class="col-md-6">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Description of Firearm</h3>
+                    <div class="card-tools"> </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-body">
+                           
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Caliber/Gauge</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="fcaliber" />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Make</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="fmake" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Model</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="fmodel" />
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Type</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="ftype" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Serial Number</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="text" class="form-control" formControlName="fserialNo" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+        
+            </div>
+        </div>
+    </div>
+    <!-- end of first row -->
+
+    <!-- 3rd row -->
+    <!-- left lower pane -->
+    <div class="row">
         <div class="col-md-6">
             <div class="card card-outline card-success">
                 <div class="card-header">
@@ -175,12 +271,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <p for="inputName" class="h6">Reported By</p>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="reportedBy" />
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -188,65 +279,11 @@
         
             </div>
         </div>
-    </div>
-    <!-- end of first row -->
-
-    <!-- left lower pane -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-outline card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Description of Incident/Event</h3>
-                    <div class="card-tools"> </div>
-                </div>
-                <!-- /.card-header -->
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Incident/Case Title..." formControlName="incidentTitle" />
-                                
-                            </div>
-                            <div class="form-group">
-                                <!-- <label for="inputDescription">Description</label> -->
-                                <textarea id="textarea" 
-                                    class="form-control" 
-                                    rows="4" 
-                                    style="height: 300px" 
-                                    [(ngModel)]="incidentDescription"
-                                    name="caseDescription"
-                                    placeholder="Enter incident/case description..."
-                                    formControlName="incidentDescription" >
-                                </textarea> 
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.card-body -->
-
-            </div>
-        </div>
-
         
     </div>
     <!-- end: left lower pane  -->
 
-    <div class="row">
-        <div class="col-md-5">
-            
-            <app-evidence-list [caseId]="caseId" [evidences]="evidences" (onSelected)="onSelectedProduct($event)"></app-evidence-list>
-
-        </div>
-
-        <div class="col-md-7">
-            
-            <app-photos-list></app-photos-list>
-        </div>
-
-    </div>
-
+    <!-- 4th row -->
     <!-- buttons -->
     <div class="row">
         <div class="col-md-12">
