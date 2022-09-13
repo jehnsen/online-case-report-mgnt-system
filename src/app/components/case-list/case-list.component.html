@@ -1,18 +1,21 @@
 <div>
-  <div class="row">
-    <div class="col-12">
-      <button type="button" class="btn btn-success btn-sm mb-2 float-right" [routerLink]="['entry']"
-        routerLinkActive="router-link-active">
-        <i class="fas fa-plus"></i> New Record
-      </button>
-    </div>
-  </div>
+  
 
   <div class="row">
     <div class="col-12">
       <div class="card card-outline card-primary">
-        <div class="card-header" disabled>
-          <h3 class="card-title">List of Reported Incidents/Events</h3>
+        <div class="card-header" >
+
+          <!-- <div class="row"> -->
+            <!-- <div class="md-col-6"> -->
+              
+              <button type="button" class="btn btn-success btn-sm float-left" [routerLink]="['entry']"
+                routerLinkActive="router-link-active">
+                <i class="fas fa-plus"></i> New Record
+              </button>
+            <!-- </div> -->
+          <!-- </div> -->
+          
           <div class="card-tools">
             <div class="input-group input-group-sm">
 
@@ -27,6 +30,7 @@
 
             </div>
           </div>
+
         </div>
         <!-- /.card-header -->
         <div class="card-body table-responsive p-0">

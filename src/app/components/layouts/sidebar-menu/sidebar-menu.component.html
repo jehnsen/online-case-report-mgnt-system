@@ -37,73 +37,82 @@
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                             data-accordion="false">
                             <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" [routerLink]="['dashboard']"
+                                <a 
+                                    href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    (click)="setPageTitle('')"
+                                    [routerLink]="['dashboard']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p> Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" 
+                            <li class="nav-item" >
+                                <a 
+                                    *ngIf="division !== 'ballistic'"
+                                    href="javascript:void(0)" 
                                     class="nav-link" 
+                                    (click)="setPageTitle('LIST OF REPORTED INCIDENTS/EVENTS')"
                                     [routerLink]="['cases']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-layer-group"></i>
-                                    <p>Incidents/Events
+                                    <p>
+                                        {{ division === 'soco' 
+                                            ? 'Incidents/Events' 
+                                            : division === 'chemistry'
+                                                ? 'Chemistry Records'
+                                                : division === 'physical'
+                                                    ? 'Physical Identification Records'
+                                                    : 'FingerPrint Records'
+                                        }} 
                                         <span *ngIf="this.count > 0" class="badge badge-pill badge-primary right">
-                                            {{ this.count ? this.count : null }}
+                                            {{ count > 0 ? count : null }}
                                         </span>
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li *ngIf="division === 'ballistic'" class="nav-item">
                                 <a href="javascript:void(0)" 
                                     class="nav-link" 
+                                    (click)="setPageTitle('FIREARMS INVENTORY')"
                                     [routerLink]="['firearms']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fa fa-cutlery"></i>
                                     <p>Firearms Inventory
                                         <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
-                                            {{ firearmInventoryCount ? firearmInventoryCount : null }}
+                                            {{ firearmInventoryCount > 0 ? firearmInventoryCount : null }}
                                         </span>
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li *ngIf="division === 'chemistry'" class="nav-item">
                                 <a href="javascript:void(0)" 
                                     class="nav-link" 
+                                    (click)="setPageTitle('CRIMINAL DRUG TEST & DANGEROUS DRUGS RECORDS')"
                                     [routerLink]="['drugtest']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fa fa-cutlery"></i>
                                     <p>Criminal Drug Test
-                                        <!-- <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
-                                            {{ firearmInventoryCount ? firearmInventoryCount : null }}
-                                        </span> -->
+                                        <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
+                                            {{ drugTestCount > 0 ? drugTestCount : null }}
+                                        </span>
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" 
+                            <li *ngIf="userType === 'Administrator'" class="nav-item">
+                                <a 
+                                    href="javascript:void(0)" 
                                     class="nav-link" 
-                                    [routerLink]="['drugs']"
+                                    (click)="setPageTitle('USER ACCOUNTS')" 
+                                    [routerLink]="['users']"  
                                     routerLinkActive="router-link-active">
-                                    <i class="nav-icon fa fa-cutlery"></i>
-                                    <p>Dangerous Drugs
-                                        <!-- <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
-                                            {{ firearmInventoryCount ? firearmInventoryCount : null }}
-                                        </span> -->
-                                    </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" [routerLink]="['users']"  routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>User Accounts
                                         <!-- <span class="badge badge-pill badge-primary right">{{  }}</span> -->
                                     </p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li *ngIf="userType === 'Administrator'" class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-copy"></i>
                                     <p>Data Entries<i class="fas fa-angle-left right"></i></p>
@@ -141,8 +150,13 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link" [routerLink]="['manage/database']" routerLinkActive="router-link-active">
+                            <li *ngIf="userType === 'Administrator'" class="nav-item">
+                                <a 
+                                    href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    (click)="setPageTitle('BACKUP & RESTORE DATABASE')"
+                                    [routerLink]="['manage/database']" 
+                                    routerLinkActive="router-link-active">
                                     <i class="nav-icon fa fa-database"></i>
                                     <p>Manage Database
                                         <!-- <span class="badge badge-primary right">23</span> -->

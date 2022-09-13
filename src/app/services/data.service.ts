@@ -4,6 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class DataService {
 
+  private page$ = new BehaviorSubject<any>({});
+  selectedPage$ = this.page$.asObservable();
+
   private userListBus$ = new BehaviorSubject<any>([]);
   userList$ = this.userListBus$.asObservable();
 
@@ -40,7 +43,14 @@ export class DataService {
   private firearmInventoryListBus$ = new BehaviorSubject<any>([]);
   firearmInventoryList$ = this.firearmInventoryListBus$.asObservable();
 
+  private drugTestListBus$ = new BehaviorSubject<any>([]);
+  drugTestList$ = this.drugTestListBus$.asObservable();
+
   constructor() {}
+
+  setSelectedPage(pageTitle: string){
+    this.page$.next(pageTitle);
+  }
 
   setUserList(list: any) {
     this.userListBus$.next(list);
@@ -90,6 +100,10 @@ export class DataService {
 
   setFirearmInventoryList(data: any){
     this.firearmInventoryListBus$.next(data);
+  }
+
+  setDrugTestList(list: any) {
+    this.drugTestListBus$.next(list);
   }
 
 }

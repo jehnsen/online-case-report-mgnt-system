@@ -40,6 +40,7 @@ export class CaseEntryComponent implements OnInit {
   caseNumber: any;
   existingRecord: any;
   selectedCategory: any;
+  userDivision: string;
 
   @ViewChild('dp') dp: NgbDatepicker;
   @ViewChild(EvidenceListComponent) evidenceList: any;
@@ -67,6 +68,8 @@ export class CaseEntryComponent implements OnInit {
       console.log(`activated route: ${this.caseId}`);
     })
 
+    this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
+    console.log(this.userDivision)
     this.dataService.setIsViewValue(false);
 
     // initialize form group
@@ -193,10 +196,11 @@ export class CaseEntryComponent implements OnInit {
       suspectName:    control['suspectName'].value,
       reportedBy:     control['reportedBy'].value,
       incidentDate:   this.isAdd ? this.date : control['incidentDateEdit'].value,
-      evidences:      this.evidences
+      evidences:      this.evidences,
+      division:       this.userDivision
     }
     this.isLoading = true;
-console.log(payload)
+
     // crate new incident record
     if(this.isAdd){
 
@@ -238,7 +242,7 @@ console.log(payload)
     // update newly added files on edit mode
     this.fileService.updateFileByCaseId(this.caseId).subscribe(f => console.log(f))
 
-    this.caseService.getCases().subscribe((response: any) => {
+    this.caseService.getCases(this.userDivision).subscribe((response: any) => {
       // Update the case/incident list in state
       this.dataService.setCaseList(response.data)
     })
@@ -295,7 +299,9 @@ console.log(payload)
       'reportedBy':       [''],
       'incidentDate':     [''],
       'incidentDateEdit': [''],
-      'incidentTimeEdit': ['']
+      'incidentTimeEdit': [''],
+      'engineno':         [''],
+      'chassisno':        ['']
     })
   }
 

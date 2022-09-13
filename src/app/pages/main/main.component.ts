@@ -15,6 +15,7 @@ export class MainComponent implements OnInit {
   constructor(private resize$: NgResizeObserver) {}
 
   ngOnInit(): void {
+    
   }
 
 }

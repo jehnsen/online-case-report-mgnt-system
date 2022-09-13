@@ -29,7 +29,7 @@ export class CaseService {
     return throwError(errorMessage);
   }
 
-  public getCases(): Observable<any> {
+  public getCases(division): Observable<any> {
     return this.httpClient.get(this.URL_ENDPOINT).pipe(catchError(this.handleError));
   }
 
@@ -38,6 +38,7 @@ export class CaseService {
     let newEvidencesArray = []
     data.evidences.map(m => newEvidencesArray.push(m.description))
     return this.httpClient.post(this.URL_ENDPOINT, {
+      division:       data.division,
       case_no:        data.caseNo,
       case_nature:    data.caseNature,
       investigator:   data.investigator,

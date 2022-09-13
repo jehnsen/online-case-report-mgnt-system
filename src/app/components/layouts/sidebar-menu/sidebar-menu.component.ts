@@ -10,16 +10,18 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class SidebarMenuComponent implements OnInit {
 
-  count: number;
-  firearmInventoryCount: number;
+  count: number = 0;
+  firearmInventoryCount: number = 0;
+  drugTestCount: number = 0;
   isMobileView: boolean = false;
   division: string;
-
+  userType: string;
   constructor(private tokenStorageService: TokenStorageService, private dataService: DataService, private router: Router) { }
 
   ngOnInit(): void {
 
     this.division = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
+    this.userType = JSON.parse(window.sessionStorage.getItem('auth-user')).user.usertype;
 
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
       this.isMobileView = true;
@@ -31,13 +33,21 @@ export class SidebarMenuComponent implements OnInit {
 
     this.dataService.firearmInventoryList$.subscribe((value) => {
       this.firearmInventoryCount = value.length
-      console.log(this.firearmInventoryCount)
+    });
+
+    this.dataService.drugTestList$.subscribe((value) => {
+      this.drugTestCount = value.length
     });
   }
 
   logout() {
     this.tokenStorageService.signOut();
     this.router.navigate(['/'])
+  }
+
+  setPageTitle(pageTitle: string){
+    this.dataService.setSelectedPage(pageTitle);
+    localStorage.setItem('currentPage', pageTitle);
   }
 
   onPageResize(){

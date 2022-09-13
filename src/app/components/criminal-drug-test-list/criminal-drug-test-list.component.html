@@ -31,7 +31,7 @@
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
 
-                    <table *ngIf="drugtests.length === 0" class="table table-hover text-nowrap">
+                    <table *ngIf="drugtests.length > 0" class="table table-hover text-nowrap">
                         <thead>
                             <tr>
                                 <th>Case No.</th>
@@ -45,12 +45,12 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let drugtest of drugtests | paginate: {itemsPerPage: 10, currentPage: p, id: drugtests };">
-                                <td [ngStyle]="{'width': '70px'}"></td>
-                                <td></td>
-                                <td class="text-wrap"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td [ngStyle]="{'width': '70px'}">{{ drugtest.case_no }}</td>
+                                <td>{{ drugtest.suspect_name }}</td>
+                                <td class="text-wrap">{{ drugtest.requesting_party }}</td>
+                                <td>{{ drugtest.mother_unit }}</td>
+                                <td>{{ drugtest.classification }}</td>
+                                <td>{{ drugtest.evidence_status }}</td>
                                 <td>
                                     <button type="button" 
                                         class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>

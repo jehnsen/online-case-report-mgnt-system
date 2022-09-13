@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CaseService } from 'src/app/services/case.service';
 import { RequesterService } from 'src/app/services/requester.service';
 import { FirearminventoryService } from 'src/app/services/firearminventory.service';
+import { CriminalDrugTestService } from 'src/app/services/criminal-drug-test.service';
 import { DataService } from 'src/app/services/data.service';
-import { map } from 'jquery';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  userDivision: string;
 
   cases: any = [];
   requestingParties: any = [];
@@ -28,20 +28,25 @@ export class DashboardComponent implements OnInit {
     private dataService: DataService,
     private caseService: CaseService, 
     private requesterService: RequesterService,
-    private firearminventoryService: FirearminventoryService
+    private firearminventoryService: FirearminventoryService,
+    private criminalDrugTestService: CriminalDrugTestService
   ) { }
 
   ngOnInit(): void {
+
+    this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
+
     this.getTotalCases();
     this.getRequestingParties();
     this.getFirearmsInventory();
+    this.getDrugTestRecords();
   }
 
   getTotalCases(){
-    this.caseService.getCases().subscribe(casesResponse => {
+    this.caseService.getCases(this.userDivision).subscribe(casesResponse => {
 
       if(casesResponse.data){
-        this.cases = casesResponse.data;
+        this.cases = casesResponse.data.filter(f => f.division === this.userDivision);
         this.dataService.setCaseList(this.cases);
 
         this.totalCases = this.cases.length;
@@ -76,5 +81,14 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+
+  getDrugTestRecords(){
+    this.criminalDrugTestService.get().subscribe((dtests: any) => {
+      if(dtests.data){
+        this.dataService.setDrugTestList(dtests.data)
+      }
+      
+    })
+  } 
 
 }

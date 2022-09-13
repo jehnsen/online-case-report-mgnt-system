@@ -14,7 +14,7 @@ export class ModalUserRegistrationComponent implements OnInit {
   formData: FormGroup;
   users: any = [];
   isLoading: boolean = false;
-
+ 
   constructor(
     private fbuilder: FormBuilder,
     private authService: AuthService,
@@ -30,17 +30,18 @@ export class ModalUserRegistrationComponent implements OnInit {
       const sorted = users.sort((a,b) => b.id - a.id)
       this.users = sorted;
     })
-
-
   }
 
   onSubmit(){
-    console.log(this.formData.value)
     this.authService.register(this.formData.value).subscribe(response => {
-      this.dataService.setUserList([...this.users, response.user]);
+      if(response.user){
+        this.dataService.setUserList([...this.users, response.user]);
+        this.toastrService.success('User successfully added!', 'User Registration');
+      }
     })
 
     this.clearFields();
+
   }
 
   clearFields(){

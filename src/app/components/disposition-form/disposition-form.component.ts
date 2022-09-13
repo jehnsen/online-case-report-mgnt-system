@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router  } from '@angular/router'
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { DispositionService } from '../../services/disposition.service';
@@ -15,9 +16,15 @@ export class DispositionFormComponent implements OnInit {
   dispositions: any = [];
   isLoading: boolean = false;
 
-  constructor(private service: DispositionService, private toastr: ToastrService, private fbuilder: FormBuilder) { }
+  constructor(private service: DispositionService, private toastr: ToastrService, private fbuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+
+    const userType = JSON.parse(window.sessionStorage.getItem('auth-user')).user.usertype;
+    if(userType !== 'Administrator'){
+      this.router.navigate(['/main/dashboard']);
+    }
+
     this.clearFields();
 
     this.getDispositions();

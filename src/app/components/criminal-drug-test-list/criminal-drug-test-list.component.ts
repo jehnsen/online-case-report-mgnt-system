@@ -17,11 +17,27 @@ export class CriminalDrugTestListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.dataService.drugTestList$.subscribe((value) => {
+      if(value.length > 0){
+        this.drugtests = value
+      } else {
+        this.getDrugTestRecords();
+      }
+    });
+
+    console.log(this.drugtests)
   }
 
   getDrugTestRecords(){
-
-  }
+    this.service.get().subscribe((dtests: any) => {
+      if(dtests.data){
+        this.drugtests = dtests.data
+        this.dataService.setDrugTestList(this.drugtests)
+      }
+      
+    })
+  } 
 
   obSubmit(){
 
