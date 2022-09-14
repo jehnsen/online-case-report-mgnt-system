@@ -181,22 +181,30 @@ export class CaseEntryComponent implements OnInit {
   }
 
   async onSubmit(){
+
+    if(this.incidentData.invalid){
+      this.toastrService.error('Please provide input on required fields. \n Required fields are highlighted with red colors and marked with asterisk (*).');
+      return;
+    }
+
     let control = this.incidentData.controls
     let payload = {
-      caseNo:        control['caseNo'].value,
+      caseNo:         control['caseNo'].value,
       caseNature:     control['caseNature'].value,
-      investigator:   control['investigator'].value,
+      investigator:   this.userDivision === 'soco' ? control['investigator'].value : 'NA',
       requestingParty: control['requestingParty'].value,
-      incidentTitle:   control['incidentTitle'].value,
-      incidentDescription: control['incidentDescription'].value,
-      disposition:    control['disposition'].value,
+      incidentTitle:   this.userDivision === 'soco' ? control['incidentTitle'].value : 'NA',
+      incidentDescription: this.userDivision === 'soco' ? control['incidentDescription'].value : 'NA',
+      disposition:    this.userDivision === 'soco' ? control['disposition'].value : 'NA',
       incidentTime:   this.isAdd ? this.timeConverterPipe.transform(control['incidentTime'].value) : control['incidentTimeEdit'].value,
       location:       control['location'].value,
       victimName:     control['victimName'].value,
       suspectName:    control['suspectName'].value,
-      reportedBy:     control['reportedBy'].value,
+      reportedBy:     this.userDivision === 'soco' ? control['reportedBy'].value : 'NA',
       incidentDate:   this.isAdd ? this.date : control['incidentDateEdit'].value,
       evidences:      this.evidences,
+      chassisNo:      this.userDivision === 'physical' ? control['chassisno'].value : 'NA',
+      engineNo:       this.userDivision === 'physical' ? control['engineno'].value : 'NA',
       division:       this.userDivision
     }
     this.isLoading = true;
@@ -285,24 +293,32 @@ export class CaseEntryComponent implements OnInit {
 
   clearFields(): void{
     this.incidentData = this.fb.group({
-      'caseNo':           [''],
-      'caseNature':       [''],
+      'caseNo':           ['', Validators.required],
+      'caseNature':       ['', Validators.required],
       'investigator':     [''],
-      'requestingParty':  [''],
+      'requestingParty':  ['', Validators.required],
       'incidentTitle':    [''],
       'incidentDescription': [''],
       'disposition':      [''],
-      'incidentTime':     [''],
+      'incidentTime':     ['', Validators.required],
       'location':         [''],
       'victimName':       [''],
       'suspectName':      [''],
       'reportedBy':       [''],
-      'incidentDate':     [''],
+      'incidentDate':     ['', Validators.required],
       'incidentDateEdit': [''],
       'incidentTimeEdit': [''],
       'engineno':         [''],
       'chassisno':        ['']
     })
+  }
+
+  isFieldValid(field: string) {
+    return this.incidentData.get(field).valid && this.incidentData.get(field).touched;
+  }
+
+  isSelectionFieldValid(field: string) {
+    return this.incidentData.get(field).valid;
   }
 
   updateCategorySelection(e){
@@ -312,4 +328,5 @@ export class CaseEntryComponent implements OnInit {
   back(): void {
     this.router.navigate(['/main/cases']);
   }
+  
 }

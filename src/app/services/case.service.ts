@@ -50,6 +50,8 @@ export class CaseService {
       location:       data.location,
       victim:         data.victimName,
       suspect:        data.suspectName,
+      chassis_no:     data.chassisNo,
+      engine_no:      data.engineNo,
       incident_date:  data.incidentDate,
       evidences:      newEvidencesArray,
       reported_by:    data.reportedBy,

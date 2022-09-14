@@ -17,19 +17,25 @@
                         <div class="card-body">
                             
                             <div class="form-group">
-                                <p for="inputName" class="h6">Case Number</p>
+                                <p for="caseNo" class="h6 control-label required">Case Number <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="caseNo"
-                                        placeholder="ex. SOCO RFU COR - E 001 - 2022"/>
-                                        <!-- <control-messages [control]="incidentData.get('caseNo')"></control-messages> -->
+                                    <input type="text" 
+                                        class="form-control" 
+                                        [ngClass]="isFieldValid('caseNo') ? '' : 'is-invalid'"
+                                        formControlName="caseNo"
+                                        placeholder="ex. SOCO RFU COR - E 001 - 2022" 
+                                        required/>
+                                        <span *ngIf="!isFieldValid('caseNo')" id="caseNoId" class="error invalid-feedback">Please enter a case number.</span>
                                 </div>
+                                
                             </div>
                             <div class="form-group">
-                                <p for="" class="h6">Nature of Case</p>
+                                <p for="" class="h6">Nature of Case <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
                                     <select 
                                         (change)="updateCategorySelection($event)"
                                         class="form-control custom-select" 
+                                        [ngClass]="isFieldValid('caseNature') ? '' : 'is-invalid'"
                                         formControlName="caseNature">
                                         <option *ngFor="let category of categories" [value]="category">
                                             {{ category }}
@@ -45,9 +51,14 @@
                             </div>
                             
                             <div class="form-group">
-                                <p for="inputDescription" class="h6">Requesting Party</p>
+                                <p for="inputDescription" class="h6">Requesting Party <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="requestingParty" >
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        formControlName="requestingParty" 
+                                        [ngClass]="isSelectionFieldValid('requestingParty') ? '' : 'is-invalid'"
+                                    />
                                     <span class="input-group-append">
                                         <div class="input-group input-group-sm">
                                             <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
@@ -56,7 +67,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="userDivision === 'soco'">
                                 <p for="inputName" class="h6">Investigator on Case</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="investigator" />
@@ -64,13 +75,13 @@
                             </div>
 
                             <!-- for physical Identification division -->
-                            <div class="form-group" *ngIf="userDivision === 'ballistic'">
+                            <div class="form-group" *ngIf="userDivision === 'physical'">
                                 <p for="inputName" class="h6">Engine Number</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="engineno" />
                                 </div>
                             </div>
-                            <div class="form-group" *ngIf="userDivision === 'ballistic'">
+                            <div class="form-group" *ngIf="userDivision === 'physical'">
                                 <p for="inputName" class="h6">Chassis Number</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="chassisno" />
@@ -78,10 +89,10 @@
                             </div>
                             <!-- for physical Identification division -->
 
-                            <div class="form-group">
+                            <div class="form-group" *ngIf="userDivision === 'soco' || userDivision === 'chemistry'">
                                 <p for="" class="h6">Disposition of Case</p>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control custom-select" formControlName="disposition">
+                                    <select class="form-control custom-select" formControlName="disposition" [ngClass]="isFieldValid('disposition') ? '' : 'is-invalid'">
                                         <option *ngFor="let disposition of dispositions" [value]="disposition">
                                             {{ disposition }}
                                         </option>
@@ -121,7 +132,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <p for="inputName" class="h6">Date</p>
+                                        <p for="inputName" class="h6">Date <b class="text-danger">*</b></p>
                                         <!-- formGroupName="dtpo" -->
                                         <div *ngIf="isAdd" class="input-group input-group-sm" > 
                                             <input 
@@ -144,7 +155,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <p for="inputName" class="h6">Time</p>
+                                        <p for="inputName" class="h6">Time <b class="text-danger">*</b></p>
                                             <div *ngIf="isAdd" class="input-group input-group-sm date" id="timepicker" data-target-input="nearest">
                                                 <input 
                                                     type="time" 
@@ -208,11 +219,11 @@
     <!-- end of first row -->
 
     <!-- left lower pane -->
-    <div class="row">
+    <div class="row" *ngIf="userDivision === 'soco'">
         <div class="col-md-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Description of Incident/Event</h3>
+                    <h3 class="card-title">Description of Incident/Event <b class="text-danger">*</b></h3>
                     <div class="card-tools"> </div>
                 </div>
                 <!-- /.card-header -->
@@ -221,7 +232,11 @@
                     <div class="col-md-12">
                         <div class="card-body">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Incident/Case Title..." formControlName="incidentTitle" />
+                                <input type="text" class="form-control" 
+                                    placeholder="Incident/Case Title..." 
+                                    formControlName="incidentTitle" 
+                                    [ngClass]="isFieldValid('incidentTitle') ? '' : 'is-invalid'" 
+                                />
                                 
                             </div>
                             <div class="form-group">
@@ -233,7 +248,9 @@
                                     [(ngModel)]="incidentDescription"
                                     name="caseDescription"
                                     placeholder="Enter incident/case description..."
-                                    formControlName="incidentDescription" >
+                                    formControlName="incidentDescription"  
+                                    [ngClass]="isFieldValid('incidentDescription') ? '' : 'is-invalid'" 
+                                >
                                 </textarea> 
                             </div>
                         </div>
@@ -269,12 +286,12 @@
             <div class="mb-3 float-right">
                 <button class="btn btn-secondary mr-3" type="button" (click)="back()">Cancel</button>
                 
-                <button class="btn btn-success pull-right " type="submit">
+                <button class="btn btn-success pull-right " type="submit" >
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <span *ngIf="isLoading" class="sr-only">Loading...</span>
                     {{ isLoading ? 'Saving...' : 'Save' }}
                 </button>
-                <!-- [disabled]="!incidentData.valid" -->
+            
             </div>
         </div>
     </div>
