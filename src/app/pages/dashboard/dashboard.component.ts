@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getTotalCases(){
+    
     this.caseService.getCases(this.userDivision).subscribe(casesResponse => {
 
       if(casesResponse.data){

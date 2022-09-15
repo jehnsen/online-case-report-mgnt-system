@@ -69,7 +69,7 @@ export class CaseEntryComponent implements OnInit {
     })
 
     this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
-    console.log(this.userDivision)
+    
     this.dataService.setIsViewValue(false);
 
     // initialize form group
@@ -107,7 +107,7 @@ export class CaseEntryComponent implements OnInit {
     // if page was refresh, data from input fields is erased
     // we need to navigate the user back to records list
     if(Object.keys(this.selectedIncident).length === 0 && !this.isAdd){
-      this.router.navigate(['/main/cases']);
+      this.router.navigate(['/main/records']);
     }
     // get the files related to this case/incident & store in cache
     this.getCaseFiles(this.caseId);
@@ -146,8 +146,6 @@ export class CaseEntryComponent implements OnInit {
       // get evidence related to this case/incident
       this.getEvidences(this.caseId);
       this.dataService.evidenceList$.subscribe(e => this.evidences = e)
-     console.log('134')
-     console.log(this.evidences)
     }
 
   }
@@ -182,6 +180,8 @@ export class CaseEntryComponent implements OnInit {
 
   async onSubmit(){
 
+    this.isLoading = true;
+
     if(this.incidentData.invalid){
       this.toastrService.error('Please provide input on required fields. \n Required fields are highlighted with red colors and marked with asterisk (*).');
       return;
@@ -195,7 +195,7 @@ export class CaseEntryComponent implements OnInit {
       requestingParty: control['requestingParty'].value,
       incidentTitle:   this.userDivision === 'soco' ? control['incidentTitle'].value : 'NA',
       incidentDescription: this.userDivision === 'soco' ? control['incidentDescription'].value : 'NA',
-      disposition:    this.userDivision === 'soco' ? control['disposition'].value : 'NA',
+      disposition:    this.userDivision === 'soco' || this.userDivision === 'chemistry' ? control['disposition'].value : 'NA',
       incidentTime:   this.isAdd ? this.timeConverterPipe.transform(control['incidentTime'].value) : control['incidentTimeEdit'].value,
       location:       control['location'].value,
       victimName:     control['victimName'].value,
@@ -207,7 +207,6 @@ export class CaseEntryComponent implements OnInit {
       engineNo:       this.userDivision === 'physical' ? control['engineno'].value : 'NA',
       division:       this.userDivision
     }
-    this.isLoading = true;
 
     // crate new incident record
     if(this.isAdd){
@@ -222,7 +221,7 @@ export class CaseEntryComponent implements OnInit {
       
           } else {
 
-            this.caseService.create(payload).subscribe((response) => {
+            this.caseService.create(payload).subscribe((result) => {
 
               this.toastrService.success('New Incident/Event was added to database!', 'New Entry')
 
@@ -230,11 +229,23 @@ export class CaseEntryComponent implements OnInit {
               this.evidences = [];
               this.dataService.setFilesList([]);
               this.clearFields();
+
+              this.caseService.getCases(this.userDivision).subscribe((response: any) => {
+                
+                const filtered = response.data.filter(f => f.division === this.userDivision);
+                // const newList = [...filtered, result.data]
+                // Update the case/incident list in state
+                this.dataService.setCaseList(filtered)
+              })
               
             }, 
             err => this.toastrService.error(err, 'Server Issue Encountered'))
           }
         }, 0);
+
+        // stop the loading animation
+        this.isLoading = false;
+
       })
 
     } else {
@@ -245,18 +256,15 @@ export class CaseEntryComponent implements OnInit {
       }, 
       err => this.toastrService.error(err, 'Server Issue Encountered'))
 
+      // stop the loading animation
+      this.isLoading = false;
+
       // this.fileService.getFiles(this.caseId).subscribe(f => this.files = f.data)
     }
     // update newly added files on edit mode
     this.fileService.updateFileByCaseId(this.caseId).subscribe(f => console.log(f))
 
-    this.caseService.getCases(this.userDivision).subscribe((response: any) => {
-      // Update the case/incident list in state
-      this.dataService.setCaseList(response.data)
-    })
-
-    // stop the loading animation
-    this.isLoading = false;
+    
 
   }
 
@@ -276,13 +284,17 @@ export class CaseEntryComponent implements OnInit {
 
   getCategories(){
     this.categoryService.get().subscribe(c => {
-      c.data.map(v => this.categories.push(v.description))
+
+      c.data
+        .filter(f => f.division === this.userDivision)
+        .map(v => this.categories.push(v.description))
     })
+    
   }
 
   getDispositions(){
     this.dispositionService.getDispositions().subscribe(r => {
-      console.log(r)
+      
       r.data.map(dis => this.dispositions.push(dis.description))
     })
   }
@@ -326,7 +338,7 @@ export class CaseEntryComponent implements OnInit {
   }
 
   back(): void {
-    this.router.navigate(['/main/cases']);
+    this.router.navigate(['/main/records']);
   }
   
 }

@@ -14,6 +14,7 @@ export class CaseViewComponent implements OnInit {
   evidences: any;
   files: [];
   id: any;
+  userDivision: string;
   constructor(private route: ActivatedRoute, private caseService: CaseService, private dataService: DataService,  private fileService: FileService) { }
 
   ngOnInit(): void {
@@ -21,6 +22,9 @@ export class CaseViewComponent implements OnInit {
       this.id = +params.get('id')
     })
     this.id = this.route.snapshot.paramMap.get('id');
+    
+    this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
+
     // view mode
     this.dataService.setIsViewValue(true);
     this.getSelectedCase(this.id);

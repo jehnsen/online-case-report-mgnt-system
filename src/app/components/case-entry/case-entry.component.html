@@ -21,11 +21,10 @@
                                 <div class="input-group input-group-sm">
                                     <input type="text" 
                                         class="form-control" 
-                                        [ngClass]="isFieldValid('caseNo') ? '' : 'is-invalid'"
                                         formControlName="caseNo"
-                                        placeholder="ex. SOCO RFU COR - E 001 - 2022" 
                                         required/>
-                                        <span *ngIf="!isFieldValid('caseNo')" id="caseNoId" class="error invalid-feedback">Please enter a case number.</span>
+                                        <!-- [ngClass]="isFieldValid('caseNo') ? '' : 'is-invalid'" -->
+                                        <!-- <span *ngIf="this.incidentData.get('caseNo').touched" class="error invalid-feedback">Please enter case number.</span> -->
                                 </div>
                                 
                             </div>
@@ -35,12 +34,12 @@
                                     <select 
                                         (change)="updateCategorySelection($event)"
                                         class="form-control custom-select" 
-                                        [ngClass]="isFieldValid('caseNature') ? '' : 'is-invalid'"
                                         formControlName="caseNature">
                                         <option *ngFor="let category of categories" [value]="category">
                                             {{ category }}
                                         </option>
                                     </select>
+                                    <!-- <span *ngIf="!isFieldValid('caseNature')" class="error invalid-feedback">Please enter a case number.</span> -->
                                     <!-- <option>Shooting Incident</option>
                                     <option>Found Dead Body</option>
                                     <option>hacking incident</option>
@@ -57,7 +56,6 @@
                                         type="text" 
                                         class="form-control" 
                                         formControlName="requestingParty" 
-                                        [ngClass]="isSelectionFieldValid('requestingParty') ? '' : 'is-invalid'"
                                     />
                                     <span class="input-group-append">
                                         <div class="input-group input-group-sm">
@@ -92,7 +90,7 @@
                             <div class="form-group" *ngIf="userDivision === 'soco' || userDivision === 'chemistry'">
                                 <p for="" class="h6">Disposition of Case</p>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control custom-select" formControlName="disposition" [ngClass]="isFieldValid('disposition') ? '' : 'is-invalid'">
+                                    <select class="form-control custom-select" formControlName="disposition">
                                         <option *ngFor="let disposition of dispositions" [value]="disposition">
                                             {{ disposition }}
                                         </option>
@@ -202,7 +200,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <div *ngIf="userDivision === 'soco'" class="form-group">
                                 <p for="inputName" class="h6">Reported By</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="reportedBy" />
@@ -286,10 +284,10 @@
             <div class="mb-3 float-right">
                 <button class="btn btn-secondary mr-3" type="button" (click)="back()">Cancel</button>
                 
-                <button class="btn btn-success pull-right " type="submit" >
+                <button class="btn btn-success pull-right " type="submit">
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <span *ngIf="isLoading" class="sr-only">Loading...</span>
-                    {{ isLoading ? 'Saving...' : 'Save' }}
+                    Save Record
                 </button>
             
             </div>

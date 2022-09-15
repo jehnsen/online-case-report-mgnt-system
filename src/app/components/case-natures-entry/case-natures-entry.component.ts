@@ -58,7 +58,7 @@ export class CaseNaturesEntryComponent implements OnInit {
   }
 
   clearFields():void {
-    this.formData = this.fbuilder.group({'categoryDescription': ['']})
+    this.formData = this.fbuilder.group({ 'categoryDescription': [''], 'division': [''] })
   }
 
 }

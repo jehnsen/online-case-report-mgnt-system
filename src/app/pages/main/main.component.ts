@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ngResizeObserverProviders, NgResizeObserver } from 'ng-resize-observer';
-
+import { CaseService } from 'src/app/services/case.service';
+import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -11,11 +12,31 @@ import { ngResizeObserverProviders, NgResizeObserver } from 'ng-resize-observer'
 export class MainComponent implements OnInit {
 
   width$ = this.resize$.pipe(map(entry => entry.contentRect.width));
+  userDivision: string;
 
-  constructor(private resize$: NgResizeObserver) {}
+  cases: any = [];
+
+  constructor(
+    private resize$: NgResizeObserver,
+    private dataService: DataService,
+    private caseService: CaseService
+    ) {}
 
   ngOnInit(): void {
-    
+    this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
+    this.getTotalCases();
+  }
+
+  getTotalCases(){
+    this.caseService.getCases(this.userDivision).subscribe(casesResponse => {
+
+      if(casesResponse.data){
+        this.cases = casesResponse.data.filter(f => f.division === this.userDivision);
+        this.dataService.setCaseList(this.cases);
+
+      }
+      
+    })
   }
 
 }

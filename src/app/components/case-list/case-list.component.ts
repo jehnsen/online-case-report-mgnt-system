@@ -17,19 +17,20 @@ export class CaseListComponent implements OnInit {
   constructor(private router: Router, private caseService: CaseService, private dataService: DataService, private toastrService: ToastrService,) { }
 
   ngOnInit(): void {
-
+    console.log('case list')
     this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
     
     this.dataService.caseList$.subscribe((value) => {
       if(value.length > 0){
         this.cases = value
       } else {
-        // this.getCases(this.userDivision);
+        this.getCases(this.userDivision);
       }
     });
   }
 
   getCases(division: string): void {
+
     this.caseService.getCases(division).subscribe((response: any) => {
       if(response.data){
         // filter only the data for the current division
@@ -47,19 +48,19 @@ export class CaseListComponent implements OnInit {
       this.getCases(this.userDivision)
     } else {
       this.cases = this.cases.filter((c: any) => {
-        return c.incident_title.toLocaleLowerCase().match(this.caseTitle.toLocaleLowerCase());
+        return c.case_no.toLocaleLowerCase().match(this.caseTitle.toLocaleLowerCase());
       });
     }
   }
 
   onSelectEdit(incident: any){
     this.dataService.setCase(incident)
-    this.router.navigate(['/main/cases/entry', incident.id]);
+    this.router.navigate(['/main/records/entry', incident.id]);
   }
 
   onCreateNew(){
     this.dataService.setCase(null)
-    this.router.navigate(['/main/cases/entry']);
+    this.router.navigate(['/main/records/entry']);
   }
   
   onCacheList(data: any){

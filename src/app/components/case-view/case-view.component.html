@@ -8,7 +8,13 @@
         <div class="col-md-12">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title" *ngIf="selectedCase"><b>INCIDENT/EVENT:</b> {{ selectedCase.incident_title }}</h3>
+                    <h3 class="card-title" *ngIf="selectedCase && userDivision === 'soco'">
+                        <b>INCIDENT/EVENT:</b> {{ selectedCase.incident_title }}
+                    </h3>
+
+                    <h3 class="card-title" *ngIf="selectedCase">
+                        <h6>VIEW DETAILS</h6>
+                    </h3>
                     <div class="card-tools noprint"> 
                         <!-- <button type="button" 
                             [routerLink]="['../../entry', id]" 
@@ -48,13 +54,13 @@
                                             <p class="h6">{{ selectedCase.requesting_party }}</p>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" *ngIf="userDivision === 'soco'">
                                         <p class="m-0">Investigator on Case</p>
                                         <div class="input-group input-group-sm">
                                             <p class="h6">{{ selectedCase.investigator }}</p>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" *ngIf="userDivision === 'soco' || userDivision === 'chemistry'">
                                         <p class="m-0">Disposition of Case</p>
                                         <div class="input-group input-group-sm">
                                             <span class="badge badge-pill badge-warning">{{ selectedCase.disposition }}</span>
@@ -88,7 +94,7 @@
                                             <p class="h6">{{ selectedCase.suspect }}</p>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" *ngIf="userDivision === 'soco'">
                                         <p class="h6">Reported By</p>
                                         <div class="input-group input-group-sm">
                                             <p class="h6">{{ selectedCase.reported_by }}</p>
@@ -98,14 +104,13 @@
 
                             </div>
 
-                            <div class="row">
+                            <div class="row" *ngIf="userDivision === 'soco'">
                                 <div class="col-md-12">
                                     <div class="callout callout-success">
                                         <h5>Summary</h5>
                                         <p>{{ selectedCase.incident_description }}</p>
                                     </div>
                                 </div>
-                            
                             </div>
 
                         </div>

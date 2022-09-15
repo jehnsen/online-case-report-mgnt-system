@@ -21,13 +21,11 @@
             <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
                 <div class="os-content" style="padding: 0px 8px; height: 100%; width: 100%;">
                     <!-- Sidebar user panel (optional) -->
-                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex" *ngIf="userType !== 'Administrator'">
                         <!-- <div class="image">
-                            <img src="assets/icons/org.png" class=" elevation-0"> 
-                                
+                            <img src="assets/icons/org.png" class=" elevation-0">  
                         </div> -->
-                        
-                        <div class="info text-wrap">
+                        <div class="info text-wrap" >
                             <a href="javascript:void(0)" class="d-block text-sm ml-2">{{ division | uppercase }} DIVISION</a>
                         </div>
                     </div>
@@ -47,13 +45,13 @@
                                     <p> Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-item" >
+                            <li class="nav-item" *ngIf="userType !== 'Administrator'">
                                 <a 
                                     *ngIf="division !== 'ballistic'"
                                     href="javascript:void(0)" 
                                     class="nav-link" 
                                     (click)="setPageTitle('LIST OF REPORTED INCIDENTS/EVENTS')"
-                                    [routerLink]="['cases']"
+                                    [routerLink]="['records']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-layer-group"></i>
                                     <p>
@@ -62,7 +60,7 @@
                                             : division === 'chemistry'
                                                 ? 'Chemistry Records'
                                                 : division === 'physical'
-                                                    ? 'Physical Identification Records'
+                                                    ? 'P.I. Records'
                                                     : 'FingerPrint Records'
                                         }} 
                                         <span *ngIf="this.count > 0" class="badge badge-pill badge-primary right">
@@ -77,7 +75,7 @@
                                     (click)="setPageTitle('FIREARMS INVENTORY')"
                                     [routerLink]="['firearms']"
                                     routerLinkActive="router-link-active">
-                                    <i class="nav-icon fa fa-cutlery"></i>
+                                    <i class="nav-icon fa fa-list-ul"></i>
                                     <p>Firearms Inventory
                                         <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
                                             {{ firearmInventoryCount > 0 ? firearmInventoryCount : null }}
@@ -91,7 +89,7 @@
                                     (click)="setPageTitle('CRIMINAL DRUG TEST & DANGEROUS DRUGS RECORDS')"
                                     [routerLink]="['drugtest']"
                                     routerLinkActive="router-link-active">
-                                    <i class="nav-icon fa fa-cutlery"></i>
+                                    <i class="nav-icon fa fa-search"></i>
                                     <p>Criminal Drug Test
                                         <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
                                             {{ drugTestCount > 0 ? drugTestCount : null }}
@@ -119,31 +117,46 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link" [routerLink]="['cases/manage/categories']"  routerLinkActive="router-link-active">
+                                        <a href="#" class="nav-link" 
+                                        (click)="setPageTitle('MANAGE CASE NATURES')"
+                                        [routerLink]="['records/manage/categories']"  
+                                        routerLinkActive="router-link-active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Nature of Cases</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link" [routerLink]="['manage/persons']"  routerLinkActive="router-link-active">
+                                        <a href="#" class="nav-link" 
+                                        (click)="setPageTitle('MANAGE LIST OF SUSPECTS')"
+                                        [routerLink]="['manage/persons']"  
+                                        routerLinkActive="router-link-active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Suspects</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link" [routerLink]="['manage/persons']"  routerLinkActive="router-link-active">
+                                        <a href="#" class="nav-link" 
+                                        (click)="setPageTitle('MANAGE LIST OF VICTIMS')"
+                                        [routerLink]="['manage/persons']"  
+                                        routerLinkActive="router-link-active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Victims</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link" [routerLink]="['cases/manage/requesting-parties']"  routerLinkActive="router-link-active">
+                                        <a href="#" class="nav-link" 
+                                        (click)="setPageTitle('MANAGE REQUESTING PARTIES')"
+                                        [routerLink]="['records/manage/requesting-parties']"  
+                                        routerLinkActive="router-link-active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Requesting Parties</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link" [routerLink]="['manage/dispositions']"  routerLinkActive="router-link-active">
+                                        <a href="#" class="nav-link" 
+                                        (click)="setPageTitle('MANAGE DISPOSITIONS')"
+                                        [routerLink]="['manage/dispositions']"  
+                                        routerLinkActive="router-link-active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Dispositions</p>
                                         </a>

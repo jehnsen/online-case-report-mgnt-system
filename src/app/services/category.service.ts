@@ -33,12 +33,20 @@ export class CategoryService {
   }
 
   public create(data): Observable<any> {
-    return this.httpClient.post(`${environment.apiUrl}/api/category`, { description:  data.categoryDescription }, httpOptions)
+    const payload = {
+      description:  data.categoryDescription,
+      division:     data.division
+    }
+    return this.httpClient.post(`${environment.apiUrl}/api/category`, payload, httpOptions)
     .pipe(catchError(this.handleError));
   }
 
   update(data: any, id: number){
-    return this.httpClient.put(`${environment.apiUrl}/api/category/${id}`, { description:  data.categoryDescription }, httpOptions)
+    const payload = {
+      description:  data.categoryDescription,
+      division:     data.division
+    }
+    return this.httpClient.put(`${environment.apiUrl}/api/category/${id}`, payload, httpOptions)
   }
 
   public delete(id): Observable<any> {
