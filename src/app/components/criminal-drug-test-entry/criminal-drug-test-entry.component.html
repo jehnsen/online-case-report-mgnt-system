@@ -215,16 +215,21 @@
     
                                             <div class="form-group">
                                                 <p for="inputName" class="h6">Date Last Withdrawn</p>
-                                                <div class="input-group input-group-sm">
+                                                <div *ngIf="isAdd" class="input-group input-group-sm">
                                               
-                                                    <input class="form-control" placeholder="mm/dd/yyyy" name="dp"
-                                                            [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"
-                                                            [ngStyle]="{'backgroundColor': 'white'}" formControlName="date_last_withdrawn"
-                                                            (dateSelect)="onDateSelect($event)" readonly>
-                                                        <div class="input-group-append">
-                                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
-                                                                type="button">📅</button>
-                                                        </div>
+                                                    <input class="form-control" placeholder="mm/dd/yyyy" name="dp" [(ngModel)]="model2" ngbDatepicker #d="ngbDatepicker"
+                                                        [ngStyle]="{'backgroundColor': 'white'}" formControlName="date_last_withdrawn"
+                                                        (dateSelect)="onDateLastWithdrawnSelect($event)" readonly>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">📅</button>
+                                                    </div>
+
+                                                    
+                                                </div>
+
+                                                <div *ngIf="!isAdd" class="input-group input-group-sm">
+                                                    <input type="text" class="form-control"
+                                                        formControlName="date_last_withdrawn_edit" />
                                                 </div>
                                             </div>
     

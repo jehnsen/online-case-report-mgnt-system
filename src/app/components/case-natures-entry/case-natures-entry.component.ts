@@ -12,7 +12,7 @@ export class CaseNaturesEntryComponent implements OnInit {
   formData: FormGroup;
   categories: any = [];
   isLoading: boolean = false;
-
+  p: number = 1;
   constructor(private fbuilder: FormBuilder, private categoryService: CategoryService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
@@ -59,6 +59,21 @@ export class CaseNaturesEntryComponent implements OnInit {
 
   clearFields():void {
     this.formData = this.fbuilder.group({ 'categoryDescription': [''], 'division': [''] })
+  }
+
+  getClass(value) {
+
+    return {
+      'badge': true,
+      'text-wrap': true,
+      'bg-maroon': value === 'soco',
+      'bg-indigo': value === 'physical',
+      'bg-teal': value === 'chemistry',
+      'bg-fuchsia': value === 'fingerprint',
+      'bg-purple': value === 'ballistic',
+      'bg-lightblue': value === 'photography'
+    }
+
   }
 
 }

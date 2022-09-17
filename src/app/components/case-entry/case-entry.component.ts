@@ -41,6 +41,7 @@ export class CaseEntryComponent implements OnInit {
   existingRecord: any;
   selectedCategory: any;
   userDivision: string;
+  userData: any;
 
   @ViewChild('dp') dp: NgbDatepicker;
   @ViewChild(EvidenceListComponent) evidenceList: any;
@@ -68,8 +69,11 @@ export class CaseEntryComponent implements OnInit {
       console.log(`activated route: ${this.caseId}`);
     })
 
-    this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
-    
+    this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
+    this.userDivision = this.userData.division;
+    if(this.userData.usertype !== 'Encoder'){
+      this.router.navigate(['/main/records']);
+    }
     this.dataService.setIsViewValue(false);
 
     // initialize form group
@@ -119,7 +123,14 @@ export class CaseEntryComponent implements OnInit {
     this.getDispositions();
     // edit mode
     if(this.caseId > 0){ 
+      if(!this.selectedIncident) {
+        console.log('fuck')
+        this.getCase(this.caseId);
+      }
+      console.log('selectedIncident')
+      console.log(this.selectedIncident)
       const _incident = this.selectedIncident
+      
       this.incidentData.setValue({
         'caseNo':         _incident.case_no,
         'caseNature':     _incident.case_nature,
@@ -136,7 +147,10 @@ export class CaseEntryComponent implements OnInit {
         'incidentTime':   _incident.incident_time,
         'incidentDateEdit': _incident.incident_date,
         'incidentTimeEdit':   _incident.incident_time,
+        'engineno': [''],
+        'chassisno': ['']
       })
+     
       this.date = _incident.incident_date
       // set the ng model of the textarea
       this.incidentDescription = _incident.incident_description
@@ -266,6 +280,14 @@ export class CaseEntryComponent implements OnInit {
 
     
 
+  }
+
+  getCase(id: number){
+    this.caseService.getById(id).subscribe((record: any) => {
+      this.selectedIncident = record.data;
+      console.log(record.data)
+      this.dataService.setCase(record.data)
+    })
   }
 
   getCaseFiles(id: number){

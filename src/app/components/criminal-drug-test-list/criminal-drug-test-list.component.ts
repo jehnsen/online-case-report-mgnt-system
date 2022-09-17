@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CriminalDrugTestService } from '../../services/criminal-drug-test.service';
 import { DataService } from '../../services/data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-criminal-drug-test-list',
   templateUrl: './criminal-drug-test-list.component.html',
@@ -11,13 +11,15 @@ export class CriminalDrugTestListComponent implements OnInit {
   p: number = 1;
   drugtests: any = []
   searchKeyword: any = []
+  userData: any;
   constructor(
     private service: CriminalDrugTestService,
-    private dataService: DataService
+    private dataService: DataService,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit(): void {
-
+    this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
     this.dataService.drugTestList$.subscribe((value) => {
       if(value.length > 0){
         this.drugtests = value
@@ -43,10 +45,6 @@ export class CriminalDrugTestListComponent implements OnInit {
 
   }
 
-  onDelete(id: number){
-
-  }
-
   Search(){
     if(this.searchKeyword == ""){
       this.getDrugTestRecords()
@@ -55,6 +53,18 @@ export class CriminalDrugTestListComponent implements OnInit {
         return f.firearm_name.toLocaleLowerCase().match(this.searchKeyword.toLocaleLowerCase());
       });
     }
+  }
+
+  setPageTitle(pageTitle: string){
+    this.dataService.setSelectedPage(pageTitle);
+  }
+
+  onDelete(id: number){
+    this.service.delete(id).subscribe(result => {
+      this.getDrugTestRecords();
+      this.toastrService.success('Criminal Drugtest Record successfully deleted!')
+
+    })
   }
 
 }

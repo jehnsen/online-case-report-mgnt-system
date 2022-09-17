@@ -6,16 +6,18 @@
       <div class="card card-outline card-primary">
         <div class="card-header" >
 
-          <!-- <div class="row"> -->
-            <!-- <div class="md-col-6"> -->
-              
-              <button type="button" class="btn btn-success btn-sm float-left" [routerLink]="['entry']" (click)="setPageTitle('CREATE NEW INCIDENT/CASE RECORD')"
-                routerLinkActive="router-link-active">
-                <i class="fas fa-plus"></i> New Record
-              </button>
-            <!-- </div> -->
-          <!-- </div> -->
-          
+          <!-- add button -->
+          <button 
+            *ngIf="userData.usertype === 'Encoder'"
+            type="button" 
+            class="btn btn-success btn-sm float-left" 
+            [routerLink]="['entry']" 
+            (click)="setPageTitle('CREATE NEW INCIDENT/CASE RECORD')"
+            routerLinkActive="router-link-active">
+            <i class="fas fa-plus"></i> New Record
+          </button>
+          <!-- end: add button -->
+
           <div class="card-tools">
             <div class="input-group input-group-sm">
 
@@ -58,20 +60,21 @@
                 <td *ngIf="userDivision === 'soco' || userDivision ==='chemistry'"><app-case-status [value]="case.disposition"></app-case-status></td>
                 <td *ngIf="userDivision === 'physical' || userDivision ==='fingerprint' || userDivision ==='photography'">{{ case.incident_date }} {{ case.incident_time }}</td>
                 <td>
-                  <button type="button" (click)="onSelectEdit(case)" class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
+                  <button *ngIf="userData.usertype === 'Encoder'" type="button" (click)="onSelectEdit(case)" class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
                   <button type="button" [routerLink]="['view', case.id]" class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
-                  <button type="button" (click)="onDelete(case.id)" class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
+                  <button *ngIf="userData.usertype === 'Encoder'" type="button" (click)="onDelete(case.id)" class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
                 </td>
               </tr>
             </tbody>
           </table>
 
           <div *ngIf="cases.length === 0" class="d-flex justify-content-center m-4">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <!-- <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
               <span class="sr-only">Loading...</span>
-            </div>
+            </div> -->
+            No records found.
           </div>
-
+          
         </div>
         <!-- /.card-body -->
         <div class="card-footer clearfix">

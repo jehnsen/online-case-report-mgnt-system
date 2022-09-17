@@ -33,9 +33,20 @@ export class CriminalDrugTestService {
   }
 
   public create(payload): Observable<any> {
-    console.log(payload)
-    
     return this.httpClient.post(`${environment.apiUrl}/api/drugtest`, payload, httpOptions)
       .pipe(catchError(this.handleError));
+  }
+
+  update(id: number, payload: any){
+    return this.httpClient.put(`${environment.apiUrl}/api/drugtest/${id}`, payload, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  getById(id: number){
+    return this.httpClient.get(`${environment.apiUrl}/api/drugtest/${id}`).pipe(catchError(this.handleError));
+  }
+
+  delete(id: number){
+    return this.httpClient.delete(`${environment.apiUrl}/api/drugtest/${id}`).pipe(catchError(this.handleError));
   }
 }

@@ -53,6 +53,8 @@ import { DangerousDrugsListComponent } from './components/dangerous-drugs-list/d
 import { DangerousDrugsEntryComponent } from './components/dangerous-drugs-entry/dangerous-drugs-entry.component';
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { RequiredMarkerComponent } from './components/validations/required-marker/required-marker.component';
+import { UserUpdatePasswordComponent } from './components/user-update-password/user-update-password.component';
+import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-view/criminal-drug-test-view.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +99,9 @@ import { RequiredMarkerComponent } from './components/validations/required-marke
     DangerousDrugsListComponent,
     DangerousDrugsEntryComponent,
     PageTitleComponent,
-    RequiredMarkerComponent
+    RequiredMarkerComponent,
+    UserUpdatePasswordComponent,
+    CriminalDrugTestViewComponent
   ],
   imports: [
     HttpClientModule,

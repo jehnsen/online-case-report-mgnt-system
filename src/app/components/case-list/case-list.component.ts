@@ -11,14 +11,15 @@ import { DataService } from '../../services/data.service';
 })
 export class CaseListComponent implements OnInit {
   userDivision: string;
+  userData: any;
   p: number = 1;
   public cases : any = [];
   caseTitle: any;
   constructor(private router: Router, private caseService: CaseService, private dataService: DataService, private toastrService: ToastrService,) { }
 
   ngOnInit(): void {
-    console.log('case list')
-    this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
+    this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
+    this.userDivision = this.userData.division;
     
     this.dataService.caseList$.subscribe((value) => {
       if(value.length > 0){

@@ -26,6 +26,10 @@ export class AuthService {
     return this.httpClient.post(`${BASE_URL}/api/register`, user, httpOptions);
   }
 
+  updatePassword(id: number, password: string){
+    return this.httpClient.put(`${BASE_URL}/api/user/update-password/${id}`, { password }, httpOptions);
+  }
+
   get(): Observable<any>{
     return this.httpClient.get(`${BASE_URL}/api/user`, httpOptions);
   }

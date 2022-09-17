@@ -1,7 +1,12 @@
 <div>
     <div class="row">
         <div class="col-12">
-            <button type="button" class="btn btn-success btn-sm mb-2 float-right" [routerLink]="['entry']"
+            <button 
+                *ngIf="userData.usertype === 'Encoder'"
+                type="button" 
+                (click)="setPageTitle('CREATE NEW CRIMINAL DRUG TEST RECORD')"
+                class="btn btn-success btn-sm mb-2 float-right" 
+                [routerLink]="['entry']"
                 routerLinkActive="router-link-active">
                 <i class="fas fa-plus"></i> New Record
             </button>
@@ -52,11 +57,11 @@
                                 <td>{{ drugtest.classification }}</td>
                                 <td>{{ drugtest.evidence_status }}</td>
                                 <td>
-                                    <button type="button" 
+                                    <button type="button" *ngIf="userData.usertype === 'Encoder'" [routerLink]="['entry', drugtest.id]"
                                         class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
-                                    <button type="button" [routerLink]="['view', 1]"
+                                    <button type="button" [routerLink]="['view', drugtest.id]"
                                         class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
-                                    <button type="button" (click)="onDelete(1)"
+                                    <button type="button" *ngIf="userData.usertype === 'Encoder'" (click)="onDelete(drugtest.id)"
                                         class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>

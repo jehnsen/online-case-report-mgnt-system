@@ -1,5 +1,5 @@
 <li class="nav-item dropdown mr-2">
-    <a class="nav-link" data-toggle="dropdown" href="#"> 
+    <a class="nav-link" data-toggle="dropdown" href="#">
         Welcome {{ sessionData.user.firstname.toUpperCase() }}!
         <i class="far fa-user text-info ml-2"></i>
         <span class="badge badge-warning navbar-badge"></span>
@@ -8,19 +8,19 @@
         <!-- <span class="dropdown-item dropdown-header">Notifications</span> -->
         <div class="dropdown-divider"></div>
         <a href="javascript:void(0)" class="dropdown-item">
-            <i class="fas fa-circle mr-2 text-info"></i> 
-            Messages
-            <!-- <span class="float-right text-muted text-sm">3 mins</span> -->
+            <i class="fas fa-circle mr-2 text-info"></i>
+            Account Type
+            <span class="float-right text-muted text-sm">{{ sessionData.user.usertype }}</span>
         </a>
         <div class="dropdown-divider"></div>
-        <a href="javascript:void(0)" class="dropdown-item">
-            <i class="fas fa-circle mr-2 text-warning"></i> 
+        <a href="javascript:void(0)"  [routerLink]="['users/update-password']"  class="dropdown-item">
+            <i class="fas fa-circle mr-2 text-warning"></i>
             Update Password
             <!-- <span class="float-right text-muted text-sm">12 hours</span> -->
         </a>
         <div class="dropdown-divider"></div>
         <a href="javascript:void(0)" class="dropdown-item" (click)="logout()">
-            <i class="fas fa-circle mr-2 text-danger"></i> 
+            <i class="fas fa-circle mr-2 text-danger"></i>
             Logout
             <!-- <span class="float-right text-muted text-sm">2 days</span> -->
         </a>
