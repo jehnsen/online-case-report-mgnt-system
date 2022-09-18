@@ -21,7 +21,7 @@
                                     <div class="row">
 
                                         <div class="form-group">
-                                            <p for="inputName" class="h6">Case Number</p>
+                                            <p for="inputName" class="h6">Case Number <b class="text-danger">*</b></p>
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" formControlName="case_no"
                                                     placeholder="ex. FAIS-000-XXXX" />
@@ -30,14 +30,14 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <p for="inputDescription" class="h6">Suspect</p>
+                                            <p for="inputDescription" class="h6">Suspect <b class="text-danger">*</b></p>
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" formControlName="suspect_name">
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <p for="" class="h6">Mother Unit</p>
+                                            <p for="" class="h6">Mother Unit <b class="text-danger">*</b></p>
                                             <div class="input-group input-group-sm">
                                                 <select class="form-control custom-select" formControlName="mother_unit">
                                                     <option>CIDG</option>
@@ -51,7 +51,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <p for="" class="h6">Type of Operation</p>
+                                            <p for="" class="h6">Type of Operation <b class="text-danger">*</b></p>
                                             <div class="input-group input-group-sm">
                                                 <select class="form-control custom-select" formControlName="operation_type">
                                                     <option>BUY-BUST</option>
@@ -68,7 +68,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <p for="inputName" class="h6">Examiner</p>
+                                            <p for="inputName" class="h6">Examiner <b class="text-danger">*</b></p>
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" formControlName="examiner" />
                                             </div>
@@ -84,7 +84,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <p for="inputName" class="h6">Date</p>
+                                                    <p for="inputName" class="h6">Date <b class="text-danger">*</b></p>
                                                     <!-- formGroupName="dtpo" -->
                                                     <div *ngIf="isAdd" class="input-group input-group-sm">
                                                         <input class="form-control" placeholder="mm/dd/yyyy" name="dp"
@@ -102,7 +102,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p for="inputName" class="h6">Time</p>
+                                                    <p for="inputName" class="h6">Time <b class="text-danger">*</b></p>
                                                     <div *ngIf="isAdd" class="input-group input-group-sm date" id="timepicker"
                                                         data-target-input="nearest">
                                                         <input type="time" class="form-control datetimepicker-input"
@@ -156,7 +156,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <p for="inputName" class="h6">Classification</p>
+                                            <p for="inputName" class="h6">Classification <b class="text-danger">*</b></p>
                                             <div class="input-group input-group-sm">
                                                 <input type="text" class="form-control" formControlName="classification" />
                                             </div>
@@ -241,7 +241,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <p for="inputName" class="h6">Criminal Case Number</p>
+                                                <p for="inputName" class="h6">Criminal Case Number <b class="text-danger">*</b></p>
                                                 <div class="input-group input-group-sm">
                                                     <input type="text" class="form-control" formControlName="criminal_case_no" />
                                                 </div>
@@ -283,16 +283,8 @@
 
                                         </div>
                                     </div>
-
-
-
                                 </div>
-
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -310,7 +302,7 @@
             <div class="mb-3 float-right">
                 <button class="btn btn-secondary mr-3" type="button" (click)="back()">Cancel</button>
 
-                <button class="btn btn-success pull-right " type="submit">
+                <button class="btn btn-success pull-right " type="submit" [disabled]="formData.invalid">
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
                         aria-hidden="true"></span>
                     <span *ngIf="isLoading" class="sr-only">Loading...</span>

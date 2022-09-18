@@ -33,12 +33,12 @@ export class DispositionService {
   }
 
   public create(data): Observable<any> {
-    return this.httpClient.post(`${environment.apiUrl}/api/disposition`, { description:  data.dispositionName }, httpOptions)
+    return this.httpClient.post(`${environment.apiUrl}/api/disposition`, { description:  data.dispositionName, division: data.division }, httpOptions)
     .pipe(catchError(this.handleError));
   }
 
   update(data: any, id: number){
-    return this.httpClient.put(`${environment.apiUrl}/api/disposition/${id}`, { description:  data.dispositionName }, httpOptions)
+    return this.httpClient.put(`${environment.apiUrl}/api/disposition/${id}`, { description:  data.dispositionName, division: data.division }, httpOptions)
   }
 
   public delete(id): Observable<any> {

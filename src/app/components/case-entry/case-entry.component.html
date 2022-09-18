@@ -88,7 +88,7 @@
                             <!-- for physical Identification division -->
 
                             <div class="form-group" *ngIf="userDivision === 'soco' || userDivision === 'chemistry'">
-                                <p for="" class="h6">Disposition of Case</p>
+                                <p for="" class="h6">Disposition of Case <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
                                     <select class="form-control custom-select" formControlName="disposition">
                                         <option *ngFor="let disposition of dispositions" [value]="disposition">
@@ -282,7 +282,7 @@
             <div class="mb-3 float-right">
                 <button class="btn btn-secondary mr-3" type="button" (click)="back()">Cancel</button>
                 
-                <button class="btn btn-success pull-right " type="submit">
+                <button class="btn btn-success pull-right " type="submit" [disabled]="incidentData.invalid">
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <span *ngIf="isLoading" class="sr-only">Loading...</span>
                     Save Record

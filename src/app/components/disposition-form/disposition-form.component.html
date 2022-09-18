@@ -17,6 +17,19 @@
                                         <input type="text" class="form-control" formControlName="dispositionName" />
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <p for="" class="h6">Division</p>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control custom-select" formControlName="division">
+                                            <option value="soco">SOCO Division</option>
+                                            <option value="chemistry">Chemistry Division</option>
+                                            <option value="photography">Photography Division</option>
+                                            <option value="ballistic">Ballistics Division</option>
+                                            <option value="physical">Physical Examination Division</option>
+                                            <option value="fingerprint">Fingerprint Division</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button class="btn btn-success float-right" type="submit">
@@ -55,8 +68,9 @@
                     <table class="table table-hover">
         
                         <tbody>
-                            <tr *ngFor="let d of dispositions">
+                            <tr *ngFor="let d of dispositions | paginate: {itemsPerPage: 10, currentPage: p, id: dispositions };">
                                 <td>{{ d.description }}</td>
+                                <td><span [ngClass]="getClass(d.division)">{{ d.division | uppercase }}</span></td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-xs float-right" (click)="onDelete(d.id)">
                                         <i class="fas fa-times"></i>
@@ -73,6 +87,9 @@
                       </div>
                 </div>
                 <!-- /.card-body -->
+                <div class="card-footer clearfix">
+                    <pagination-controls (pageChange)="p = $event" [id]="dispositions"></pagination-controls>
+                </div>
                 <div class="card-footer" *ngIf="dispositions.length === 0">
                     <p class="text-primary text-sm">No records found.</p>
                 </div>

@@ -31,75 +31,75 @@
                                     <div class="form-group">
                                         <p class="m-0">Chemistry Case Number</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.case_no }}</p>
+                                            <p class="h6">{{ selectedRecord.case_no || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Name of Suspect</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.suspect_name }}</p>
+                                            <p class="h6">{{ selectedRecord.suspect_name || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Description</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.description }}</p>
+                                            <p class="h6">{{ selectedRecord.description || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Mother Unit</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.mother_unit }}</p>
+                                            <p class="h6">{{ selectedRecord.mother_unit || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Type of Operation</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.operation_type }}</p>
+                                            <p class="h6">{{ selectedRecord.operation_type || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="h6">Requesting Party</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.requesting_party }}</p>
+                                            <p class="h6">{{ selectedRecord.requesting_party || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Status of Evidence</p>
                                         <div class="input-group input-group-sm">
-                                            <span class="badge badge-pill badge-warning">{{ selectedRecord.evidence_status }}</span>
+                                            <span class="badge badge-pill badge-warning">{{ selectedRecord.evidence_status || '-' }}</span>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Examiner</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.examiner }}</p>
+                                            <p class="h6">{{ selectedRecord.examiner || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Investigator</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.investigator }}</p>
+                                            <p class="h6">{{ selectedRecord.investigator || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Date & Time</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.incident_date }} {{ selectedRecord.incident_time }}</p>
+                                            <p class="h6">{{ selectedRecord.incident_date || '-' }} {{ selectedRecord.incident_time || '-' }}</p>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <p class="m-0">Specimen Count</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.speciment_count }}</p>
+                                            <p class="h6">{{ selectedRecord.speciment_count || '-' }}</p>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <p class="m-0">PPH Count</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.pph_count }}</p>
+                                            <p class="h6">{{ selectedRecord.pph_count || '-' }}</p>
                                         </div>
                                     </div>
 
@@ -112,76 +112,76 @@
                                     <div class="form-group">
                                         <p class="m-0">Qty Received</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.qty_received }}</p>
+                                            <p class="h6">{{ selectedRecord.qty_received || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Gross Weight</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.gross_weight }}</p>
+                                            <p class="h6">{{ selectedRecord.gross_weight || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Classification</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.classification }}</p>
+                                            <p class="h6">{{ selectedRecord.classification || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group" *ngIf="userData.division === 'soco'">
                                         <p class="m-0">Delivered By</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.delivered_by }}</p>
+                                            <p class="h6">{{ selectedRecord.delivered_by || '-' }}</p>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <p class="m-0">Received By</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.received_by }}</p>
+                                            <p class="h6">{{ selectedRecord.received_by || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Qty Turned-Over</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.qty_turned_over }}</p>
+                                            <p class="h6">{{ selectedRecord.qty_turned_over || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Date Last Withdrawn</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.date_last_withdrawn }}</p>
+                                            <p class="h6">{{ selectedRecord.date_last_withdrawn || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group" *ngIf="userData.division === 'soco'">
                                         <p class="m-0">Court Branch</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.court_branch }}</p>
+                                            <p class="h6">{{ selectedRecord.court_branch || '-' }}</p>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <p class="m-0">Criminal Case No.</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.criminal_case_no }}</p>
+                                            <p class="h6">{{ selectedRecord.criminal_case_no || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Qty Remaining</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.qty_remaining }}</p>
+                                            <p class="h6">{{ selectedRecord.qty_remaining || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">No Movement</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.is_no_movement }}</p>
+                                            <p class="h6">{{ selectedRecord.is_no_movement || '-' }}</p>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <p class="m-0">Remarks</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedRecord.remarks }}</p>
+                                            <p class="h6">{{ selectedRecord.remarks || '-' }}</p>
                                         </div>
                                     </div>
 

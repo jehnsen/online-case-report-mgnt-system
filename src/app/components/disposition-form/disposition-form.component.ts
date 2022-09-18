@@ -15,7 +15,7 @@ export class DispositionFormComponent implements OnInit {
   formData: FormGroup;
   dispositions: any = [];
   isLoading: boolean = false;
-
+  p: number = 1;
   constructor(private service: DispositionService, private toastr: ToastrService, private fbuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
@@ -65,7 +65,22 @@ export class DispositionFormComponent implements OnInit {
   }
 
   clearFields():void {
-    this.formData = this.fbuilder.group({'dispositionName': ['']})
+    this.formData = this.fbuilder.group({'dispositionName': [''], 'division': ['']})
+  }
+
+  getClass(value) {
+
+    return {
+      'badge': true,
+      'text-wrap': true,
+      'bg-maroon': value === 'soco',
+      'bg-indigo': value === 'physical',
+      'bg-teal': value === 'chemistry',
+      'bg-fuchsia': value === 'fingerprint',
+      'bg-purple': value === 'ballistic',
+      'bg-lightblue': value === 'photography'
+    }
+
   }
 
 }

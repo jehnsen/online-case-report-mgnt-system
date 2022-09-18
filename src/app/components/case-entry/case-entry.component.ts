@@ -66,7 +66,6 @@ export class CaseEntryComponent implements OnInit {
 
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.caseId = +params.get('id');
-      console.log(`activated route: ${this.caseId}`);
     })
 
     this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
@@ -124,11 +123,8 @@ export class CaseEntryComponent implements OnInit {
     // edit mode
     if(this.caseId > 0){ 
       if(!this.selectedIncident) {
-        console.log('fuck')
         this.getCase(this.caseId);
       }
-      console.log('selectedIncident')
-      console.log(this.selectedIncident)
       const _incident = this.selectedIncident
       
       this.incidentData.setValue({
@@ -195,11 +191,23 @@ export class CaseEntryComponent implements OnInit {
   async onSubmit(){
 
     this.isLoading = true;
-
+    
     if(this.incidentData.invalid){
-      this.toastrService.error('Please provide input on required fields. \n Required fields are highlighted with red colors and marked with asterisk (*).');
-      return;
+        this.toastrService.error('Please provide input on required fields. \n Required fields are highlighted with red colors and marked with asterisk (*).');
+        this.isLoading = false;
+        return;
     }
+
+    if(this.userDivision === 'soco'){
+      if(Utils.isEmpty(this.incidentData.value.incidentTitle) 
+        || Utils.isEmpty(this.incidentData.value.incidentDescription) 
+        || Utils.isEmpty(this.incidentData.value.disposition)){
+          this.toastrService.error('Please provide input on required fields. \n Required fields are highlighted with red colors and marked with asterisk (*).');
+          this.isLoading = false;
+          return;
+      }
+    }
+    
 
     let control = this.incidentData.controls
     let payload = {
@@ -247,7 +255,7 @@ export class CaseEntryComponent implements OnInit {
               this.caseService.getCases(this.userDivision).subscribe((response: any) => {
                 
                 const filtered = response.data.filter(f => f.division === this.userDivision);
-                // const newList = [...filtered, result.data]
+                
                 // Update the case/incident list in state
                 this.dataService.setCaseList(filtered)
               })
@@ -278,14 +286,11 @@ export class CaseEntryComponent implements OnInit {
     // update newly added files on edit mode
     this.fileService.updateFileByCaseId(this.caseId).subscribe(f => console.log(f))
 
-    
-
   }
 
   getCase(id: number){
     this.caseService.getById(id).subscribe((record: any) => {
       this.selectedIncident = record.data;
-      console.log(record.data)
       this.dataService.setCase(record.data)
     })
   }
@@ -317,7 +322,9 @@ export class CaseEntryComponent implements OnInit {
   getDispositions(){
     this.dispositionService.getDispositions().subscribe(r => {
       
-      r.data.map(dis => this.dispositions.push(dis.description))
+      r.data
+        .filter(f => f.division === this.userDivision)
+        .map(dis => this.dispositions.push(dis.description))
     })
   }
 

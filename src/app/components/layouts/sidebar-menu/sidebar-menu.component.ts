@@ -36,8 +36,10 @@ export class SidebarMenuComponent implements OnInit {
     });
 
     this.dataService.drugTestList$.subscribe((value) => {
+      console.log(value)
       this.drugTestCount = value.length
     });
+    
   }
 
   logout() {

@@ -59,7 +59,6 @@ export class CriminalDrugTestEntryComponent implements OnInit {
 
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = +params.get('id')
-      
     })
     
     // edit mode
@@ -105,12 +104,8 @@ export class CriminalDrugTestEntryComponent implements OnInit {
           })
         }
         
-
       })
       
-      
-
-
     }
   }
 
@@ -143,8 +138,16 @@ export class CriminalDrugTestEntryComponent implements OnInit {
       delete payload.incident_time_edit
       delete payload.date_last_withdrawn_edit
 
-      this.service.update(this.id, payload).subscribe(result => {
-        this.toastrService.success('Criminal Drugtest Record successfully update!')
+      this.service.update(this.id, payload).subscribe((result: any) => {
+        this.toastrService.success('Criminal Drugtest Record successfully update!');
+
+        this.dataService.drugTestList$.subscribe(list => {
+          if(!list) return;
+          if(result.data){
+            this.dataService.setDrugTestList([...list, result.data])
+          }
+        })
+        
       })
     }
     
@@ -205,21 +208,21 @@ export class CriminalDrugTestEntryComponent implements OnInit {
 
   clearFields(): void{
     this.formData = this.fb.group({
-      'case_no':          [''],
-      'suspect_name':     [''],
-      'mother_unit':      [''],
-      'operation_type':   [''],
-      'examiner':         [''],
+      'case_no':          ['', Validators.required],
+      'suspect_name':     ['', Validators.required],
+      'mother_unit':      ['', Validators.required],
+      'operation_type':   ['', Validators.required],
+      'examiner':         ['', Validators.required],
       'investigator':     [''],
-      'incident_date':    [''],
-      'incident_time':    [''],
+      'incident_date':    ['', Validators.required],
+      'incident_time':    ['', Validators.required],
       'incident_date_edit':    [''],
       'incident_time_edit':    [''],
       'speciment_count':  [''],
       'pph_count':        [''],
       'qty_received':     [''],
       'gross_weight':     [''],
-      'classification':   [''],
+      'classification':   ['', Validators.required],
       'delivered_by':     [''],
       'description':      [''],
       'received_by':      [''],
@@ -228,7 +231,7 @@ export class CriminalDrugTestEntryComponent implements OnInit {
       'date_last_withdrawn': [''],
       'date_last_withdrawn_edit': [''],
       'court_branch':     [''],
-      'criminal_case_no': [''],
+      'criminal_case_no': ['', Validators.required],
       'qty_remaining':    [''],
       'is_no_movement':   [''],
       'requesting_party': [''],

@@ -39,25 +39,25 @@
                                     <div class="form-group">
                                         <p class="m-0">Nature of Case</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.case_nature }}</p>
+                                            <p class="h6">{{ selectedCase.case_nature || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Requesting Party</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.requesting_party }}</p>
+                                            <p class="h6">{{ selectedCase.requesting_party || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group" *ngIf="userDivision === 'soco'">
                                         <p class="m-0">Investigator on Case</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.investigator }}</p>
+                                            <p class="h6">{{ selectedCase.investigator || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group" *ngIf="userDivision === 'soco' || userDivision === 'chemistry'">
                                         <p class="m-0">Disposition of Case</p>
                                         <div class="input-group input-group-sm">
-                                            <span class="badge badge-pill badge-warning">{{ selectedCase.disposition }}</span>
+                                            <span class="badge badge-pill badge-warning">{{ selectedCase.disposition || '-' }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -67,31 +67,31 @@
                                     <div class="form-group">
                                         <p class="m-0">Date & Time</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.incident_date }} {{ selectedCase.incident_time }}</p>
+                                            <p class="h6">{{ selectedCase.incident_date || '-' }} {{ selectedCase.incident_time || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="h6">Place of Occurence</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.location }}</p>
+                                            <p class="h6">{{ selectedCase.location || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="m-0">Victim</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.victim }}</p>
+                                            <p class="h6">{{ selectedCase.victim || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <p class="h6">Suspect</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.suspect }}</p>
+                                            <p class="h6">{{ selectedCase.suspect || '-' }}</p>
                                         </div>
                                     </div>
                                     <div class="form-group" *ngIf="userDivision === 'soco'">
                                         <p class="h6">Reported By</p>
                                         <div class="input-group input-group-sm">
-                                            <p class="h6">{{ selectedCase.reported_by }}</p>
+                                            <p class="h6">{{ selectedCase.reported_by || '-' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                                 <div class="col-md-12">
                                     <div class="callout callout-success">
                                         <h5>Summary</h5>
-                                        <p>{{ selectedCase.incident_description }}</p>
+                                        <p>{{ selectedCase.incident_description || '-' }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                         </thead> -->
                         <tbody>
                             <tr *ngFor="let evidence of evidences">
-                                <td><i class="fas fa-check text-success"></i> {{ evidence.description }}</td>
+                                <td><i class="fas fa-check text-success"></i> {{ evidence.description || '-' }}</td>
                             </tr>
                         </tbody>
                         <tfoot *ngIf="evidences.length == 0" class="text-left">

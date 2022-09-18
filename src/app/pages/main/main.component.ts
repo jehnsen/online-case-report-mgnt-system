@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { ngResizeObserverProviders, NgResizeObserver } from 'ng-resize-observer';
 import { CaseService } from 'src/app/services/case.service';
+import { CriminalDrugTestService } from 'src/app/services/criminal-drug-test.service';
 import { DataService } from 'src/app/services/data.service';
 @Component({
   selector: 'app-main',
@@ -19,12 +20,17 @@ export class MainComponent implements OnInit {
   constructor(
     private resize$: NgResizeObserver,
     private dataService: DataService,
-    private caseService: CaseService
+    private caseService: CaseService,
+    private criminalDrugTestService: CriminalDrugTestService
     ) {}
 
   ngOnInit(): void {
     this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
     this.getTotalCases();
+
+    if(this.userDivision === 'chemistry'){
+      this.getDrugTestRecords();
+    }
   }
 
   getTotalCases(){
@@ -36,6 +42,14 @@ export class MainComponent implements OnInit {
 
       }
       
+    })
+  }
+
+  getDrugTestRecords(){
+    this.criminalDrugTestService.get().subscribe(dtests => {
+      if(dtests.data){
+        this.dataService.setDrugTestList(dtests.data)
+      }
     })
   }
 

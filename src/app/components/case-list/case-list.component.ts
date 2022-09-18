@@ -70,7 +70,7 @@ export class CaseListComponent implements OnInit {
 
   onDelete(id: number){
     this.caseService.delete(id).subscribe(() => {
-      this.toastrService.warning('Incident/Event was successfully deleted!', 'Delete Incident Record')
+      this.toastrService.warning('Successfully deleted from the database!', 'Delete Record')
       // refresh the list
       this.getCases(this.userDivision)
     }, 
