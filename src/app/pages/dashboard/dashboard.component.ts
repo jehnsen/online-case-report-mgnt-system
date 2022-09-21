@@ -11,7 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class DashboardComponent implements OnInit {
   userDivision: string;
-
+  userData: any;
   cases: any = [];
   requestingParties: any = [];
   locations: any = [];
@@ -33,8 +33,8 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    this.userDivision = JSON.parse(window.sessionStorage.getItem('auth-user')).user.division;
+    this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
+    this.userDivision = this.userData.division;
 
     this.getTotalCases();
     this.getRequestingParties();
@@ -47,7 +47,12 @@ export class DashboardComponent implements OnInit {
     this.caseService.getCases(this.userDivision).subscribe(casesResponse => {
 
       if(casesResponse.data){
-        this.cases = casesResponse.data.filter(f => f.division === this.userDivision);
+        if(this.userData.usertype === 'Administrator'){
+          this.cases = casesResponse.data;
+        } else {
+          this.cases = casesResponse.data.filter(f => f.division === this.userDivision);
+        }
+        
         this.dataService.setCaseList(this.cases);
 
         this.totalCases = this.cases.length;
