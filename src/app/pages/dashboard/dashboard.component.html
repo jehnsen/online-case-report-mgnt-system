@@ -35,9 +35,9 @@
             <!-- small box -->
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h3>{{ totalRobberyIncident }}</h3>
+                    <h3>{{ totalChemistryRecords }}</h3>
 
-                    <p>Robbery Incidents</p>
+                    <p>Chemistry Division</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-person-add"></i>
@@ -95,9 +95,9 @@
             <!-- small box -->
             <div class="small-box bg-orange">
                 <div class="inner">
-                    <h3>{{ requestingParties.length }}</h3>
+                    <h3>{{ criminalDrugTestsCount }}</h3>
 
-                    <p>Requesting Parties</p>
+                    <p>Criminal Drug Test Records</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
@@ -110,9 +110,9 @@
             <!-- small box -->
             <div class="small-box bg-maroon">
                 <div class="inner">
-                    <h3>6</h3>
+                    <h3>{{ firearmsInventoryCount }}</h3>
 
-                    <p>Divisions</p>
+                    <p>Total Firearms Evidence Received</p>
                 </div>
                 <div class="icon">
                     <i class="ion ion-pie-graph"></i>
@@ -131,14 +131,7 @@
             <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">Total No. of Cases/Incidents per Barangay</h3>
-                    <div class="card-tools">
-                        <a href="#" class="btn btn-tool btn-sm">
-                            <i class="fas fa-download"></i>
-                        </a>
-                        <a href="#" class="btn btn-tool btn-sm">
-                            <i class="fas fa-bars"></i>
-                        </a>
-                    </div>
+                   
                 </div>
                 <div class="card-body table-responsive p-0">
                     <table class="table table-striped table-valign-middle">
@@ -172,35 +165,28 @@
             <div class="card">
                 <div class="card-header border-0">
                     <h3 class="card-title">Conviction Rate</h3>
-                    <div class="card-tools">
-                        <a href="#" class="btn btn-sm btn-tool">
-                            <i class="fas fa-download"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-tool">
-                            <i class="fas fa-bars"></i>
-                        </a>
-                    </div>
+                   
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                        <p class="text-success text-xl">
-                            <i class="fa fa-users"></i>
+                        <p class="text-fuchsia text-xl">
+                            <i class="fa fa-circle"></i>
                         </p>
                         <p class="d-flex flex-column text-right">
                             <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-up text-success"></i> 12%
+                                <i class="ion ion-android-arrow-up text-success"></i> {{ criminalDrugTestsRate }}%
                             </span>
                             <span class="text-muted">Drug Evidence Submitted to Court/PDEA</span>
                         </p>
                     </div>
         
                     <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                        <p class="text-danger text-xl">
-                            <i class="fa fa-users-slash"></i>
+                        <p class="text-purple text-xl">
+                            <i class="fa fa-circle"></i>
                         </p>
                         <p class="d-flex flex-column text-right">
                             <span class="font-weight-bold">
-                                <i class="ion ion-android-arrow-up text-warning"></i> 2.8%
+                                <i class="ion ion-android-arrow-up text-warning"></i> {{ firearmsSubmittedRate }}%
                             </span>
                             <span class="text-muted">Firearms submitted to court</span>
                         </p>

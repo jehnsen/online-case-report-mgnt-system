@@ -22,7 +22,12 @@ export class DashboardComponent implements OnInit {
   totalDrowningIncident: number = 0;
   totalSuicideIncident: number = 0;
 
-  firearmsInventlory: any = [];
+  totalChemistryRecords: number = 0;
+
+  firearmsInventoryCount: number = 0;
+  firearmsSubmittedRate: number = 0;
+  criminalDrugTestsCount: number = 0;
+  criminalDrugTestsRate: number = 0;
 
   constructor(
     private dataService: DataService,
@@ -62,6 +67,8 @@ export class DashboardComponent implements OnInit {
         this.totalDrowningIncident = this.cases.filter(s => s.case_nature === 'Drowning').length;
         this.totalSuicideIncident = this.cases.filter(s => s.case_nature === 'Alleged Suicide').length;
 
+        this.totalChemistryRecords = this.cases.filter(s => s.division === 'chemistry').length;
+
         const count = this.cases
                         .map(c => c.location)
                         .reduce((accumulator, value) => {
@@ -83,6 +90,15 @@ export class DashboardComponent implements OnInit {
   getFirearmsInventory(){
     this.firearminventoryService.getInvetory().subscribe(invResponse => {
       if(invResponse.data){
+        this.firearmsInventoryCount = invResponse.data.length;
+        let submitted: any = 0;
+        invResponse.data.map(inv => {
+          if(inv.status === 'DEPOSITED TO COURT/PROSECUTOR'){
+            submitted += 1;
+          }
+        })
+        this.firearmsSubmittedRate = Math.trunc((submitted / this.firearmsInventoryCount) * 100)
+
         this.dataService.setFirearmInventoryList(invResponse.data);
       }
     })
@@ -91,6 +107,15 @@ export class DashboardComponent implements OnInit {
   getDrugTestRecords(){
     this.criminalDrugTestService.get().subscribe((dtests: any) => {
       if(dtests.data){
+        this.criminalDrugTestsCount = dtests.data.length
+
+        let totalQtyReceived: number = 0, totalQtysubmitted: number = 0; 
+        dtests.data.map(d => {
+          totalQtyReceived = totalQtyReceived + Number(d.qty_received);
+          totalQtysubmitted = totalQtysubmitted + Number(d.qty_turned_over);
+        })
+        this.criminalDrugTestsRate = Math.trunc((totalQtysubmitted / totalQtyReceived) * 100)
+       
         this.dataService.setDrugTestList(dtests.data)
       }
       

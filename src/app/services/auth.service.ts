@@ -34,4 +34,12 @@ export class AuthService {
     return this.httpClient.get(`${BASE_URL}/api/user`, httpOptions);
   }
 
+  update(payload: any): Observable<any>{
+    return this.httpClient.put(`${BASE_URL}/api/user/update`, payload, httpOptions)
+  }
+
+  delete(id: number): Observable<any>{
+    return this.httpClient.delete(`${BASE_URL}/api/user/${id}`, httpOptions)
+  }
+
 }

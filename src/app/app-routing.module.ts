@@ -22,6 +22,8 @@ import { DangerousDrugsListComponent } from './components/dangerous-drugs-list/d
 import { DangerousDrugsEntryComponent } from './components/dangerous-drugs-entry/dangerous-drugs-entry.component';
 import { UserUpdatePasswordComponent } from './components/user-update-password/user-update-password.component';
 import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-view/criminal-drug-test-view.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { CaseReportsComponent } from './components/case-reports/case-reports.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -33,6 +35,7 @@ const routes: Routes = [
     { path: 'records/view/:id', component: CaseViewComponent },
     { path: 'records/manage/categories', component: CaseNaturesEntryComponent },
     { path: 'records/manage/requesting-parties', component: RequesterEntryComponent },
+    { path: 'records/reports', component: CaseReportsComponent },
     { path: 'firearms', component: FirearmsListComponent },
     { path: 'firearms/entry', component: FirearmsEntryComponent },
     { path: 'drugtest', component: CriminalDrugTestListComponent },
@@ -43,6 +46,7 @@ const routes: Routes = [
     { path: 'manage/persons', component: PersonEntryComponent },
     { path: 'manage/dispositions', component: DispositionFormComponent },
     { path: 'users', component: UserListComponent },
+    { path: 'users/:id', component: UserEditComponent },
     { path: 'users/update-password', component: UserUpdatePasswordComponent },
     { path: 'manage/database', component: DatabaseBackupComponent },
   ]},

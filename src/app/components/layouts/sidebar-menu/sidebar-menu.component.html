@@ -164,6 +164,34 @@
                                 </ul>
                             </li>
                             <li *ngIf="userType === 'Administrator'" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-copy"></i>
+                                    <!-- <i class="fa-solid fa-file-chart-column"></i> -->
+                                    <p>Reports<i class="fas fa-angle-left right"></i></p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" 
+                                        (click)="setPageTitle('CASES INVOLVED PER BARANGAY')"
+                                        [routerLink]="['records/reports']"  
+                                        routerLinkActive="router-link-active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Case Involved per Barangay</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link" 
+                                        (click)="setPageTitle('NUMBER OF CASES PER MONTH/YEAR')"
+                                        [routerLink]="['records/reports']"  
+                                        routerLinkActive="router-link-active">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Number of Cases per Month/Year</p>
+                                        </a>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                            <!-- <li *ngIf="userType === 'Administrator'" class="nav-item">
                                 <a 
                                     href="javascript:void(0)" 
                                     class="nav-link" 
@@ -172,10 +200,9 @@
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fa fa-database"></i>
                                     <p>Manage Database
-                                        <!-- <span class="badge badge-primary right">23</span> -->
                                     </p>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item" (click)="logout()">
                                 <a href="javascript:void(0)" class="nav-link">
                                     <i class="nav-icon fas fa-sign-out-alt"></i>

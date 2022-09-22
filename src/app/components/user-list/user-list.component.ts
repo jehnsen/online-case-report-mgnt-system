@@ -13,7 +13,7 @@ export class UserListComponent implements OnInit {
   p: number = 1;
   users: any = [];
 
-  constructor(private authService: AuthService, private dataService: DataService, private router: Router) { }
+  constructor(private authService: AuthService, private dataService: DataService, private router: Router, private toast: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -36,12 +36,13 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  onEdit(id: number): void{
-
-  }
-
   onDelete(id: number){
-
+    this.authService.delete(id).subscribe(response => {
+      if(response) {
+        this.users = this.users.filter(u => u.id !== id)
+        this.toast.success('Successfully Deleted!', 'Delete')
+      }
+    })
   }
 
 }

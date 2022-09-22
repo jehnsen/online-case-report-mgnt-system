@@ -1,0 +1,91 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <h3 class="card-title">Select Barangay/Location</h3>  
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                   
+                    <tbody [ngStyle]="{'cursor': 'pointer'}">
+                        <tr *ngFor="let barangay of barangays | paginate: {itemsPerPage: 7, currentPage: p, id: barangays };">
+                            <td (click)="onSelect(barangay)">
+                               {{ barangay }}
+                            </td>
+
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        
+            <div class="card-footer clearfix">
+                <pagination-controls (pageChange)="p = $event" [id]="barangays"></pagination-controls>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card card-outline card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Nature of Incident/Case</h3>  
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                   
+                    <tbody>
+                        <tr *ngFor="let case of cases">
+                            <td> {{ case.case_nature }} 
+                                <span class="badge badge-pill badge-warning font-weight-bold ml-2">
+                                    {{ case.occurrence }}
+                                </span>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-outline card-info">
+            <div class="card-header">
+                <h3 class="card-title">Select Barangay/Location</h3>  
+            </div>
+
+            <!-- /.card-header -->
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+
+                    <input type="date" id="start" name="trip-start">
+                   
+                    <tbody [ngStyle]="{'cursor': 'pointer'}">
+                        <tr *ngFor="let fcase of filteredCases | paginate: {itemsPerPage: 7, currentPage: p, id: filteredCases };">
+                            <td >
+                              {{ fcase.incident_title }}
+                            </td>
+
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        
+            <div class="card-footer clearfix">
+                <pagination-controls (pageChange)="p = $event" [id]="filteredCases"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

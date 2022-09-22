@@ -14,7 +14,7 @@ export class ModalUserRegistrationComponent implements OnInit {
   formData: FormGroup;
   users: any = [];
   isLoading: boolean = false;
- 
+
   constructor(
     private fbuilder: FormBuilder,
     private authService: AuthService,
@@ -30,6 +30,7 @@ export class ModalUserRegistrationComponent implements OnInit {
       const sorted = users.sort((a,b) => b.id - a.id)
       this.users = sorted;
     })
+
   }
 
   onSubmit(){
@@ -54,5 +55,7 @@ export class ModalUserRegistrationComponent implements OnInit {
       'division': ['']
     })
   }
+
+
 
 }

@@ -55,6 +55,8 @@ import { PageTitleComponent } from './components/page-title/page-title.component
 import { RequiredMarkerComponent } from './components/validations/required-marker/required-marker.component';
 import { UserUpdatePasswordComponent } from './components/user-update-password/user-update-password.component';
 import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-view/criminal-drug-test-view.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { CaseReportsComponent } from './components/case-reports/case-reports.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +103,9 @@ import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-v
     PageTitleComponent,
     RequiredMarkerComponent,
     UserUpdatePasswordComponent,
-    CriminalDrugTestViewComponent
+    CriminalDrugTestViewComponent,
+    UserEditComponent,
+    CaseReportsComponent
   ],
   imports: [
     HttpClientModule,

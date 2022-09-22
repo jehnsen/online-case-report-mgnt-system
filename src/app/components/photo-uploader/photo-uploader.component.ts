@@ -58,24 +58,14 @@ export class PhotoUploaderComponent implements OnInit {
   }
 
   insert(payload){
-    console.log(payload)
 
-    let caseFiles =[]
-    // if(isAdd){
-      this.dataService.fileList$.subscribe((value) => {
-        caseFiles = value;
-      })
-  
-    // }
-    
     this.fileService.create(payload).subscribe(() => {
       
       this.fileService.getFiles(0).subscribe((response: any) => {
-        response.data.map(m => caseFiles.push(m))
+        
         // update the state
-        this.dataService.setFilesList(caseFiles)    //(response.data);
+        this.dataService.setFilesList(response.data)
 
-        console.log(caseFiles)
       })
 
       this.toastrService.success('File was successfully uploaded!', 'Upload File')
