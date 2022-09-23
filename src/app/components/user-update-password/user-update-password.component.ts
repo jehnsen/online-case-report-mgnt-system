@@ -25,7 +25,6 @@ export class UserUpdatePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
-    console.log(this.userData)
     this.formData = this.fbuilder.group({
       'current_password': [''],
       'new_password': [''],

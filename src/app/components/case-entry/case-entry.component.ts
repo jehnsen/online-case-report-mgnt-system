@@ -194,7 +194,7 @@ export class CaseEntryComponent implements OnInit {
     
     if(this.incidentData.invalid){
         this.toastrService.error('Please provide input on required fields. \n Required fields are highlighted with red colors and marked with asterisk (*).');
-        this.isLoading = false;
+        // this.isLoading = false;
         return;
     }
 
@@ -203,7 +203,7 @@ export class CaseEntryComponent implements OnInit {
         || Utils.isEmpty(this.incidentData.value.incidentDescription) 
         || Utils.isEmpty(this.incidentData.value.disposition)){
           this.toastrService.error('Please provide input on required fields. \n Required fields are highlighted with red colors and marked with asterisk (*).');
-          this.isLoading = false;
+          // this.isLoading = false;
           return;
       }
     }
@@ -245,14 +245,18 @@ export class CaseEntryComponent implements OnInit {
 
             this.caseService.create(payload).subscribe((result) => {
 
-              this.toastrService.success('New Incident/Event was added to database!', 'New Entry')
+              if(result){
+                this.toastrService.success('New Incident/Event was added to database!', 'New Entry')
+                // stop the loading animation
+                this.isLoading = false;
+              }
 
               // clear list after successfull submit
               this.evidences = [];
               this.dataService.setFilesList([]);
               this.clearFields();
 
-              this.caseService.getCases(this.userDivision).subscribe((response: any) => {
+              this.caseService.getCases().subscribe((response: any) => {
                 
                 const filtered = response.data.filter(f => f.division === this.userDivision);
                 
@@ -265,23 +269,21 @@ export class CaseEntryComponent implements OnInit {
           }
         }, 0);
 
-        // stop the loading animation
-        this.isLoading = false;
-
       })
 
     } else {
 
       // update
-      this.caseService.update(payload, this.caseId).subscribe(() => {
-        this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record')
+      this.caseService.update(payload, this.caseId).subscribe(result => {
+        if(result){
+          this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record');
+          // stop the loading animation
+          this.isLoading = false;
+        }
+        
       }, 
       err => this.toastrService.error(err, 'Server Issue Encountered'))
 
-      // stop the loading animation
-      this.isLoading = false;
-
-      // this.fileService.getFiles(this.caseId).subscribe(f => this.files = f.data)
     }
     // update newly added files on edit mode
     this.fileService.updateFileByCaseId(this.caseId).subscribe(f => console.log(f))

@@ -45,8 +45,7 @@ export class PersonEntryComponent implements OnInit {
       gender: control['gender'].value,
       civil_status: control['civilStatus'].value
     }
-    console.log(payload);
-    
+
     this.personService.create(payload).subscribe((response) => {
       if(response.data){
         // update the state

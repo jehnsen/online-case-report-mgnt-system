@@ -1,6 +1,4 @@
 <div>
-  
-
   <div class="row">
     <div class="col-12">
       <div class="card card-outline card-primary">
@@ -60,9 +58,17 @@
                 <td *ngIf="userDivision === 'soco' || userDivision ==='chemistry'"><app-case-status [value]="case.disposition"></app-case-status></td>
                 <td *ngIf="userDivision === 'physical' || userDivision ==='fingerprint' || userDivision ==='photography'">{{ case.incident_date }} {{ case.incident_time }}</td>
                 <td>
+                  
                   <button *ngIf="userData.usertype === 'Encoder'" type="button" (click)="onSelectEdit(case)" class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
                   <button type="button" [routerLink]="['view', case.id]" class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
-                  <button *ngIf="userData.usertype === 'Encoder'" type="button" (click)="onDelete(case.id)" class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
+                  <button 
+                    *ngIf="userData.usertype === 'Encoder'" 
+                    type="button" 
+                    (click)="onSelectDelete(case.id)" 
+                    data-toggle="modal"
+                    data-target="#modal-confirm"
+                    class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -84,4 +90,32 @@
       <!-- /.card -->
     </div>
   </div>
+</div>
+
+
+
+<div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+      <div class="modal-content ">
+          <div class="modal-header bg-maroon">
+              <h6 class="modal-title">Delete</h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+
+              <p>Are you sure you want to delete this record?</p> 
+              
+              <p class="text text-maroon">This operation can be undone.</p>
+              
+          </div>
+          <div class="modal-footer justify-content-between">
+              <button type="button" class="btn bg-maroon float-right" data-dismiss="modal" (click)="onDelete(this.id)">Yes</button>
+              <button type="button" class="btn btn-outline-primary float-left" data-dismiss="modal">No</button>
+          </div>
+      </div>
+      <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>

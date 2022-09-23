@@ -32,10 +32,18 @@ export class FirearminventoryService {
     return this.httpClient.get(`${environment.apiUrl}/api/firearms`).pipe(catchError(this.handleError));
   }
 
-  public create(payload): Observable<any> {
-    console.log(payload)
-    
+  create(payload): Observable<any> {
     return this.httpClient.post(`${environment.apiUrl}/api/firearms`, payload, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  update(id: number, payload: any): Observable<any> {
+    return this.httpClient.put(`${environment.apiUrl}/api/firearms/${id}`, payload, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  delete(id: number): Observable<any> {
+    return this.httpClient.delete(`${environment.apiUrl}/api/firearms/${id}`, httpOptions)
       .pipe(catchError(this.handleError));
   }
 

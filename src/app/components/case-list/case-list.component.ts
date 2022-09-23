@@ -15,6 +15,8 @@ export class CaseListComponent implements OnInit {
   p: number = 1;
   public cases : any = [];
   caseTitle: any;
+  id: number;
+
   constructor(private router: Router, private caseService: CaseService, private dataService: DataService, private toastrService: ToastrService,) { }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class CaseListComponent implements OnInit {
 
   getCases(division: string): void {
 
-    this.caseService.getCases(division).subscribe((response: any) => {
+    this.caseService.getCases().subscribe((response: any) => {
       if(response.data){
         // filter only the data for the current division
         const filtered = response.data.filter(f => f.division === this.userDivision)
@@ -66,6 +68,10 @@ export class CaseListComponent implements OnInit {
   
   onCacheList(data: any){
     this.dataService.setCaseList(data);
+  }
+
+  onSelectDelete(id: number){
+    this.id = id;
   }
 
   onDelete(id: number){

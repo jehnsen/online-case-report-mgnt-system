@@ -26,7 +26,6 @@ export class UserListComponent implements OnInit {
     this.dataService.userList$.subscribe(users => {
       this.users = users;
       const sorted = this.users.sort((a,b) => b.id - a.id)
-      console.log(sorted)
     })
   }
 

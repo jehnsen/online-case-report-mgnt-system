@@ -32,9 +32,7 @@ export class EvidenceListComponent implements OnInit {
       if(this.caseId > 0) {
         // update also the evidences
         this.caseService.insertEvidenceDuringUpdate({ case_id: this.caseId, description: description })
-          .subscribe((data) => {
-              console.log(data)
-          })
+          .subscribe(res => console.log(res))
       }
       this.evidenceDescription = description;
       this.dataService.setEvidence(num, description);

@@ -34,7 +34,7 @@ export class MainComponent implements OnInit {
   }
 
   getTotalCases(){
-    this.caseService.getCases(this.userDivision).subscribe(casesResponse => {
+    this.caseService.getCases().subscribe(casesResponse => {
 
       if(casesResponse.data){
         this.cases = casesResponse.data.filter(f => f.division === this.userDivision);

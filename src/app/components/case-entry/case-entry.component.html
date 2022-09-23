@@ -180,24 +180,24 @@
                                 <p for="inputDescription" class="h6">Victim</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="victimName" >
-                                    <span class="input-group-append">
+                                    <!-- <span class="input-group-append">
                                         <div class="input-group input-group-sm">
                                                 <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
                                                     data-target="#modal-persons">Select...</button>
                                         </div>
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div>
                             <div class="form-group">
                                 <p for="inputDescription" class="h6">Suspect</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="suspectName" >
-                                    <span class="input-group-append">
+                                    <!-- <span class="input-group-append">
                                         <div class="input-group input-group-sm">
                                                 <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
                                                     data-target="#modal-suspects">Select...</button>
                                         </div>
-                                    </span>
+                                    </span> -->
                                 </div>
                             </div>
                             <div *ngIf="userDivision === 'soco'" class="form-group">
@@ -285,7 +285,7 @@
                 <button class="btn btn-success pull-right " type="submit" [disabled]="incidentData.invalid">
                     <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     <span *ngIf="isLoading" class="sr-only">Loading...</span>
-                    Save Record
+                    {{ isLoading ? 'Processing...' : 'Save Record' }}
                 </button>
             
             </div>

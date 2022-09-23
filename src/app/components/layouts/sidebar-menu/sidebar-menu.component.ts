@@ -36,7 +36,6 @@ export class SidebarMenuComponent implements OnInit {
     });
 
     this.dataService.drugTestList$.subscribe((value) => {
-      console.log(value)
       this.drugTestCount = value.length
     });
     
@@ -60,9 +59,6 @@ export class SidebarMenuComponent implements OnInit {
       // current width & height
       let width = rect.width;
       let height = rect.height;
-    
-      console.log('Current Width : ' + width);
-      console.log('Current Height : ' + height);
     });
 
     // start observing for resize

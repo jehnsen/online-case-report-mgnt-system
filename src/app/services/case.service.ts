@@ -29,7 +29,7 @@ export class CaseService {
     return throwError(errorMessage);
   }
 
-  public getCases(division): Observable<any> {
+  public getCases(): Observable<any> {
     return this.httpClient.get(this.URL_ENDPOINT).pipe(catchError(this.handleError));
   }
 

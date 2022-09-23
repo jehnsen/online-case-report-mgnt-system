@@ -23,6 +23,10 @@ export class DashboardComponent implements OnInit {
   totalSuicideIncident: number = 0;
 
   totalChemistryRecords: number = 0;
+  totalPhysicalRecords: number = 0;
+  totalBallisticsRecords: number = 0;
+  totalFingerprintRecords: number = 0;
+  totalPhotogtaphyRecords: number = 0;
 
   firearmsInventoryCount: number = 0;
   firearmsSubmittedRate: number = 0;
@@ -49,7 +53,7 @@ export class DashboardComponent implements OnInit {
 
   getTotalCases(){
     
-    this.caseService.getCases(this.userDivision).subscribe(casesResponse => {
+    this.caseService.getCases().subscribe(casesResponse => {
 
       if(casesResponse.data){
         if(this.userData.usertype === 'Administrator'){
@@ -68,6 +72,10 @@ export class DashboardComponent implements OnInit {
         this.totalSuicideIncident = this.cases.filter(s => s.case_nature === 'Alleged Suicide').length;
 
         this.totalChemistryRecords = this.cases.filter(s => s.division === 'chemistry').length;
+        this.totalPhysicalRecords = this.cases.filter(s => s.division === 'physical').length;
+       
+        this.totalFingerprintRecords = this.cases.filter(s => s.division === 'fingerprint').length;
+        this.totalPhotogtaphyRecords = this.cases.filter(s => s.division === 'photography').length;
 
         const count = this.cases
                         .map(c => c.location)

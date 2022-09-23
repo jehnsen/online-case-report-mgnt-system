@@ -57,11 +57,8 @@
                                     <p>
                                         {{ division === 'soco' 
                                             ? 'Incidents/Events' 
-                                            : division === 'chemistry'
-                                                ? 'Chemistry Records'
-                                                : division === 'physical'
-                                                    ? 'P.I. Records'
-                                                    : 'FingerPrint Records'
+                                            : 'Cases'
+                                               
                                         }} 
                                         <span *ngIf="this.count > 0" class="badge badge-pill badge-primary right">
                                             {{ count > 0 ? count : null }}
@@ -89,7 +86,7 @@
                                     (click)="setPageTitle('CRIMINAL DRUG TEST & DANGEROUS DRUGS RECORDS')"
                                     [routerLink]="['drugtest']"
                                     routerLinkActive="router-link-active">
-                                    <i class="nav-icon fa fa-search"></i>
+                                    <i class="nav-icon fa fa-flask"></i>
                                     <p>Criminal Drug Test
                                         <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
                                             {{ drugTestCount > 0 ? drugTestCount : null }}
@@ -125,7 +122,7 @@
                                             <p>Nature of Cases</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a href="#" class="nav-link" 
                                         (click)="setPageTitle('MANAGE LIST OF SUSPECTS')"
                                         [routerLink]="['manage/persons']"  
@@ -142,7 +139,7 @@
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Victims</p>
                                         </a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item">
                                         <a href="#" class="nav-link" 
                                         (click)="setPageTitle('MANAGE REQUESTING PARTIES')"
@@ -164,32 +161,15 @@
                                 </ul>
                             </li>
                             <li *ngIf="userType === 'Administrator'" class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-copy"></i>
-                                    <!-- <i class="fa-solid fa-file-chart-column"></i> -->
-                                    <p>Reports<i class="fas fa-angle-left right"></i></p>
+                                <a 
+                                    href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    (click)="setPageTitle('CASE/INCIDENTS REPORTS')" 
+                                    [routerLink]="['records/reports']"  
+                                    routerLinkActive="router-link-active">
+                                    <i class="nav-icon fa fa-book"></i>
+                                    <p>Case/Incidents Reports</p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link" 
-                                        (click)="setPageTitle('CASES INVOLVED PER BARANGAY')"
-                                        [routerLink]="['records/reports']"  
-                                        routerLinkActive="router-link-active">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Case Involved per Barangay</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link" 
-                                        (click)="setPageTitle('NUMBER OF CASES PER MONTH/YEAR')"
-                                        [routerLink]="['records/reports']"  
-                                        routerLinkActive="router-link-active">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Number of Cases per Month/Year</p>
-                                        </a>
-                                    </li>
-                                    
-                                </ul>
                             </li>
                             <!-- <li *ngIf="userType === 'Administrator'" class="nav-item">
                                 <a 

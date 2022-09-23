@@ -53,17 +53,13 @@
                                         <div class="form-group">
                                             <p for="" class="h6">Type of Operation <b class="text-danger">*</b></p>
                                             <div class="input-group input-group-sm">
-                                                <select class="form-control custom-select" formControlName="operation_type">
-                                                    <option>BUY-BUST</option>
-                                                    <option>SEARCH WARRANT</option>
-                                                    <option>INFLAGRANTE DE LICTO</option>
-                                                    <option>RECOVERED</option>
-                                                    <option>TEST BUY</option>
-                                                    <option>OPLAN-GALUGAD</option>
-                                                    <option>CHECKPOINT</option>
-                                                    <option>SEARCH</option>
-                                                </select>
-
+                                                <input type="text" class="form-control" formControlName="operation_type" />
+                                                <span class="input-group-append">
+                                                    <div class="input-group input-group-sm">
+                                                            <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                                data-target="#modal-operation-types">Select...</button>
+                                                    </div>
+                                                </span>
                                             </div>
                                         </div>
 
@@ -234,9 +230,15 @@
                                             </div>
     
                                             <div class="form-group">
-                                                <p for="inputName" class="h6">Branch of Court / Cert. of No Case Filed</p>
+                                                <p for="inputName" class="h6">Branch of Court</p>
                                                 <div class="input-group input-group-sm">
                                                     <input type="text" class="form-control" formControlName="court_branch" />
+                                                    <span class="input-group-append">
+                                                        <div class="input-group input-group-sm">
+                                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                                    data-target="#modal-court-branch">Select...</button>
+                                                        </div>
+                                                    </span>
                                                 </div>
                                             </div>
 
@@ -277,6 +279,13 @@
                                                     <div class="input-group input-group-sm">
                                                         <input type="text" class="form-control"
                                                             formControlName="requesting_party" />
+
+                                                            <span class="input-group-append">
+                                                                <div class="input-group input-group-sm">
+                                                                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                                            data-target="#modal-requesting-parties">Select...</button>
+                                                                </div>
+                                                            </span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -315,7 +324,67 @@
 </form>
 <!-- /.content -->
 
-<!-- <app-parties></app-parties> -->
 <app-modal-requesting-parties></app-modal-requesting-parties>
-<app-modal-select-persons></app-modal-select-persons>
-<app-suspect></app-suspect>
+
+<!-- modals -->
+<div class="modal fade" id="modal-operation-types" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h6 class="modal-title">Type of Operations</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-hover" [ngStyle]="{'cursor': 'pointer'}">
+
+                    <tbody>
+                        <tr *ngFor="let type of operationTypes">
+                            <td (click)="onTypeSelect(type)" data-dismiss="modal">{{ type }}</td>
+                        </tr>
+                    </tbody>
+        
+                </table>
+                
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-court-branch" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h6 class="modal-title">Branch of Court</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-hover" [ngStyle]="{'cursor': 'pointer'}">
+
+                    <tbody>
+                        <tr *ngFor="let branch of courtBranches">
+                            <td (click)="onCourtBranchSelect(branch)" data-dismiss="modal">{{ branch }}</td>
+                        </tr>
+                    </tbody>
+        
+                </table>
+                
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

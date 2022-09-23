@@ -24,6 +24,7 @@ import { UserUpdatePasswordComponent } from './components/user-update-password/u
 import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-view/criminal-drug-test-view.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { CaseReportsComponent } from './components/case-reports/case-reports.component';
+import { FirearmsViewComponent } from './components/firearms-view/firearms-view.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -38,6 +39,8 @@ const routes: Routes = [
     { path: 'records/reports', component: CaseReportsComponent },
     { path: 'firearms', component: FirearmsListComponent },
     { path: 'firearms/entry', component: FirearmsEntryComponent },
+    { path: 'firearms/entry/:id', component: FirearmsEntryComponent },
+    { path: 'firearms/view/:id', component: FirearmsViewComponent },
     { path: 'drugtest', component: CriminalDrugTestListComponent },
     { path: 'drugtest/entry', component: CriminalDrugTestEntryComponent },
     { path: 'drugtest/entry/:id', component: CriminalDrugTestEntryComponent },
@@ -46,7 +49,7 @@ const routes: Routes = [
     { path: 'manage/persons', component: PersonEntryComponent },
     { path: 'manage/dispositions', component: DispositionFormComponent },
     { path: 'users', component: UserListComponent },
-    { path: 'users/:id', component: UserEditComponent },
+    { path: 'users/update/:id', component: UserEditComponent },
     { path: 'users/update-password', component: UserUpdatePasswordComponent },
     { path: 'manage/database', component: DatabaseBackupComponent },
   ]},

@@ -12,6 +12,29 @@ import { DataService } from '../../services/data.service';
 import { Time24to12Format } from '../../pipes/time24to12.pipe';
 import { Utils } from '../../helpers/utils';
 
+const operationTypeList = [
+  'BUY-BUST',
+  'SEARCH WARRANT',
+  'INFLAGRANTE DE LICTO',
+  'RECOVERED',
+  'TEST BUY',
+  'OPLAN-GALUGAD',
+  'SACLEO',
+  'MARIJUANA ERADICATION',
+  "CITIZEN'S ARREST",
+  'CHECK POINT',
+  'CASING/SURVEILLANCE',
+  'INCIDENTAL TO LAWFUL',
+  'SEARCH',
+  'CHANGE UPON'
+]
+
+const courtBranches = [
+  'RTC 25',
+  'RTC 39',
+  'CERTIFICATE OF NO CASE FILED'
+]
+
 @Component({
   selector: 'app-criminal-drug-test-entry',
   templateUrl: './criminal-drug-test-entry.component.html',
@@ -30,6 +53,8 @@ export class CriminalDrugTestEntryComponent implements OnInit {
   caseNumber: any;
   existingRecord: any;
   encoderId: number = 1;
+  operationTypes: any;
+  courtBranches: any;
 
   model: NgbDateStruct;
   model2: NgbDateStruct;
@@ -60,12 +85,21 @@ export class CriminalDrugTestEntryComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.id = +params.get('id')
     })
-    
+
+    // set the requesting party field
+    this.dataService.selectedParty$.subscribe((party) => {
+      if(Object.keys(party).length > 0)
+        this.formData.patchValue({ 'requesting_party': party })
+    })
+
+    this.operationTypes = operationTypeList;
+    this.courtBranches = courtBranches;
+
     // edit mode
     if(this.id > 0){
       this.isAdd = false;
       this.getSelectedDrugTestRecord(this.id);
-      
+     
       this.dataService.selectedDrugRestRecord$.subscribe(value => {
         this.selectedDrugtestRecord = value;
         if(this.selectedDrugtestRecord){
@@ -110,9 +144,9 @@ export class CriminalDrugTestEntryComponent implements OnInit {
   }
 
   onSubmit(){
-    let payload : any;
+    this.isLoading = true;
 
-    console.log(payload)
+    let payload : any;
 
     if(this.isAdd){
       payload = {
@@ -123,7 +157,11 @@ export class CriminalDrugTestEntryComponent implements OnInit {
       }
 
       this.service.create(payload).subscribe(result => {
-        this.toastrService.success('Criminal Drugtest Record successfully saved in the database!')
+        if(result){
+          this.toastrService.success('Criminal Drugtest Record successfully saved in the database!');
+          this.isLoading = false;
+        }
+        
       })
 
     } else {
@@ -139,15 +177,11 @@ export class CriminalDrugTestEntryComponent implements OnInit {
       delete payload.date_last_withdrawn_edit
 
       this.service.update(this.id, payload).subscribe((result: any) => {
-        this.toastrService.success('Criminal Drugtest Record successfully update!');
+        if(result){
+          this.toastrService.success('Criminal Drugtest Record successfully updated!');
+          this.isLoading = false;
+        }
 
-        this.dataService.drugTestList$.subscribe(list => {
-          if(!list) return;
-          if(result.data){
-            this.dataService.setDrugTestList([...list, result.data])
-          }
-        })
-        
       })
     }
     
@@ -185,7 +219,6 @@ export class CriminalDrugTestEntryComponent implements OnInit {
   }
 
   onDateSelect(event) {
-    console.log(event)
     let year = event.year,
       month = event.month <= 9 ? '0' + event.month : event.month,
       day = event.day <= 9 ? '0' + event.day : event.day;
@@ -194,7 +227,6 @@ export class CriminalDrugTestEntryComponent implements OnInit {
   }
 
   onDateLastWithdrawnSelect(event) {
-    console.log(event)
     let year = event.year,
       month = event.month <= 9 ? '0' + event.month : event.month,
       day = event.day <= 9 ? '0' + event.day : event.day;
@@ -237,6 +269,14 @@ export class CriminalDrugTestEntryComponent implements OnInit {
       'requesting_party': [''],
       'remarks':          ['']
     })
+  }
+
+  onTypeSelect(value){
+    this.formData.patchValue({ 'operation_type': value })
+  }
+
+  onCourtBranchSelect(value){
+    this.formData.patchValue({ 'court_branch': value })
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FirearminventoryService } from '../../services/firearminventory.service';
 import { DataService } from '../../services/data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-firearms-list',
@@ -11,7 +12,8 @@ export class FirearmsListComponent implements OnInit {
   p: number = 1;
   firearms: any = [];
   firearmDescription: any;
-  constructor(private inventoryService: FirearminventoryService, private dataService: DataService) { }
+  id: number;
+  constructor(private inventoryService: FirearminventoryService, private dataService: DataService, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.getFirearmsInventory();
@@ -44,8 +46,18 @@ export class FirearmsListComponent implements OnInit {
     }
   }
 
-  onDelete(id: number){
+  onSelectDelete(id: number){
+    this.id = id;
+  }
 
+  onDelete(id: number){
+    this.inventoryService.delete(id).subscribe(response => {
+      if(response) {
+        this.toastrService.success('Deleted Successfully');
+
+        this.getFirearmsInventory();
+      }
+    })
   }
 
 }

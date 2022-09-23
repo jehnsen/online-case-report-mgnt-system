@@ -33,8 +33,6 @@ export class CaseViewComponent implements OnInit {
 
       // update the state
       this.dataService.setFilesList(response.data);
-      // console.log(this.files);
-      
     })
 
   }

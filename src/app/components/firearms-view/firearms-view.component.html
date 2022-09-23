@@ -1,0 +1,163 @@
+<!-- Main content -->
+<form>
+
+    <!-- 1st row -->
+    <div class="row">
+
+        <!-- left upper pane -->
+        <div class="col-md-12">
+            <div class="card card-outline card-primary">
+                <div class="card-header">
+                    
+                    <h3 class="card-title" *ngIf="selectedRecord">
+                        <h6>Case Number: {{ selectedRecord.case_no }}</h6>
+                    </h3>
+                    <div class="card-tools noprint"> 
+                       
+                        <button type="button" (click)="print()" class="btn btn-outline-warning btn-tool noprint">
+                            <i class="fas fa-print"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="card-body" *ngIf="selectedRecord">
+
+                            <div class="row">
+                                <!-- left pane -->
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <p class="m-0">Firearm</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.firearm_name || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Cartridge</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.cartridge || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">FCC</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.fcc || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="h6">FB</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.fc || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Accessories</p>
+                                        <div class="input-group input-group-sm">
+                                            {{ selectedRecord.accessories || '-' }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Caliber</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.fcaliber || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Make</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.fmake || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <div class="form-group">
+                                        <p class="m-0">Model</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.fmodel || '-' }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <p class="m-0">Type</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.ftype || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Serial Number</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.fserial || '-' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- // right pane -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <p class="m-0">Requesting Party</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.requesting_party || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Date & Time</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.incident_date || '-' }} {{ selectedRecord.incident_time || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Name of Suspect</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.suspect_name || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Name of Victim</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.victim_name || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Location</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.location || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <p class="m-0">Remarks</p>
+                                        <div class="input-group input-group-sm">
+                                            <p class="h6">{{ selectedRecord.remarks || '-' }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <p class="m-0">Status</p>
+                                        <div class="input-group input-group-sm">
+                                            <span class="badge badge-pill badge-warning">
+                                                <p class="h6">{{ selectedRecord.status || '-' }}</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div *ngIf="!selectedRecord" class="d-flex justify-content-center m-4">
+                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+        </div>
+    </div>
+
+</form>
+<!-- /.content -->

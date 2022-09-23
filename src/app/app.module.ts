@@ -57,6 +57,7 @@ import { UserUpdatePasswordComponent } from './components/user-update-password/u
 import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-view/criminal-drug-test-view.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { CaseReportsComponent } from './components/case-reports/case-reports.component';
+import { FirearmsViewComponent } from './components/firearms-view/firearms-view.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { CaseReportsComponent } from './components/case-reports/case-reports.com
     UserUpdatePasswordComponent,
     CriminalDrugTestViewComponent,
     UserEditComponent,
-    CaseReportsComponent
+    CaseReportsComponent,
+    FirearmsViewComponent
   ],
   imports: [
     HttpClientModule,
