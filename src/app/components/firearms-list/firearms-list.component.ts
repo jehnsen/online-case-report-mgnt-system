@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FirearminventoryService } from '../../services/firearminventory.service';
 import { DataService } from '../../services/data.service';
 import { ToastrService } from 'ngx-toastr';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalFirearmEntryComponent } from '../modals/modal-firearm-entry/modal-firearm-entry.component';
 
 @Component({
   selector: 'app-firearms-list',
@@ -13,7 +15,12 @@ export class FirearmsListComponent implements OnInit {
   firearms: any = [];
   firearmDescription: any;
   id: number;
-  constructor(private inventoryService: FirearminventoryService, private dataService: DataService, private toastrService: ToastrService) { }
+  constructor(
+    private inventoryService: FirearminventoryService, 
+    private dataService: DataService, 
+    private toastrService: ToastrService,
+    private modalService: NgbModal
+    ) { }
 
   ngOnInit(): void {
     this.getFirearmsInventory();
@@ -25,6 +32,10 @@ export class FirearmsListComponent implements OnInit {
         this.getFirearmsInventory();
       }
     });
+  }
+
+  open() { 
+    this.modalService.open(ModalFirearmEntryComponent); 
   }
 
   getFirearmsInventory(){
@@ -58,6 +69,10 @@ export class FirearmsListComponent implements OnInit {
         this.getFirearmsInventory();
       }
     })
+  }
+
+  removeFirearm(id: number){
+
   }
 
 }

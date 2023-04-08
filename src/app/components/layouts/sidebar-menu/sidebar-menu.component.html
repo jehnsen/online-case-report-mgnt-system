@@ -47,10 +47,9 @@
                             </li>
                             <li class="nav-item" *ngIf="userType !== 'Administrator'">
                                 <a 
-                                    *ngIf="division !== 'ballistic'"
                                     href="javascript:void(0)" 
                                     class="nav-link" 
-                                    (click)="setPageTitle('LIST OF REPORTED INCIDENTS/EVENTS')"
+                                    (click)="setPageTitle('LIST OF CASES')"
                                     [routerLink]="['records']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-layer-group"></i>
@@ -66,7 +65,7 @@
                                     </p>
                                 </a>
                             </li>
-                            <li *ngIf="division === 'ballistic'" class="nav-item">
+                            <!-- <li *ngIf="division === 'ballistic'" class="nav-item">
                                 <a href="javascript:void(0)" 
                                     class="nav-link" 
                                     (click)="setPageTitle('FIREARMS INVENTORY')"
@@ -79,7 +78,7 @@
                                         </span>
                                     </p>
                                 </a>
-                            </li>
+                            </li> -->
                             <li *ngIf="division === 'chemistry'" class="nav-item">
                                 <a href="javascript:void(0)" 
                                     class="nav-link" 

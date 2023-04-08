@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Incident/Event Details</h3>
+                    <h3 class="card-title">Case Basic Details</h3>
                     <div class="card-tools"> </div>
                 </div>
                 <!-- /.card-header -->
@@ -176,30 +176,20 @@
                                     <input type="text" class="form-control" formControlName="location" />
                                 </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <p for="inputDescription" class="h6">Victim</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="victimName" >
-                                    <!-- <span class="input-group-append">
-                                        <div class="input-group input-group-sm">
-                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-persons">Select...</button>
-                                        </div>
-                                    </span> -->
+                                    
                                 </div>
                             </div>
                             <div class="form-group">
                                 <p for="inputDescription" class="h6">Suspect</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="suspectName" >
-                                    <!-- <span class="input-group-append">
-                                        <div class="input-group input-group-sm">
-                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-suspects">Select...</button>
-                                        </div>
-                                    </span> -->
+                                    
                                 </div>
-                            </div>
+                            </div> -->
                             <div *ngIf="userDivision === 'soco'" class="form-group">
                                 <p for="inputName" class="h6">Reported By</p>
                                 <div class="input-group input-group-sm">
@@ -262,14 +252,36 @@
     </div>
     <!-- end: left lower pane  -->
 
-    <div class="row">
-        <div class="col-md-5">
-            
-            <app-evidence-list [caseId]="caseId" [evidences]="evidences" (onSelected)="onSelectedProduct($event)"></app-evidence-list>
 
+    <div class="row">
+        <div class="col-md-12" *ngIf="userDivision ==='ballistic'">
+            <app-firearms-list></app-firearms-list>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-4" *ngIf="userDivision ==='soco' || userDivision ==='photography' || userDivision ==='fingerprint'">
+            <app-evidence-list [caseId]="caseId" [evidences]="evidences" (onSelected)="onSelectedProduct($event)"></app-evidence-list>
         </div>
 
-        <div class="col-md-7">
+        <div class="col-md-4" >
+            <app-suspect-list></app-suspect-list>
+        </div>
+
+        <div class="col-md-4" >
+            <app-victim-list></app-victim-list>
+        </div>
+
+        <div class="col-md-5" *ngIf="userDivision ==='physical'">
+            <p>physical list</p>
+        </div>
+
+        <div class="col-md-5" *ngIf="userDivision ==='chemistry'">
+           <p>chemistry list</p>
+        </div>
+
+        <div class="col-md-8">
             
             <app-photos-list></app-photos-list>
         </div>

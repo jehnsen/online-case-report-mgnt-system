@@ -1,106 +1,51 @@
-<div>
-    <div class="row">
-        <div class="col-12">
-            <button type="button" class="btn btn-success btn-sm mb-2 float-left" [routerLink]="['entry']"
-                routerLinkActive="router-link-active">
-                <i class="fas fa-plus"></i> New Record
+<div class="card card-outline card-info">
+    <div class="card-header">
+        <h3 class="card-title">Firearms</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-outline-info btn-tool" data-toggle="modal" data-target="#modal-firearm-entry">
+                <i class="fas fa-plus"></i> Add Firearm...
+            </button>
+
+            <button type="button" class="btn btn-outline-warning btn-tool" (click)="open()">
+                <i class="fas fa-plus"></i> Add Firearm...
             </button>
         </div>
     </div>
+    <!-- /.card-header -->
+    <div class="card-body table-responsive p-0">
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card card-outline card-primary">
-                <div class="card-header" disabled>
-                    <h3 class="card-title">Firearms Inventory</h3>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm">
-
-                            <input type="text" class="form-control float-right" name="firearmDescription" [(ngModel)]="firearmDescription"
-                                (ngModelChange)="Search()" placeholder="Search">
-
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body table-responsive p-0">
-
-                    <table *ngIf="firearms.length > 0" class="table table-hover text-nowrap">
-                        <thead>
-                            <tr>
-                                <th>Case No.</th>
-                                <th>Type</th>
-                                <th>Description of Firearms</th>
-                                <th>Serial Number</th>
-                                <th>Requesting Party</th>
-                                <th>Status</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let firearm of firearms | paginate: {itemsPerPage: 10, currentPage: p};">
-                                <td [ngStyle]="{'width': '70px'}">{{ firearm.case_no }}</td>
-                                <td>{{ firearm.ftype }}</td>
-                                <td class="text-wrap">{{ firearm.firearm_name }}</td>
-                                <td>{{ firearm.fserial_no }}</td>
-                                <td>{{ firearm.requesting_party }}</td>
-                                <td>
-                                    {{ firearm.status }}
-                                </td>
-                                <td>
-                                    <button type="button" [routerLink]="['entry', firearm.id]" class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
-                                    <button type="button" [routerLink]="['view', firearm.id]" class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
-                                    <button type="button" data-target="#modal-confirm" data-toggle="modal" (click)="onSelectDelete(firearm.id)" class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div *ngIf="firearms.length === 0" class="d-flex justify-content-center m-4">
-                        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer clearfix">
-                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
-                </div>
-            </div>
-            <!-- /.card -->
-        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Caliber</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Type</th>
+                    <th>Serial No</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let f of firearms">
+                    <td><i class="fas fa-circle text-success mr-2"></i> {{ f.firearm_name }}</td>
+                    <td>{{ f.fcaliber }}</td>
+                    <td>{{ f.fmake }}</td>
+                    <td>{{ f.fmodel }}</td>
+                    <td>{{ f.ftype }}</td>
+                    <td>{{ f.fserial_no }}</td>
+                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFirearm(f.id)">
+                        <i class="fas fa-times"></i>
+                    </button></td>
+                </tr>
+            </tbody>
+            <tfoot *ngIf="firearms.length == 0" class="text-left">
+                <p class="text-secondary m-2 ml-3 text-sm">No firearm/s added.</p>
+            </tfoot>
+        </table>
     </div>
+    <!-- /.card-body -->
 </div>
 
-<div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content ">
-            <div class="modal-header bg-maroon">
-                <h6 class="modal-title">Delete</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-  
-                <p>Are you sure you want to delete this record?</p> 
-                
-                <p class="text text-maroon">This operation can be undone.</p>
-                
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn bg-maroon float-right" data-dismiss="modal" (click)="onDelete(this.id)">Yes</button>
-                <button type="button" class="btn btn-outline-primary float-left" data-dismiss="modal">No</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+<app-modal-firearm-entry></app-modal-firearm-entry>

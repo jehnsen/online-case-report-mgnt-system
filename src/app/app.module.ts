@@ -58,6 +58,11 @@ import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-v
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { CaseReportsComponent } from './components/case-reports/case-reports.component';
 import { FirearmsViewComponent } from './components/firearms-view/firearms-view.component';
+import { ModalFirearmEntryComponent } from './components/modals/modal-firearm-entry/modal-firearm-entry.component';
+import { SuspectListComponent } from './components/suspect-list/suspect-list.component';
+import { VictimListComponent } from './components/victim-list/victim-list.component';
+import { ModalSuspectEntryComponent } from './components/modals/modal-suspect-entry/modal-suspect-entry.component';
+import { ModalVictimEntryComponent } from './components/modals/modal-victim-entry/modal-victim-entry.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +112,12 @@ import { FirearmsViewComponent } from './components/firearms-view/firearms-view.
     CriminalDrugTestViewComponent,
     UserEditComponent,
     CaseReportsComponent,
-    FirearmsViewComponent
+    FirearmsViewComponent,
+    ModalFirearmEntryComponent,
+    SuspectListComponent,
+    VictimListComponent,
+    ModalSuspectEntryComponent,
+    ModalVictimEntryComponent
   ],
   imports: [
     HttpClientModule,

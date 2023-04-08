@@ -1,0 +1,97 @@
+<div class="modal fade" id="modal-firearm-entry" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content ">
+            <div class="modal-header bg-info">
+                <h6 class="modal-title">Add Firearm</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <p for="inputDescription" class="h6">Firearm <b class="text-danger">*</b></p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="firearmName">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p for="inputDescription" class="h6">Cartridge <b class="text-danger">*</b></p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="cartridge">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p for="inputDescription" class="h6">FCC</p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="fcc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p for="inputDescription" class="h6">FB</p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="fb">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p for="inputDescription" class="h6">Accessories</p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="accessories">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <p for="inputName" class="h6">Caliber/Gauge <b class="text-danger">*</b></p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="fcaliber" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p for="inputName" class="h6">Make <b class="text-danger">*</b></p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="fmake" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p for="inputName" class="h6">Model <b class="text-danger">*</b></p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="fmodel" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <p for="inputName" class="h6">Type <b class="text-danger">*</b></p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="ftype" />
+                                <span class="input-group-append">
+                                    <div class="input-group input-group-sm">
+                                            <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
+                                                data-target="#modal-handgun-types">Select...</button>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p for="inputName" class="h6">Serial Number</p>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" formControlName="fserialNo" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
+                <button class="btn btn-success float-right" type="submit">Add</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

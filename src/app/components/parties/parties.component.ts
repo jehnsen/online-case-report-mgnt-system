@@ -20,53 +20,7 @@ export class PartiesComponent implements OnInit {
   }
 
   getRequestingParties(): void{
-    // this.requestingParties = [
-    //   {
-    //     id: 1,
-    //     name: 'Balbalan Municipal Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Lubuagan Municipal Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 3,
-    //     name: 'Tabuk City Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 4,
-    //     name: 'Tanudan Municipal Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 5,
-    //     name: 'Tinglayan Municipal Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 6,
-    //     name: 'Pasil Municipal Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 7,
-    //     name: 'Pinukpok, Municipal Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 8,
-    //     name: 'Rizal Municipal Police Station',
-    //     status: 1
-    //   },
-    //   {
-    //     id: 9,
-    //     name: 'Bulanao Sub-Station',
-    //     status: 1
-    //   }
-    // ]
+   
     this.requesterService.get().subscribe((response: any) => {
       this.requestingParties = response.data
       // store the result in state
