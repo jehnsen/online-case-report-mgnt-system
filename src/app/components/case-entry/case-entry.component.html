@@ -65,7 +65,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="form-group" *ngIf="userDivision === 'soco'">
+                            <div class="form-group">
                                 <p for="inputName" class="h6">Investigator on Case</p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="investigator" />
@@ -120,7 +120,7 @@
         <div class="col-md-6">
             <div class="card card-outline card-success">
                 <div class="card-header">
-                    <h3 class="card-title">DTPO & Suspect/Victim</h3>
+                    <h3 class="card-title">DTPO</h3>
                     <div class="card-tools"> </div>
                 </div>
                 <!-- /.card-header -->
@@ -200,7 +200,6 @@
                     </div>
                 </div>
                 <!-- /.card-body -->
-        
             </div>
         </div>
     </div>
@@ -259,19 +258,25 @@
         </div>
     </div>
 
-
     <div class="row">
-        <div class="col-md-4" *ngIf="userDivision ==='soco' || userDivision ==='photography' || userDivision ==='fingerprint'">
-            <app-evidence-list [caseId]="caseId" [evidences]="evidences" (onSelected)="onSelectedProduct($event)"></app-evidence-list>
-        </div>
 
-        <div class="col-md-4" >
+        <div class="col-md-6" >
             <app-suspect-list></app-suspect-list>
         </div>
 
-        <div class="col-md-4" >
+        <div class="col-md-6" >
             <app-victim-list></app-victim-list>
         </div>
+
+        <div class="col-md-6" *ngIf="userDivision ==='soco' || userDivision ==='photography' || userDivision ==='fingerprint'">
+            <app-evidence-list [caseId]="caseId" [evidences]="evidences" (onSelected)="onSelectedProduct($event)"></app-evidence-list>
+        </div>
+
+        <div class="col-md-6" >
+             <!-- files, photos & videos -->
+            <app-photos-list></app-photos-list>
+        </div>
+       
 
         <div class="col-md-5" *ngIf="userDivision ==='physical'">
             <p>physical list</p>
@@ -283,7 +288,7 @@
 
         <div class="col-md-8">
             
-            <app-photos-list></app-photos-list>
+            <!-- <app-photos-list></app-photos-list> -->
         </div>
 
     </div>

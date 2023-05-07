@@ -25,7 +25,7 @@ export class PersonComponent implements OnInit {
       this.persons = response.data
       const sorted = this.persons.sort((a,b) => b.id - a.id)
       // store the result in state
-      this.dataService.setVictimsList(sorted);
+      // this.dataService.setVictimsList(sorted);
     })
   }
 

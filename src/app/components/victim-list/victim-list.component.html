@@ -1,10 +1,10 @@
 <div class="card card-outline card-info">
     <div class="card-header">
-        <h3 class="card-title">Victim/s</h3>
+        <h3 class="card-title">Victims/s</h3>
 
         <div class="card-tools">
-            <button type="button" class="btn btn-outline-info btn-tool" data-toggle="modal" data-target="#modal-add-victim">
-                <i class="fas fa-plus"></i> Add Victim...
+            <button type="button" class="btn btn-outline-info btn-tool" data-toggle="modal" data-target="#modal-add-victim" *ngIf="!isView">
+                <i class="fas fa-plus"></i> Add...
             </button>
         </div>
     </div>
@@ -19,8 +19,8 @@
             </thead> -->
             <tbody>
                 <tr *ngFor="let victim of victims">
-                    <td><i class="fas fa-circle text-success mr-2"></i> {{ victim.name }}</td>
-                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeVictim(victim.id)">
+                    <td><i class="fas fa-circle text-success mr-2"></i> {{ victim.firstname }} {{ victim.lastname }}</td>
+                    <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeVictim(victim.id)" *ngIf="!isView">
                         <i class="fas fa-times"></i>
                     </button></td>
                 </tr>
@@ -33,43 +33,5 @@
     <!-- /.card-body -->
 </div>
 
-
-<!-- modal dialog for adding evidence recovered -->
-<div class="modal fade" id="modal-add-victim" style="display: none;" aria-hidden="true" >
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content ">
-            <div class="modal-header bg-info">
-                <h6 class="modal-title">Add Victim</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- <div class="form-group">
-                   
-                    <div class="input-group input-group-sm">
-                        <input type="text" #evidenceNameInput 
-                        class="form-control"
-                        [(ngModel)]="evidenceDescription" 
-                        (ngModelChange)="onChange($event)"
-                        placeholder="Description of evidence..." />
-                    </div>
-                </div> -->
-
-            </div>
-            
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline btn-secondary" data-dismiss="modal">Close</button>
-                <!-- <button 
-                    type="button" 
-                    (click)="addVictim(1, evidenceNameInput.value)" 
-                    data-dismiss="modal" #modalAddEvidence
-                    class="btn btn-outline btn-info">
-                    Add
-                </button> -->
-              </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+<!-- modal dialog -->
+<app-modal-victim-entry></app-modal-victim-entry>

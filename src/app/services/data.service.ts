@@ -34,11 +34,14 @@ export class DataService {
 
   private victim$ = new BehaviorSubject<any>({});
   selectedVictim$ = this.victim$.asObservable();
+  
   private victimListBus$ = new BehaviorSubject<any>([]);
   victimList$ = this.victimListBus$.asObservable();
 
   private suspect$ = new BehaviorSubject<any>({});
   selectedSuspect$ = this.suspect$.asObservable();
+  private suspectListBus$ = new BehaviorSubject<any>([]);
+  suspectList$ = this.suspectListBus$.asObservable();
 
   private fileListBus$ = new BehaviorSubject<any>([]);
   fileList$ = this.fileListBus$.asObservable();
@@ -102,6 +105,10 @@ export class DataService {
 
   setSelectedSuspect(name){
     this.suspect$.next(name);
+  }
+
+  setSuspectsList(list: any){
+    this.suspectListBus$.next(list);
   }
 
   setFilesList(files: any){

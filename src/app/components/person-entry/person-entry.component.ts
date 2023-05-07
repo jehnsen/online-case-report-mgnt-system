@@ -25,9 +25,9 @@ export class PersonEntryComponent implements OnInit {
     
     this.clearFields();
 
-    this.dataService.victimList$.subscribe((value) => {
-      this.persons = value;
-    });
+    // this.dataService.victimList$.subscribe((value) => {
+    //   this.persons = value;
+    // });
   }
 
   onSubmit(){

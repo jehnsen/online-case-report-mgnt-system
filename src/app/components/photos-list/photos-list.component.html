@@ -1,4 +1,4 @@
-<div class="card card-outline card-warning">
+<div class="card card-outline card-warning noprint">
     <div class="card-header">
         <h3 class="card-title">Record Files</h3>
 
@@ -64,7 +64,7 @@
 
                     <td><a [href]="baseUrl+urlPath+file.filename" [download]="file.filename"><i class="fas fa-download"></i></a></td>
                     
-                    <td *ngIf="!isViewOnly"><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)">
+                    <td *ngIf="!isViewOnly"><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeFile(file)" *ngIf="!isViewOnly">
                         <i class="fas fa-times"></i>
                     </button></td>
                 </tr>

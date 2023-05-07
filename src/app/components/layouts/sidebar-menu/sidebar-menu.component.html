@@ -45,7 +45,7 @@
                                     <p> Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-item" *ngIf="userType !== 'Administrator'">
+                            <li class="nav-item" *ngIf="userType !== 'Administrator' && division !== 'chemistry'">
                                 <a 
                                     href="javascript:void(0)" 
                                     class="nav-link" 
@@ -53,12 +53,7 @@
                                     [routerLink]="['records']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fas fa-layer-group"></i>
-                                    <p>
-                                        {{ division === 'soco' 
-                                            ? 'Incidents/Events' 
-                                            : 'Cases'
-                                               
-                                        }} 
+                                    <p> Cases
                                         <span *ngIf="this.count > 0" class="badge badge-pill badge-primary right">
                                             {{ count > 0 ? count : null }}
                                         </span>
@@ -83,11 +78,25 @@
                                 <a href="javascript:void(0)" 
                                     class="nav-link" 
                                     (click)="setPageTitle('CRIMINAL DRUG TEST & DANGEROUS DRUGS RECORDS')"
-                                    [routerLink]="['drugtest']"
+                                    [routerLink]="['records']"
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fa fa-flask"></i>
                                     <p>Criminal Drug Test
-                                        <span *ngIf="firearmInventoryCount > 0" class="badge badge-pill badge-primary right">
+                                        <span *ngIf="drugTestCount > 0" class="badge badge-pill badge-primary right">
+                                            {{ drugTestCount > 0 ? drugTestCount : null }}
+                                        </span>
+                                    </p>
+                                </a>
+                            </li>
+                            <li *ngIf="division === 'chemistry'" class="nav-item">
+                                <a href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    (click)="setPageTitle('LIST OF CASES')"
+                                    [routerLink]="['drugtest']"
+                                    routerLinkActive="router-link-active">
+                                    <i class="nav-icon fa fa-flask"></i>
+                                    <p>Cases
+                                        <span *ngIf="drugTestCount > 0" class="badge badge-pill badge-primary right">
                                             {{ drugTestCount > 0 ? drugTestCount : null }}
                                         </span>
                                     </p>

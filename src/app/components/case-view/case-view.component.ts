@@ -3,6 +3,8 @@ import { ActivatedRoute, ParamMap  } from '@angular/router'
 import { CaseService } from '../../services/case.service';
 import { DataService } from '../../services/data.service';
 import { FileService } from '../../services/file.service';
+import { VictimService } from 'src/app/services/victim.service';
+import { SuspectService } from 'src/app/services/suspect.service';
 @Component({
   selector: 'app-case-view',
   templateUrl: './case-view.component.html',
@@ -13,9 +15,18 @@ export class CaseViewComponent implements OnInit {
   selectedCase: any;
   evidences: any;
   files: [];
+  victims: [];
+  suspects: [];
   id: any;
   userDivision: string;
-  constructor(private route: ActivatedRoute, private caseService: CaseService, private dataService: DataService,  private fileService: FileService) { }
+
+  constructor(
+    private route: ActivatedRoute, 
+    private caseService: CaseService, 
+    private dataService: DataService,  
+    private fileService: FileService,
+    private victimService: VictimService,
+    private suspectService: SuspectService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -28,9 +39,10 @@ export class CaseViewComponent implements OnInit {
     // view mode
     this.dataService.setIsViewValue(true);
     this.getSelectedCase(this.id);
+    this.getVictims(this.id)
+    this.getSuspects(this.id)
 
     this.fileService.getFiles(this.id).subscribe((response: any) => {
-
       // update the state
       this.dataService.setFilesList(response.data);
     })
@@ -47,6 +59,26 @@ export class CaseViewComponent implements OnInit {
         }, 0);
     })
   }
+
+  getVictims(id: number): void {
+    this.victimService.getByCaseId(id).subscribe(response => {
+      if(response.data && Array.isArray(response.data)) {
+        this.victims = response.data
+        console.log(response.data)
+        this.dataService.setVictimsList(response.data);
+      }
+    })
+  }
+
+  getSuspects(id: number): void {
+    this.suspectService.getByCaseId(id).subscribe(response => {
+      if(response.data && Array.isArray(response.data)) {
+        this.suspects = response.data
+        this.dataService.setSuspectsList(response.data);
+      }
+    })
+  }
+
 
   print(): void {
     window.print();

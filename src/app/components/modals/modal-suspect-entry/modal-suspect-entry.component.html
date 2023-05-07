@@ -1,1 +1,92 @@
-<p>modal-suspect-entry works!</p>
+<div class="modal fade" id="modal-add-suspect" style="display: none;" aria-hidden="true" >
+    <form [formGroup]="formData" (ngSubmit)="addSuspect()">
+        <div class="modal-dialog">
+            <div class="modal-content ">
+                <div class="modal-header bg-info">
+                    <h6 class="modal-title">Add Suspect</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <p for="firstname" class="h6 control-label required">Firstname <b class="text-danger">*</b></p>
+                        <div class="input-group input-group-sm">
+                            <input type="text" formControlName="firstname" class="form-control" placeholder="firstname" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p for="middlename" class="h6 control-label required">Middlename <b class="text-danger">*</b></p>
+                        <div class="input-group input-group-sm">
+                            <input type="text"  class="form-control" formControlName="middlename" placeholder="middlename" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p for="lastname" class="h6 control-label required">Lastname <b class="text-danger">*</b></p>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" formControlName="lastname" placeholder="lastname" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <p for="address" class="h6 control-label required">Address <b class="text-danger">*</b></p>
+                        <div class="input-group input-group-sm">
+                            <input type="text" class="form-control" formControlName="address" placeholder="address" required/>
+                                <!-- [ngClass]="isFieldValid('caseNo') ? '' : 'is-invalid'" -->
+                                <!-- <span *ngIf="this.incidentData.get('caseNo').touched" class="error invalid-feedback">Please enter case number.</span> -->
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <p for="gender" class="h6 control-label required">Gender <b class="text-danger">*</b></p>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control custom-select" formControlName="gender">
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <p for="civilStatus" class="h6 control-label required">Civil Status <b class="text-danger">*</b></p>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control custom-select" formControlName="civilStatus">
+                                        <option>Single</option>
+                                        <option>Married</option>
+                                        <option>Widowed</option>
+                                        <option>Separated</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <p for="age" class="h6 control-label required">Age <b class="text-danger">*</b></p>
+                                <div class="input-group input-group-sm">
+                                    <input type="number"  class="form-control" formControlName="age" placeholder="Enter age" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>               
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline btn-secondary" data-dismiss="modal">Close</button>
+                    <button 
+                        type="button" 
+                        (click)="addSuspect()" 
+                        data-dismiss="modal" 
+                        class="btn btn-outline btn-info"
+                    >
+                        Add
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </form>  <!-- /.form -->
+</div>

@@ -53,7 +53,7 @@ export class EvidenceListComponent implements OnInit {
     if(this.caseId > 0) {
       // delete also the evidences from database
       this.caseService.deleteEvidence(evidence.id)
-        .subscribe((data) => {
+        .subscribe(data => {
             console.log(data)
         })
     }
