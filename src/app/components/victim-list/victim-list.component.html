@@ -19,7 +19,7 @@
             </thead> -->
             <tbody>
                 <tr *ngFor="let victim of victims">
-                    <td><i class="fas fa-circle text-success mr-2"></i> {{ victim.firstname }} {{ victim.lastname }}</td>
+                    <td><i class="fas fa-user-alt text-info mr-2"></i> {{ victim.firstname }} {{ victim.lastname }}</td>
                     <td><button type="button" class="btn btn-danger btn-xs float-right" (click)="removeVictim(victim.id)" *ngIf="!isView">
                         <i class="fas fa-times"></i>
                     </button></td>

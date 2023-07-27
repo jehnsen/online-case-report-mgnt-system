@@ -124,13 +124,14 @@ export class FirearmsEntryComponent implements OnInit {
    
     if(this.isAdd){
 
-      this.inventoryService.create(payload).subscribe((response) => {
+      this.inventoryService.create(payload).subscribe(response => {
         this.toastrService.success('New Record was added to database!', 'New Entry')
 
         // clear list after successfull submit
         this.dataService.setFilesList([]);
         this.clearFields();
         this.isLoading = false;
+        
       }, 
       err => {
         if(err.code === 409){

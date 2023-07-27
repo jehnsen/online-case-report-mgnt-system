@@ -21,6 +21,7 @@ export class SuspectListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSuspects()
+    
   }
 
   getSuspects(){
@@ -37,8 +38,11 @@ export class SuspectListComponent implements OnInit {
     
     this.suspectService.delete(id).subscribe((response: any) => {
       if(response.data){
-        this.toastrService.success('Successfully removed from database!', 'Delete');
-        // this.getPersons();
+        this.toastrService.success('Successfully removed!', 'Delete');
+        
+        const newList = this.suspects.filter(s => s.id !== id)
+        this.dataService.setSuspectsList(newList);
+        this.suspects = newList
       }
     }, err => this.toastrService.error(err, 'Server Issue Encountered'));
     

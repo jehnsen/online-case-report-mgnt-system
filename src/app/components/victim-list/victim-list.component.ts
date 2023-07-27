@@ -19,20 +19,19 @@ export class VictimListComponent implements OnInit {
   }
 
   getVictims() {
-    this.dataService.victimList$.subscribe(value => {
-      this.victims = value;
-    });
+    this.dataService.victimList$.subscribe(value => this.victims = value);
 
-    this.dataService.viewValue$.subscribe(value => {
-      this.isView = value;
-    });
+    this.dataService.viewValue$.subscribe(value => this.isView = value);
   }
 
   removeVictim(id: number) {
     this.victimService.delete(id).subscribe((response: any) => {
       if(response.data){
-        this.toastrService.success('Successfully removed from database!', 'Delete');
-        // this.getPersons();
+        this.toastrService.success('Successfully removed!', 'Delete');
+        
+        const newList = this.victims.filter(s => s.id !== id)
+        this.dataService.setVictimsList(newList);
+        this.victims = newList
       }
     }, err => this.toastrService.error(err, 'Server Issue Encountered'));
     

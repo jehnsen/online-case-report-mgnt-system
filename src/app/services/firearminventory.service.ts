@@ -21,6 +21,7 @@ export class FirearminventoryService {
       // Client-side errors
       errorMessage = { message: error.error.message };
     } else {
+
       // Server-side errors
       errorMessage = { code: error.status, message: error.message };
     }

@@ -24,9 +24,9 @@ export class ModalSuspectEntryComponent implements OnInit {
   ngOnInit(): void {
     this.clearFields();
 
-    // this.dataService.suspectList$.subscribe((value) => {
-    //   this.persons = value;
-    // });
+    this.dataService.suspectList$.subscribe((value) => {
+      this.suspects = value;
+    });
   }
 
   addSuspect() {

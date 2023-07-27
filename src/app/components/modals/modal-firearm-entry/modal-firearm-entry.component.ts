@@ -12,4 +12,8 @@ export class ModalFirearmEntryComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit() {
+    
+  }
+
 }

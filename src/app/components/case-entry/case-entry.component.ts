@@ -152,7 +152,7 @@ export class CaseEntryComponent implements OnInit {
         'incidentTime': _incident.incident_time,
         'incidentDateEdit': _incident.incident_date,
         'incidentTimeEdit': _incident.incident_time,
-        'engineno': [''],
+        'engineno': _incident.engineno,
         'chassisno': ['']
       })
 
@@ -237,7 +237,7 @@ export class CaseEntryComponent implements OnInit {
     let payload = {
       caseNo: control['caseNo'].value,
       caseNature: control['caseNature'].value,
-      investigator: this.userDivision === 'soco' ? control['investigator'].value : 'NA',
+      investigator: control['investigator'].value,
       requestingParty: control['requestingParty'].value,
       incidentTitle: this.userDivision === 'soco' ? control['incidentTitle'].value : 'NA',
       incidentDescription: this.userDivision === 'soco' ? control['incidentDescription'].value : 'NA',
@@ -306,6 +306,13 @@ export class CaseEntryComponent implements OnInit {
           this.toastrService.success('Incident/Event was successfully updated!', 'Update Incident Record');
           // stop the loading animation
           this.isLoading = false;
+
+          // refresh the list
+          this.caseService.getCases().subscribe((response: any) => {
+            const filtered = response.data.filter(f => f.division === this.userDivision);
+            // Update the case/incident list in state
+            this.dataService.setCaseList(filtered)
+          })
         }
 
       },

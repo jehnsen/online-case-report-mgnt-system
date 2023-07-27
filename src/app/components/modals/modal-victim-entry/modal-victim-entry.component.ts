@@ -24,9 +24,9 @@ export class ModalVictimEntryComponent implements OnInit {
   ngOnInit(): void {
     this.clearFields();
 
-    // this.dataService.suspectList$.subscribe((value) => {
-    //   this.persons = value;
-    // });
+    this.dataService.victimList$.subscribe((value) => {
+      this.victims = value;
+    });
   }
 
   addVictim() {
