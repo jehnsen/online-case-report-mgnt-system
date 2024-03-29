@@ -49,6 +49,10 @@ export class DataService {
   private firearmInventoryListBus$ = new BehaviorSubject<any>([]);
   firearmInventoryList$ = this.firearmInventoryListBus$.asObservable();
 
+  private firearmListBus$ = new BehaviorSubject<any>([]);
+  firearmList$ = this.firearmListBus$.asObservable();
+  
+
   private drugTestListBus$ = new BehaviorSubject<any>([]);
   drugTestList$ = this.drugTestListBus$.asObservable();
 
@@ -117,6 +121,10 @@ export class DataService {
 
   setFirearmInventoryList(data: any){
     this.firearmInventoryListBus$.next(data);
+  }
+
+  setFirearmList(data: any){
+    this.firearmListBus$.next(data);
   }
 
   setDrugTestList(list: any) {

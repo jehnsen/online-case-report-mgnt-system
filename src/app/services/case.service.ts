@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders   } from '@angular/common/http';
 import {  Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { retry, share, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 const httpOptions = {
@@ -25,12 +25,12 @@ export class CaseService {
       // Server-side errors
       errorMessage = `Error Code: ${error.status}\nServer Message: ${error.message}`;
     }
-    window.alert(errorMessage);
+    // window.alert(errorMessage);
     return throwError(errorMessage);
   }
 
   public getCases(): Observable<any> {
-    return this.httpClient.get(this.URL_ENDPOINT).pipe(catchError(this.handleError));
+    return this.httpClient.get(this.URL_ENDPOINT).pipe(catchError(this.handleError)).pipe(share());
   }
 
   public create(data): Observable<any> {

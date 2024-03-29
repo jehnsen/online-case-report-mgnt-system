@@ -8,6 +8,8 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+const urlPath = 'api/categories'
+
 @Injectable({
   providedIn: 'root'
 })
@@ -24,12 +26,12 @@ export class CategoryService {
       // Server-side errors
       errorMessage = `Error Code: ${error.status}\nServer Message: ${error.message}`;
     }
-    window.alert(errorMessage);
+    // window.alert(errorMessage);
     return throwError(errorMessage);
   }
 
   public get(): Observable<any> {
-    return this.httpClient.get(`${environment.apiUrl}/api/category`).pipe(catchError(this.handleError));
+    return this.httpClient.get(`${environment.apiUrl}/${urlPath}`).pipe(catchError(this.handleError));
   }
 
   public create(data): Observable<any> {
@@ -37,7 +39,7 @@ export class CategoryService {
       description:  data.categoryDescription,
       division:     data.division
     }
-    return this.httpClient.post(`${environment.apiUrl}/api/category`, payload, httpOptions)
+    return this.httpClient.post(`${environment.apiUrl}/${urlPath}`, payload, httpOptions)
     .pipe(catchError(this.handleError));
   }
 
@@ -46,11 +48,11 @@ export class CategoryService {
       description:  data.categoryDescription,
       division:     data.division
     }
-    return this.httpClient.put(`${environment.apiUrl}/api/category/${id}`, payload, httpOptions)
+    return this.httpClient.put(`${environment.apiUrl}/${urlPath}/${id}`, payload, httpOptions)
   }
 
   public delete(id): Observable<any> {
-    return this.httpClient.delete(`${environment.apiUrl}/api/category/${id}`, httpOptions)
+    return this.httpClient.delete(`${environment.apiUrl}/${urlPath}/${id}`, httpOptions)
     .pipe(catchError(this.handleError));
   }
 

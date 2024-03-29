@@ -8,6 +8,8 @@ const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+const urlPath = 'api/suspects'
+
 @Injectable({
     providedIn: 'root'
 })
@@ -29,23 +31,23 @@ export class SuspectService {
       }
 
     public get(): Observable<any> {
-        return this.httpClient.get(`${environment.apiUrl}/api/suspect`).pipe(catchError(this.handleError));
+        return this.httpClient.get(`${environment.apiUrl}/${urlPath}`).pipe(catchError(this.handleError));
     }
 
     public getByCaseId(caseId): Observable<any> {
-        return this.httpClient.get(`${environment.apiUrl}/api/suspect/case/${caseId}`).pipe(catchError(this.handleError));
+        return this.httpClient.get(`${environment.apiUrl}/${urlPath}/case/${caseId}`).pipe(catchError(this.handleError));
     }
 
     public create(data): Observable<any> {
 
-        return this.httpClient.post(`${environment.apiUrl}/api/suspect`, {
-            case_no: data.case_no,
+        return this.httpClient.post(`${environment.apiUrl}/${urlPath}`, {
+            // case_no: data.case_no,
             firstname: data.firstname,
             middlename: data.middlename,
             lastname: data.lastname,
             address: data.address,
             age: data.age,
-            gender: data.gender,
+            gender: data.gender,    
             civil_status: data.civil_status,
             status: 0
         }, httpOptions)
@@ -54,7 +56,7 @@ export class SuspectService {
 
     public update(data): Observable<any> {
         console.log(data)
-        return this.httpClient.put(`${environment.apiUrl}/api/suspect/${data.id}`, {
+        return this.httpClient.put(`${environment.apiUrl}/${urlPath}/${data.id}`, {
             case_no: data.case_no,
             firstname: data.firstname,
             middlename: data.middlename,
@@ -68,12 +70,12 @@ export class SuspectService {
     }
 
     public getById(id): Observable<any> {
-        return this.httpClient.get(`${environment.apiUrl}/api/suspect/${id}`, httpOptions)
+        return this.httpClient.get(`${environment.apiUrl}/a${urlPath}/${id}`, httpOptions)
             .pipe(catchError(this.handleError));
     }
 
     public delete(id): Observable<any> {
-        return this.httpClient.delete(`${environment.apiUrl}/api/suspect/${id}`, httpOptions)
+        return this.httpClient.delete(`${environment.apiUrl}/${urlPath}/${id}`, httpOptions)
             .pipe(catchError(this.handleError));
     }
 }

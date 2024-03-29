@@ -24,7 +24,7 @@ export class PersonService {
       // Server-side errors
       errorMessage = `Error Code: ${error.status}\nServer Message: ${error.message}`;
     }
-    window.alert(errorMessage);
+    // window.alert(errorMessage);
     return throwError(errorMessage);
   }
 

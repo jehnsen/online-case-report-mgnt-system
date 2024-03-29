@@ -3,6 +3,7 @@ import { Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr';
 import { CaseService } from '../../services/case.service';
 import { DataService } from '../../services/data.service';
+import { Utils } from '../../helpers/utils';
 
 @Component({
   selector: 'app-case-list',
@@ -27,22 +28,27 @@ export class CaseListComponent implements OnInit {
       if(value.length > 0){
         this.cases = value
       } else {
+        
         this.getCases(this.userDivision);
+
+        // store the result in state
+        this.onCacheList(this.cases);
+
       }
     });
   }
 
   getCases(division: string): void {
-
+    // console.log(Math.random())
     this.caseService.getCases().subscribe((response: any) => {
-      if(response.data){
+      if(!Utils.isEmpty(response.data) ){
         // filter only the data for the current division
-        const filtered = response.data.filter(f => f.division === this.userDivision)
-        this.cases =filtered
+        this.cases = response.data.filter(f => f.division === division)
+
         // store the result in state
         this.onCacheList(this.cases);
+
       }
-      
     })
   }
 
@@ -67,7 +73,7 @@ export class CaseListComponent implements OnInit {
   }
   
   onCacheList(data: any){
-    this.dataService.setCaseList(data);
+    // this.dataService.setCaseList(data);
   }
 
   onSelectDelete(id: number){

@@ -45,6 +45,11 @@ export class ModalSuspectEntryComponent implements OnInit {
       civil_status: control['civilStatus'].value
     }
 
+    if (!payload.firstname || !payload.lastname || !payload.gender) {
+      this.toastrService.warning("Please fillup all required fields!", 'Validation Warning')
+      return;
+    }
+
     this.suspectService.create(payload).subscribe(response => {
       if (response.data) {
         // update the state

@@ -8,6 +8,8 @@ const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
+const urlEndpoint = `${environment.apiUrl}/api/victims`
+
 @Injectable({
     providedIn: 'root'
 })
@@ -29,16 +31,16 @@ export class VictimService {
     }
 
     public get(): Observable<any> {
-        return this.httpClient.get(`${environment.apiUrl}/api/victim`).pipe(catchError(this.handleError));
+        return this.httpClient.get(`${urlEndpoint}`).pipe(catchError(this.handleError));
     }
 
     public getByCaseId(caseId): Observable<any> {
-        return this.httpClient.get(`${environment.apiUrl}/api/victim/case/${caseId}`).pipe(catchError(this.handleError));
+        return this.httpClient.get(`${urlEndpoint}/case/${caseId}`).pipe(catchError(this.handleError));
     }
 
     public create(data): Observable<any> {
 
-        return this.httpClient.post(`${environment.apiUrl}/api/victim`, {
+        return this.httpClient.post(`${urlEndpoint}`, {
             case_id: data.case_id,
             firstname: data.firstname,
             middlename: data.middlename,
@@ -48,13 +50,12 @@ export class VictimService {
             gender: data.gender,
             civil_status: data.civil_status,
             status: 0
-        }, httpOptions)
-            .pipe(catchError(this.handleError));
+        }, httpOptions).pipe(catchError(this.handleError));
     }
 
     public update(data): Observable<any> {
         console.log(data)
-        return this.httpClient.put(`${environment.apiUrl}/api/victim/${data.id}`, {
+        return this.httpClient.put(`${urlEndpoint}/${data.id}`, {
             case_id: data.case_id,
             firstname: data.firstname,
             middlename: data.middlename,
@@ -68,12 +69,12 @@ export class VictimService {
     }
 
     public getById(id): Observable<any> {
-        return this.httpClient.get(`${environment.apiUrl}/api/victim/${id}`, httpOptions)
+        return this.httpClient.get(`${urlEndpoint}/${id}`, httpOptions)
             .pipe(catchError(this.handleError));
     }
 
     public delete(id): Observable<any> {
-        return this.httpClient.delete(`${environment.apiUrl}/api/victim/${id}`, httpOptions)
+        return this.httpClient.delete(`${urlEndpoint}/${id}`, httpOptions)
             .pipe(catchError(this.handleError));
     }
 }

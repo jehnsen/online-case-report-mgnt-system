@@ -14,42 +14,50 @@ export class FirearmsListComponent implements OnInit {
   p: number = 1;
   firearms: any = [];
   firearmDescription: any;
+  selectedCase: any;
   id: number;
   constructor(
-    private inventoryService: FirearminventoryService, 
+    private firearmService: FirearminventoryService, 
     private dataService: DataService, 
     private toastrService: ToastrService,
     private modalService: NgbModal
     ) { }
 
   ngOnInit(): void {
-    this.getFirearmsInventory();
 
-    this.dataService.caseList$.subscribe((value) => {
-      if(value.length > 0){
-        this.firearms = value
-      } else {
-        this.getFirearmsInventory();
-      }
+    this.dataService.selectedCase$.subscribe((value) => {
+      this.selectedCase = value;
     });
+
+    this.getCaseFirearms(this.selectedCase.id);
+
+    // this.dataService.caseList$.subscribe((value) => {
+    //   if(value.length > 0){
+    //     this.firearms = value
+    //   } else {
+    //     this.getCaseFirearms();
+    //   }
+    // });
   }
 
   open() { 
     this.modalService.open(ModalFirearmEntryComponent); 
   }
 
-  getFirearmsInventory(){
-    this.inventoryService.getInvetory().subscribe((response) => {
+  getCaseFirearms(caseId){
+    this.firearmService.getByCaseId(caseId).subscribe((response) => {
       if(response.data){
         this.firearms = response.data
-        this.dataService.setFirearmInventoryList(this.firearms);
+        console.log(this.firearms);
+        
+        // this.dataService.setFirearmInventoryList(this.firearms);
       }
     })
   }
   
   Search(){
     if(this.firearmDescription == ""){
-      this.getFirearmsInventory()
+      this.getCaseFirearms(this.selectedCase.id)
     } else {
       this.firearms = this.firearms.filter((f: any) => {
         return f.firearm_name.toLocaleLowerCase().match(this.firearmDescription.toLocaleLowerCase());
@@ -62,17 +70,22 @@ export class FirearmsListComponent implements OnInit {
   }
 
   onDelete(id: number){
-    this.inventoryService.delete(id).subscribe(response => {
+    this.firearmService.delete(id).subscribe(response => {
       if(response) {
         this.toastrService.success('Deleted Successfully');
 
-        this.getFirearmsInventory();
+        this.getCaseFirearms(this.selectedCase.id);
       }
     })
   }
 
   removeFirearm(id: number){
+    // const index = this.evidences.indexOf(evidence.description);
+    // this.evidences.splice(index, 1)
 
+    this.firearmService.delete(id).subscribe(data => {
+      console.log(data)
+    })
   }
 
 }

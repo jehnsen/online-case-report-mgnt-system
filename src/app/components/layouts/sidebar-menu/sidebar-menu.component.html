@@ -102,6 +102,20 @@
                                     </p>
                                 </a>
                             </li>
+                            <li *ngIf="division === 'ballistic'" class="nav-item">
+                                <a href="javascript:void(0)" 
+                                    class="nav-link" 
+                                    (click)="setPageTitle('FIREARM INVENTORY')"
+                                    [routerLink]="['firearm-inventory']"
+                                    routerLinkActive="router-link-active">
+                                    <i class="nav-icon fa fa-solid fa-gun"></i>
+                                    <p>Firearm Inventory
+                                        <!-- <span *ngIf="drugTestCount > 0" class="badge badge-pill badge-primary right">
+                                            {{ drugTestCount > 0 ? drugTestCount : null }}
+                                        </span> -->
+                                    </p>
+                                </a>
+                            </li>
                             <li *ngIf="userType === 'Administrator'" class="nav-item">
                                 <a 
                                     href="javascript:void(0)" 

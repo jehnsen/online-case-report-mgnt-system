@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders   } from '@angular/common/http';
 import {  Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, share } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 const httpOptions = {
@@ -24,12 +24,12 @@ export class CriminalDrugTestService {
       // Server-side errors
       errorMessage = { code: error.status, message: error.message };
     }
-    window.alert(errorMessage);
+    // window.alert(errorMessage);
     return throwError(errorMessage);
   }
 
   get(): Observable<any>{
-    return this.httpClient.get(`${environment.apiUrl}/api/drugtest`).pipe(catchError(this.handleError));
+    return this.httpClient.get(`${environment.apiUrl}/api/drugtest`).pipe(catchError(this.handleError), share());
   }
 
   public create(payload): Observable<any> {

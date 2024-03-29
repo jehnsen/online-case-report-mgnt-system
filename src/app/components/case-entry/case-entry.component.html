@@ -251,13 +251,6 @@
     </div>
     <!-- end: left lower pane  -->
 
-
-    <div class="row">
-        <div class="col-md-12" *ngIf="userDivision ==='ballistic'">
-            <app-firearms-list></app-firearms-list>
-        </div>
-    </div>
-
     <div class="row">
 
         <div class="col-md-6" >
@@ -268,8 +261,14 @@
             <app-victim-list></app-victim-list>
         </div>
 
-        <div class="col-md-6" *ngIf="userDivision ==='soco' || userDivision ==='photography' || userDivision ==='fingerprint'">
+        <div class="col-md-6" *ngIf="userDivision !=='ballistic'">
             <app-evidence-list [caseId]="caseId" [evidences]="evidences" (onSelected)="onSelectedProduct($event)"></app-evidence-list>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" *ngIf="userDivision ==='ballistic'">
+                <app-firearms-list></app-firearms-list>
+            </div>
         </div>
 
         <div class="col-md-6" >
@@ -282,9 +281,9 @@
             <p>physical list</p>
         </div>
 
-        <div class="col-md-5" *ngIf="userDivision ==='chemistry'">
+        <!-- <div class="col-md-5" *ngIf="userDivision ==='chemistry'">
            <p>chemistry list</p>
-        </div>
+        </div> -->
 
         <div class="col-md-8">
             
