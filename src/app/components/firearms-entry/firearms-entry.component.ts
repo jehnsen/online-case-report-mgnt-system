@@ -1,4 +1,4 @@
-import { Component, ViewChild ,OnInit, ChangeDetectorRef, AfterContentChecked  } from '@angular/core';
+import { Component, ViewChild ,OnInit, ChangeDetectorRef, AfterContentChecked, Input  } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router  } from '@angular/router'
 import { NgbDateStruct, NgbCalendar, NgbDatepicker } from '@ng-bootstrap/ng-bootstrap';
@@ -8,6 +8,10 @@ import { EvidenceListComponent } from '../evidence-list/evidence-list.component'
 import { DataService } from '../../services/data.service';
 import { Time24to12Format } from '../../pipes/time24to12.pipe';
 import { Utils } from '../../helpers/utils';
+import { environment } from 'src/environments/environment';
+import { FileService } from 'src/app/services/file.service';
+
+
 @Component({
   selector: 'app-firearms-entry',
   templateUrl: './firearms-entry.component.html',
@@ -19,18 +23,27 @@ export class FirearmsEntryComponent implements OnInit {
 
   recordId: number = 0;
   isAdd: boolean = true;
+  isViewOnly: boolean = false;
   isLoading: boolean;
   firearms: any = [];
   inventoryId: number;
   caseNumber: any;
-  existingRecord: any;
+  isUploading: boolean = false;
   encoderId: number = 1;
-  firearmTypes: any = [];
-  selectedRecord: any;
+  data: any;
+  fileData: any;
+  // selectedRecord: any;
+  baseUrl: string = environment.apiUrl;
+  urlPath: string = "/storage/photos/";
+  imageUrl: string;
+  form: FormGroup;
+  selectedGunType: string;
+  selectedStatus: string;
+  firearmTypes: Array<string> = ['REVOLVER', 'HANDGUN', 'PISTOL', 'SHOTGUN', 'RIFLE', 'CARBINE', 'ASSAULT RIFLE', 'SUB-MACHINE GUN', 'MACHINE GUN']
+  firearmStatus: Array<string> = ['ACCOUNTED IN CUSTODY', 'DEPOSITED TO COURT/PROSECUTOR', 'WITHDRAWN BY REQUESTING PARTY', 'TURNED-OVER TO FEO', 'TURNED-OVER TO LSS', 'OTHER']
 
   model: NgbDateStruct;
   date: string;
-
   @ViewChild('dp') dp: NgbDatepicker;
 
   constructor(
@@ -42,7 +55,8 @@ export class FirearmsEntryComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private route: ActivatedRoute,
     private router: Router,
-    private timeConverterPipe: Time24to12Format
+    private timeConverterPipe: Time24to12Format,
+    private fileService: FileService,
   ) { }
 
   ngOnInit(): void {
@@ -52,21 +66,15 @@ export class FirearmsEntryComponent implements OnInit {
       this.recordId = +params.get('id');
     })
     if(this.recordId > 0) {
+      // edit mode
       this.isAdd = false;
-    }
+      this.dataService.selectedFirearm$.subscribe(data => {
+       
+        this.setFirearmDetail(data)
+      })
+    } 
 
-    // set the requesting party field
-    this.dataService.selectedParty$.subscribe((party) => {
-      if(Object.keys(party).length > 0)
-        this.formData.patchValue({ 'requestingParty': party })
-    })
-    
     this.firearmTypes = ['REVOLVER', 'HANDGUN', 'PISTOL', 'SHOTGUN', 'RIFLE', 'CARBINE', 'ASSAULT RIFLE', 'SUB-MACHINE GUN', 'MACHINE GUN']
-  
-    if(!this.isAdd){
-      this.getSelectedInventoryRecord();
-    }
-
 
   }
 
@@ -98,8 +106,6 @@ export class FirearmsEntryComponent implements OnInit {
     this.isLoading = true;
     const _form = this.formData.value
     let payload = {
-      encoder_id:    this.encoderId,
-      case_no:      _form.caseNo,
       firearm_name: _form.firearmName,
       cartridge:    _form.cartridge,
       fcc:          _form.fcc,
@@ -110,78 +116,46 @@ export class FirearmsEntryComponent implements OnInit {
       fmodel:       _form.fmodel,
       ftype:        _form.ftype,
       fserial_no:   _form.fserialNo,
-      requesting_party:  _form.requestingParty,
-      victim_name:   _form.victimName,
-      suspect_name:  _form.suspectName,
-      incident_date: this.isAdd ? this.date : this.formData.controls['incidentDateEdit'].value, 
-      incident_time: this.isAdd 
-                      ? this.timeConverterPipe.transform(this.formData.controls['incidentTime'].value) 
-                      : this.formData.controls['incidentTimeEdit'].value,
-      location:     _form.location,
       status:       _form.status,
-      remarks:      _form.remarks
+      qty:          _form.qty,
+      image_filename: this.fileData.filename
     }
    
     if(this.isAdd){
 
       this.inventoryService.create(payload).subscribe(response => {
-        this.toastrService.success('New Record was added to database!', 'New Entry')
 
-        // clear list after successfull submit
-        this.dataService.setFilesList([]);
-        this.clearFields();
-        this.isLoading = false;
+        if(response) {
+          this.onUploadPhoto();
+          this.toastrService.success('Successfully added to database!', 'New Entry')
+
+          // clear list after successfull submit
+          this.dataService.setFilesList([]);
+          this.clearFields();
+          this.isLoading = false;
+        }
         
       }, 
       err => {
         if(err.code === 409){
-          this.toastrService.warning('Case number already exist in the database!', 'Duplicate Entry')
+          this.toastrService.warning('Already exist in the database!', 'Duplicate Entry')
         } else {
           this.toastrService.error(err.message, 'Server error')
         }
       }) 
 
     } else {
-     
-      this.inventoryService.update(this.recordId, payload).subscribe(response => {
-        if(response.data) {
+
+      this.inventoryService.update(this.recordId, payload).subscribe(res => {
+        if (res) {
+          this.onUploadPhoto()
           this.toastrService.success('Updated Successfully!', 'Update');
           this.isLoading = false;
         }
-      })
-      
+       
+      }, error => this.toastrService.info(error.message, 'Update'));
+
     }
-  }
-
-  getSelectedInventoryRecord(){
-    this.dataService.firearmInventoryList$.subscribe(data => {
-      this.selectedRecord = data.find(f => f.id === this.recordId);
-      const f = this.selectedRecord
-      this.formData.patchValue({ 
-        'caseNo':           f.case_no,
-        'firearmName':      f.firearm_name,
-        'cartridge':        f.cartridge,
-        'fcc':              f.fcc,
-        'fb':               f.fb,
-        'accessories':      f.accessories,
-        'requestingParty':  f.requesting_party ,
-        'fcaliber':         f.fcaliber ,
-        'fmake':            f.fmake ,
-        'fmodel':           f.fmodel ,
-        'ftype':            f.ftype ,
-        'fserialNo':        f.fserial_no,
-        'location':         f.location,
-        'victimName':       f.victim_name,
-        'suspectName':      f.suspect_name,
-        'status':           f.status,
-        'incidentDate':     f.incident_date,
-        'incidentDateEdit': f.incident_date,
-        'incidentTime':     f.incident_time ,
-        'incidentTimeEdit': f.incident_time,
-        'remarks':          f.remarks
-      })
-
-    })
   }
 
   back(): void {
@@ -194,27 +168,80 @@ export class FirearmsEntryComponent implements OnInit {
 
   clearFields(): void{
     this.formData = this.fb.group({
-      'caseNo':           ['', Validators.required],
-      'firearmName':      ['', Validators.required],
-      'cartridge':        ['', Validators.required],
-      'fcc':              [''],
-      'fb':               [''],
-      'accessories':      [''],
-      'requestingParty':  ['', Validators.required],
-      'fcaliber':         ['', Validators.required],
-      'fmake':            ['', Validators.required],
-      'fmodel':           ['', Validators.required],
-      'ftype':            ['', Validators.required],
-      'fserialNo':        [''],
-      'location':         [''],
-      'victimName':       [''],
-      'suspectName':      [''],
-      'status':           [''],
-      'incidentDate':     ['', Validators.required],
-      'incidentDateEdit': [''],
-      'incidentTime':     ['', Validators.required],
-      'incidentTimeEdit': [''],
-      'remarks':          ['']
+      'firearmName': ['', Validators.required],
+      'cartridge':   ['', Validators.required],
+      'fcc':         [''],
+      'fb':          [''],
+      'accessories': [''],
+      'fcaliber':    ['', Validators.required],
+      'fmake':       ['', Validators.required],
+      'fmodel':      ['', Validators.required],
+      'ftype':       ['', Validators.required],
+      'fserialNo':   [''],
+      'status':      [''],
+      'qty':         ['']
+    })
+
+    this.form = this.fb.group({
+      image: [null, Validators.required]
+    })
+  }
+
+  setFirearmDetail(data) {
+    this.formData = this.fb.group({
+      'firearmName': data.firearm_name,
+      'cartridge':   data.cartridge,
+      'fcc':         data.fcc,
+      'fb':          data.fb,
+      'accessories': data.accessories,
+      'fcaliber':    data.fcaliber,
+      'fmake':       data.fmake,
+      'fmodel':      data.fmodel,
+      'ftype':       data.ftype,
+      'fserialNo':   data.fserial_no,
+      'status':      data.status,
+      'qty':         data.qty,
+    })
+    this.imageUrl = this.baseUrl + this.urlPath + data.image_filename;
+    if (!data.image_filename) {
+      this.fileData = { filename: 'no-image.jpeg' }
+    } else {
+      this.fileData = { filename: data.image_filename, filetype: 'image/' + data.image_filename.split('.')[1] }
+    }
+
+  }
+
+  selectChangeHandler(value: string){
+    this.selectedGunType = value;
+  }
+
+  selectStatusHandler(value: string) {
+    this.selectedStatus = value;
+   
+    
+  }
+
+  selectPhoto(event: Event){
+    const file = (event.target as HTMLInputElement)?.files?.[0];
+    this.form.patchValue({
+      image: file
+    })
+    this.fileData = { filename: file.name.replace(/ /g, '_'), filetype: file.type }
+    this.imageUrl = this.baseUrl + this.urlPath + this.fileData.filename
+  }
+
+  onUploadPhoto(){
+    if(this.form.invalid) return;
+    this.isUploading = true;
+
+    const formData: any = new FormData();
+
+    formData.append('image', this.form.controls['image'].value);
+   
+    this.fileService.upload(formData).subscribe(response => {
+      this.data = response;
+      this.isUploading = false;
+      this.form.reset();
     })
   }
 

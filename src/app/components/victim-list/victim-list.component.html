@@ -1,6 +1,6 @@
 <div class="card card-outline card-info">
     <div class="card-header">
-        <h3 class="card-title">Victims/s</h3>
+        <h3 class="card-title">{{victims.length > 1 ? 'Victims' : 'Victim'}}</h3>
 
         <div class="card-tools">
             <button type="button" class="btn btn-outline-info btn-tool" data-toggle="modal" data-target="#modal-add-victim" *ngIf="!isView">

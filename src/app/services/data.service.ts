@@ -59,6 +59,9 @@ export class DataService {
   private drugRestRecord$ = new BehaviorSubject<any>({});
   selectedDrugRestRecord$ = this.drugRestRecord$.asObservable();
 
+  private firearmDetail$ = new BehaviorSubject<any>({});
+  selectedFirearm$ = this.firearmDetail$.asObservable();
+
   constructor() {}
 
   setIsNew(value: boolean){
@@ -133,6 +136,10 @@ export class DataService {
 
   setSelectedDrugRestRecord(data: any){
     this.drugRestRecord$.next(data);
+  }
+
+  setSelectedFirearm(data: any) {
+    this.firearmDetail$.next(data);
   }
 
 }

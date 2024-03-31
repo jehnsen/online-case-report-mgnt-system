@@ -1,8 +1,8 @@
-<div class="modal fade" id="modal-firearm-entry" style="display: none;" aria-hidden="true">
+<div class="modal fade" id="modal-firearm-entry" style="display: none;" aria-hidden="true" #modalFirearmEntry>
     <form [formGroup]="formData" (ngSubmit)="onSubmit()">
         <div class="modal-dialog modal-lg">
             <div class="modal-content ">
-                <div class="modal-header bg-info">
+                <div class="modal-header bg-primary">
                     <h6 class="modal-title">Add Firearm</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
@@ -11,9 +11,10 @@
                 <div class="modal-body">
                     <div class="row">
 
+                        <!-- right pane -->
                         <div class="col-md-6">
                             <div class="form-group">
-                                <p for="inputDescription" class="h6">Firearm <b class="text-danger">*</b></p>
+                                <p for="inputDescription" class="h6">Name of Firearm <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
                                     <input type="text" class="form-control" formControlName="firearmName" />
                                 </div>
@@ -42,8 +43,17 @@
                                     <input type="text" class="form-control" formControlName="accessories" />
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <p for="inputDescription" class="h6">Physical Inventory</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="number" class="form-control" formControlName="qty" placeholder="total quantity" />
+                                </div>
+                            </div>
+
                         </div>
 
+                        <!-- left-pane -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <p for="inputName" class="h6">Caliber/Gauge <b class="text-danger">*</b></p>
@@ -83,13 +93,59 @@
                                     <input type="text" class="form-control" formControlName="fserialNo" />
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Status</p>
+                                <div class="input-group input-group-sm">
+                                    <select 
+                                        #statusSelection
+                                        class="form-control custom-select" 
+                                        formControlName="status"
+                                        [(ngModel)]="selectedStatus"
+                                        (change)="selectStatusHandler(statusSelection.value)"
+                                    >
+                                        <option *ngFor="let fs of firearmStatus" value={{fs}}>
+                                            {{ fs }}
+                                        </option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+
                         </div>
 
                     </div>
+
+
+
+                    <div class="row mt-3">
+
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input class="form-control" type="file" (change)="selectPhoto($event)">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="fileData"> 
+                            
+                            <div 
+                                class="thumbnail" 
+                                style="overflow: hidden"
+                                *ngIf="fileData.filetype === 'image/jpg' || fileData.filetype === 'image/jpeg' || fileData.filetype === 'image/png'" 
+                                data-toggle="modal" 
+                                data-target="#modal-file-viewer"
+                            >
+                                <img style="cursor: pointer;" style="width:380px" height="320px" class="img-responsive" [src]="imageUrl" />
+                            </div>
+                           
+                        </div>
+
+                    </div>
+
                 </div>
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>
-                    <button class="btn btn-success float-right" type="button" (click)="onSubmit()" data-dismiss="modal">Add</button>
+                    <button class="btn btn-success float-right" type="button" (click)="onSubmit()" data-dismiss="modal">Save</button>
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -97,3 +153,4 @@
         <!-- /.modal-dialog -->
     </form>
 </div>
+

@@ -23,7 +23,6 @@ export class PhotosListComponent implements OnInit {
       this.isViewOnly = value;
     });
     this.dataService.fileList$.subscribe((value) => {
-      console.log('FileList', value)
       this.files = value;
     });
   }

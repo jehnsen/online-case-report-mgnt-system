@@ -25,6 +25,7 @@ import { CriminalDrugTestViewComponent } from './components/criminal-drug-test-v
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { CaseReportsComponent } from './components/case-reports/case-reports.component';
 import { FirearmsViewComponent } from './components/firearms-view/firearms-view.component';
+import { FirearmsInventoryListComponent } from './components/firearms-inventory-list/firearms-inventory-list.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -37,6 +38,9 @@ const routes: Routes = [
     { path: 'records/manage/categories', component: CaseNaturesEntryComponent },
     { path: 'records/manage/requesting-parties', component: RequesterEntryComponent },
     { path: 'records/reports', component: CaseReportsComponent },
+    { path: 'firearm-inventory', component: FirearmsInventoryListComponent },
+    { path: 'firearm-inventory/edit/:id', component: FirearmsEntryComponent },
+    { path: 'firearm-inventory/view/:id', component: FirearmsViewComponent },
     { path: 'firearms', component: FirearmsListComponent },
     { path: 'firearms/entry', component: FirearmsEntryComponent },
     { path: 'firearms/entry/:id', component: FirearmsEntryComponent },

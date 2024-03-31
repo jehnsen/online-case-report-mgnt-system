@@ -32,7 +32,6 @@ export class FileService {
   }
 
   public create(data): Observable<any> {
-    console.log(data)
     return this.httpClient.post(`${environment.apiUrl}/api/file`, {
       case_id:  data.caseId,
       filename: data.filename,

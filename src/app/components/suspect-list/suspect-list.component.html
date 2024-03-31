@@ -1,6 +1,6 @@
 <div class="card card-outline card-info">
     <div class="card-header">
-        <h3 class="card-title">Suspect/s</h3>
+        <h3 class="card-title">{{suspects.length > 1 ? 'Suspects' : 'Suspect'}}</h3>
 
         <div class="card-tools">
             <button type="button" class="btn btn-outline-info btn-tool" data-toggle="modal" data-target="#modal-add-suspect" *ngIf="!isView">

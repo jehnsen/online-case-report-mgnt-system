@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { FirearminventoryService } from '../../services/firearminventory.service';
 import { DataService } from '../../services/data.service';
 import { ToastrService } from 'ngx-toastr';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ModalFirearmEntryComponent } from '../modals/modal-firearm-entry/modal-firearm-entry.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-firearms-list',
@@ -11,11 +12,17 @@ import { ModalFirearmEntryComponent } from '../modals/modal-firearm-entry/modal-
   styleUrls: ['./firearms-list.component.css']
 })
 export class FirearmsListComponent implements OnInit {
+  isView: boolean;
   p: number = 1;
   firearms: any = [];
   firearmDescription: any;
   selectedCase: any;
   id: number;
+  baseUrl: string = environment.apiUrl;
+  urlPath: string = "/storage/photos/";
+
+  @Input() newList: any;
+
   constructor(
     private firearmService: FirearminventoryService, 
     private dataService: DataService, 
@@ -24,20 +31,17 @@ export class FirearmsListComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-
+    this.dataService.viewValue$.subscribe(value => this.isView = value);
     this.dataService.selectedCase$.subscribe((value) => {
       this.selectedCase = value;
     });
 
-    this.getCaseFirearms(this.selectedCase.id);
+    // this.getCaseFirearms(this.selectedCase.id);
 
-    // this.dataService.caseList$.subscribe((value) => {
-    //   if(value.length > 0){
-    //     this.firearms = value
-    //   } else {
-    //     this.getCaseFirearms();
-    //   }
-    // });
+  }
+
+  ngOnChanges(){
+    this.firearms = this.newList;
   }
 
   open() { 
@@ -48,11 +52,12 @@ export class FirearmsListComponent implements OnInit {
     this.firearmService.getByCaseId(caseId).subscribe((response) => {
       if(response.data){
         this.firearms = response.data
-        console.log(this.firearms);
-        
-        // this.dataService.setFirearmInventoryList(this.firearms);
       }
     })
+  }
+
+  addFireArm(firearm: any){
+    this.firearms.push(firearm)
   }
   
   Search(){
@@ -80,9 +85,6 @@ export class FirearmsListComponent implements OnInit {
   }
 
   removeFirearm(id: number){
-    // const index = this.evidences.indexOf(evidence.description);
-    // this.evidences.splice(index, 1)
-
     this.firearmService.delete(id).subscribe(data => {
       console.log(data)
     })

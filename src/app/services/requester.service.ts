@@ -33,7 +33,6 @@ export class RequesterService {
   }
 
   public create(data): Observable<any> {
-    console.log(data)
     return this.httpClient.post(`${environment.apiUrl}/api/requester`, {
       name: data.name,
       address: data.address
@@ -42,7 +41,6 @@ export class RequesterService {
   }
 
   public update(data): Observable<any> {
-    console.log(data)
     return this.httpClient.put(`${environment.apiUrl}/api/requester/${data.id}`, {
       name: data.name,
       address: data.address

@@ -1,5 +1,5 @@
 <div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-12">
             <button 
                 *ngIf="userData.usertype === 'Encoder'"
@@ -11,18 +11,27 @@
                 <i class="fas fa-plus"></i> New Record
             </button>
         </div>
-    </div>
+    </div> -->
 
     <div class="row">
         <div class="col-12">
             <div class="card card-outline card-primary">
                 <div class="card-header" disabled>
-                    <h3 class="card-title"></h3>
+                    <button 
+                        *ngIf="userData.usertype === 'Encoder'" 
+                        type="button"
+                        (click)="setPageTitle('CREATE NEW CRIMINAL DRUG TEST RECORD')"
+                        class="btn btn-success btn-sm mb-2 float-left" 
+                        [routerLink]="['entry']"
+                        routerLinkActive="router-link-active">
+                            <i class="fas fa-plus"></i> New Record
+                    </button>
+                    <!-- <h3 class="card-title"></h3> -->
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
 
-                            <input type="text" class="form-control float-right" name="searchKeyword" [(ngModel)]="searchKeyword"
-                                (ngModelChange)="Search()" placeholder="Search">
+                            <input type="text" class="form-control float-right" name="searchKeyword"
+                                [(ngModel)]="searchKeyword" (ngModelChange)="Search()" placeholder="Search">
 
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
@@ -49,20 +58,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let drugtest of drugtests | paginate: {itemsPerPage: 10, currentPage: p, id: drugtests };">
-                                <td [ngStyle]="{'width': '70px'}">{{ drugtest.case_no }}</td>
-                                <td>{{ drugtest.suspect_name }}</td>
-                                <td class="text-wrap">{{ drugtest.requesting_party }}</td>
-                                <td>{{ drugtest.mother_unit }}</td>
-                                <td>{{ drugtest.classification }}</td>
-                                <td>{{ drugtest.evidence_status }}</td>
+                            <tr
+                                style="cursor: pointer;"
+                                *ngFor="let drugtest of drugtests | paginate: {itemsPerPage: 10, currentPage: p, id: drugtests };">
+                                <td [routerLink]="['view', drugtest.id]" [ngStyle]="{'width': '70px'}">{{ drugtest.case_no }}</td>
+                                <td [routerLink]="['view', drugtest.id]">{{ drugtest.suspect_name }}</td>
+                                <td [routerLink]="['view', drugtest.id]" class="text-wrap">{{ drugtest.requesting_party }}</td>
+                                <td [routerLink]="['view', drugtest.id]">{{ drugtest.mother_unit }}</td>
+                                <td [routerLink]="['view', drugtest.id]">{{ drugtest.classification }}</td>
+                                <td [routerLink]="['view', drugtest.id]">{{ drugtest.evidence_status }}</td>
                                 <td>
-                                    <button type="button" *ngIf="userData.usertype === 'Encoder'" [routerLink]="['entry', drugtest.id]"
+                                    <button type="button" *ngIf="userData.usertype === 'Encoder'"
+                                        [routerLink]="['entry', drugtest.id]"
                                         class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
                                     <button type="button" [routerLink]="['view', drugtest.id]"
                                         class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
-                                    <button type="button" *ngIf="userData.usertype === 'Encoder'" (click)="onDelete(drugtest.id)"
-                                        class="btn btn-outline-danger btn-xs"><i class="fas fa-trash"></i></button>
+                                    <button type="button" *ngIf="userData.usertype === 'Encoder'"
+                                        (click)="onDelete(drugtest.id)" class="btn btn-outline-danger btn-xs"><i
+                                            class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         </tbody>

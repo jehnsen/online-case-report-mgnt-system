@@ -37,8 +37,7 @@
 
           <table *ngIf="cases.length > 0" class="table table-hover text-nowrap">
             <thead>
-              <tr>
-
+              <tr >
                 <th>Case No.</th>
                 <th>Nature of Case</th>
                 <th *ngIf="userDivision === 'soco'">Name of Incident/Case</th>
@@ -49,18 +48,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let case of cases | paginate: {itemsPerPage: 10, currentPage: p};">
+              <tr *ngFor="let case of cases | paginate: {itemsPerPage: 10, currentPage: p};" style="cursor: pointer;">
 
-                <td>{{ case.case_no }}</td>
-                <td>{{ case.case_nature }}</td>
-                <td *ngIf="userDivision === 'soco'" class="text-wrap">{{ case.incident_title }}</td>
-                <td>{{ case.requesting_party }}</td>
-                <td *ngIf="userDivision === 'soco' || userDivision ==='chemistry'"><app-case-status [value]="case.disposition"></app-case-status></td>
-                <td *ngIf="userDivision === 'physical' || userDivision ==='fingerprint' || userDivision ==='photography'">{{ case.incident_date }} {{ case.incident_time }}</td>
+                <td (click)="onSelectView(case)">{{ case.case_no }}</td>
+                <td (click)="onSelectView(case)">{{ case.case_nature }}</td>
+                <td (click)="onSelectView(case)" *ngIf="userDivision === 'soco'" class="text-wrap">{{ case.incident_title }}</td>
+                <td (click)="onSelectView(case)">{{ case.requesting_party }}</td>
+                <td (click)="onSelectView(case)" *ngIf="userDivision === 'soco' || userDivision ==='chemistry'"><app-case-status [value]="case.disposition"></app-case-status></td>
+                <td (click)="onSelectView(case)" *ngIf="userDivision === 'physical' || userDivision ==='fingerprint' || userDivision ==='photography'">{{ case.incident_date }} {{ case.incident_time }}</td>
                 <td>
                   
                   <button *ngIf="userData.usertype === 'Encoder'" type="button" (click)="onSelectEdit(case)" class="btn btn-outline-primary btn-xs mr-2"><i class="fas fa-edit"></i></button>
-                  <button type="button" [routerLink]="['view', case.id]" class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
+                  <button type="button" [routerLink]="['view', case.id]" (click)="onSelectView(case)" class="btn btn-outline-info btn-xs mr-2"><i class="fas fa-eye"></i></button>
                   <button 
                     *ngIf="userData.usertype === 'Encoder'" 
                     type="button" 

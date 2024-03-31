@@ -55,7 +55,6 @@ export class SuspectService {
     }
 
     public update(data): Observable<any> {
-        console.log(data)
         return this.httpClient.put(`${environment.apiUrl}/${urlPath}/${data.id}`, {
             case_no: data.case_no,
             firstname: data.firstname,

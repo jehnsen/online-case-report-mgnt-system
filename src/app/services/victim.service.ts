@@ -54,7 +54,6 @@ export class VictimService {
     }
 
     public update(data): Observable<any> {
-        console.log(data)
         return this.httpClient.put(`${urlEndpoint}/${data.id}`, {
             case_id: data.case_id,
             firstname: data.firstname,

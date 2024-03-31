@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap  } from '@angular/router'
+import { ActivatedRoute, ParamMap, Router  } from '@angular/router'
 import { DataService } from '../../services/data.service';
 import { CriminalDrugTestService } from '../../services/criminal-drug-test.service';
 
@@ -13,7 +13,7 @@ export class CriminalDrugTestViewComponent implements OnInit {
   userData: any;
   id: any;
 
-  constructor(private route: ActivatedRoute, private service: CriminalDrugTestService, private dataService: DataService) { }
+  constructor(private route: ActivatedRoute, private service: CriminalDrugTestService, private dataService: DataService, private router: Router) { }
 
   ngOnInit(): void {
     this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
@@ -39,6 +39,12 @@ export class CriminalDrugTestViewComponent implements OnInit {
 
   print(): void {
     window.print();
+  }
+
+  onSelectEdit(id: number){
+    this.dataService.setCase(id)
+    this.router.navigate(['/main/drugtest/entry', id]);
+    this.dataService.setSelectedPage("UPDATE DETAILS")
   }
 
 }

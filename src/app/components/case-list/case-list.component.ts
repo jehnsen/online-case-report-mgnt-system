@@ -39,7 +39,6 @@ export class CaseListComponent implements OnInit {
   }
 
   getCases(division: string): void {
-    // console.log(Math.random())
     this.caseService.getCases().subscribe((response: any) => {
       if(!Utils.isEmpty(response.data) ){
         // filter only the data for the current division
@@ -47,7 +46,6 @@ export class CaseListComponent implements OnInit {
 
         // store the result in state
         this.onCacheList(this.cases);
-
       }
     })
   }
@@ -65,6 +63,12 @@ export class CaseListComponent implements OnInit {
   onSelectEdit(incident: any){
     this.dataService.setCase(incident)
     this.router.navigate(['/main/records/entry', incident.id]);
+    this.setPageTitle("UPDATE DETAILS");
+  }
+
+  onSelectView(incident: any){
+    this.router.navigate(['/main/records/view', incident.id]);
+    this.setPageTitle("VIEW DETAILS");
   }
 
   onCreateNew(){
@@ -91,6 +95,7 @@ export class CaseListComponent implements OnInit {
 
   setPageTitle(pageTitle: string){
     this.dataService.setSelectedPage(pageTitle);
+    localStorage.setItem('currentPage', pageTitle)
   }
 
 }

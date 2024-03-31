@@ -17,8 +17,8 @@ export class AdminGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const token = this.tokenStorage.getToken()
       if(token){
-        if(state.url === '/main'){
-          this.router.navigate(['/main/dashboard'])
+        if(state.url === '/'){
+          this.router.navigate(['/records'])
         }
         return true;
       } else {

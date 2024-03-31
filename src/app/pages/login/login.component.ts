@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roles = this.tokenStorage.getUser().roles;
-      this.router.navigate(['/main/dashboard'])
+      this.router.navigate(['/main/records'])
     }
 
     this.loginForm = new FormGroup({
@@ -62,7 +62,12 @@ export class LoginComponent implements OnInit {
 
         this.toastr.success('Login successful!', 'Login');
         // if authentication successful, then redirect to dashboard 
-        this.router.navigate(['/main/dashboard'])
+        if (data.user.usertype === 'Administrator') {
+          this.router.navigate(['/main/users'])
+        } else {
+          this.router.navigate(['/main/records'])
+        }
+
       },
       err => {
         

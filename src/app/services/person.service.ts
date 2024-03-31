@@ -47,7 +47,6 @@ export class PersonService {
   }
 
   public update(data): Observable<any> {
-    console.log(data)
     return this.httpClient.put(`${environment.apiUrl}/api/person/${data.id}`, {
       firstname: data.firstname,
       middlename: data.middlename,

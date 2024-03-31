@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap  } from '@angular/router'
+import { ActivatedRoute, ParamMap  } from '@angular/router';
+import { Router } from '@angular/router';
 import { CaseService } from '../../services/case.service';
 import { DataService } from '../../services/data.service';
 import { FileService } from '../../services/file.service';
 import { VictimService } from 'src/app/services/victim.service';
 import { SuspectService } from 'src/app/services/suspect.service';
+import { FirearminventoryService } from 'src/app/services/firearminventory.service';
+import { Utils } from 'src/app/helpers/utils';
 @Component({
   selector: 'app-case-view',
   templateUrl: './case-view.component.html',
@@ -13,20 +16,20 @@ import { SuspectService } from 'src/app/services/suspect.service';
 export class CaseViewComponent implements OnInit {
   requestingParties: any = [];
   selectedCase: any;
-  evidences: any;
-  files: [];
-  victims: [];
-  suspects: [];
+  evidences: any = [];
+  files: any = [];
+  victims: any = [];
+  firearms: any = [];
+  suspects: any = [];
   id: any;
   userDivision: string;
 
   constructor(
     private route: ActivatedRoute, 
+    private router: Router,
     private caseService: CaseService, 
     private dataService: DataService,  
-    private fileService: FileService,
-    private victimService: VictimService,
-    private suspectService: SuspectService) { }
+    private faService: FirearminventoryService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -39,13 +42,11 @@ export class CaseViewComponent implements OnInit {
     // view mode
     this.dataService.setIsViewValue(true);
     this.getSelectedCase(this.id);
-    this.getVictims(this.id)
-    this.getSuspects(this.id)
 
-    this.fileService.getFiles(this.id).subscribe((response: any) => {
-      // update the state
-      this.dataService.setFilesList(response.data);
-    })
+    if (this.userDivision === 'ballistic'){
+          this.getFirearms(this.id);
+    }
+
 
   }
 
@@ -55,33 +56,42 @@ export class CaseViewComponent implements OnInit {
         this.selectedCase = response.data.data[0];
         setTimeout(() => {  
           this.selectedCase = response.data.data[0]
-          this.evidences = response.data.evidences
+          this.evidences  = response.data.evidences
+          this.victims    = response.data.victims
+          this.suspects   = response.data.suspects
+          this.files      = response.data.files
+
         }, 0);
+
+        // update the state
+        this.dataService.setFilesList(response.data.files);
+        this.dataService.setVictimsList(response.data.victims);
+        this.dataService.setSuspectsList(response.data.suspects);
     })
   }
 
-  getVictims(id: number): void {
-    this.victimService.getByCaseId(id).subscribe(response => {
+  getFirearms(id: number): void {
+    this.faService.getByCaseId(id).subscribe(response => {
       if(response.data && Array.isArray(response.data)) {
-        this.victims = response.data
-        console.log(response.data)
-        this.dataService.setVictimsList(response.data);
+        this.firearms = response.data
+        this.dataService.setFirearmList(response.data);
       }
     })
   }
 
-  getSuspects(id: number): void {
-    this.suspectService.getByCaseId(id).subscribe(response => {
-      if(response.data && Array.isArray(response.data)) {
-        this.suspects = response.data
-        this.dataService.setSuspectsList(response.data);
-      }
-    })
+  isEmpty(array): boolean {
+    return Utils.isEmpty(array)
   }
-
 
   print(): void {
     window.print();
+  }
+
+  onSelectEdit(id: number){
+    this.dataService.setCase(id)
+    this.router.navigate(['/main/records/entry', id]);
+    this.dataService.setSelectedPage("UPDATE DETAILS")
+    // this.setPageTitle("UPDATE DETAILS");
   }
 
 }

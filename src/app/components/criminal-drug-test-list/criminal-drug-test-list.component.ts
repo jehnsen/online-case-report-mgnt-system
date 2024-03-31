@@ -27,8 +27,6 @@ export class CriminalDrugTestListComponent implements OnInit {
         this.getDrugTestRecords();
       }
     });
-
-    console.log(this.drugtests)
   }
 
   getDrugTestRecords(){

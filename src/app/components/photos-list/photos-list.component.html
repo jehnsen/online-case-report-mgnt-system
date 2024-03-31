@@ -15,7 +15,7 @@
         </div>
         <!-- http://127.0.0.1:8000/storage/photos/fuck.jpg -->
         <table class="table table-hover" *ngIf="files.length > 0">
-            <thead>
+            <thead *ngIf="!isViewOnly">
                 <tr>
                     <th>File</th>
                     <th>Filename</th>

@@ -40,6 +40,7 @@ export class CaseEntryComponent implements OnInit {
   selectedEvidence: any;
   caseId: number;
   selectedIncident: any;
+  firearms: any = [];
 
   caseNumber: any;
   existingRecord: any;
@@ -67,12 +68,14 @@ export class CaseEntryComponent implements OnInit {
     private suspectService: SuspectService
   ) { }
 
-
   ngOnInit(): void {
-
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.caseId = +params.get('id');
     })
+    // let param= this.route.snapshot.paramMap.get('id');
+
+    // initialize form group
+    this.clearFields();
 
     this.userData = JSON.parse(window.sessionStorage.getItem('auth-user')).user;
     this.userDivision = this.userData.division;
@@ -81,11 +84,32 @@ export class CaseEntryComponent implements OnInit {
     }
     this.dataService.setIsViewValue(false);
 
-    // initialize form group
-    this.clearFields();
+    // edit mode
+    if (this.caseId > 0) {
+
+      this.getSelectedCase(this.caseId)
+
+      // set the entry mode
+      this.isAdd = false;
+
+    } else {
+
+      // add mode
+      this.dataService.setVictimsList([])
+      this.dataService.setSuspectsList([]);
+      this.dataService.setEvidenceList([]);
+      this.dataService.setFilesList([]);
+
+      
+    }
+
+    // case natures
+    this.getCategories();
+    // get dispositions
+    this.getDispositions();
 
     this.dataService.selectedEvidence$.subscribe((value) => {
-      // this.selectedEvidence = value;
+      this.selectedEvidence = value;
       if (Object.keys(value).length > 0) {
         this.evidences.push(value)
       }
@@ -98,80 +122,51 @@ export class CaseEntryComponent implements OnInit {
       if (Object.keys(party).length > 0)
         this.incidentData.patchValue({ 'requestingParty': party })
     })
-    // set the victim field
-    this.dataService.selectedVictim$.subscribe((victim) => {
-      if (Object.keys(victim).length > 0)
-        this.incidentData.patchValue({ 'victimName': victim })
-    })
-    this.dataService.setVictimsList([])
-    this.dataService.setSuspectsList([]);
-    // set the suspect field
-    this.dataService.selectedSuspect$.subscribe((suspect) => {
-      if (Object.keys(suspect).length > 0)
-        this.incidentData.patchValue({ 'suspectName': suspect })
-    })
 
-    this.dataService.selectedCase$.subscribe((value) => {
-      this.selectedIncident = value;
-    });
-
-    // if page was refresh, data from input fields is erased
-    // we need to navigate the user back to records list
-    if (Object.keys(this.selectedIncident).length === 0 && !this.isAdd) {
-      this.router.navigate(['/main/records']);
-    }
-    // get the files related to this case/incident & store in cache
-    this.getCaseFiles(this.caseId);
-    //get evidences related to this case/incident
-    this.getEvidences(this.caseId);
-    // case natures
-    this.getCategories();
-    // get dispositions
-    this.getDispositions();
-
-    // edit mode
-    if (this.caseId > 0) {
-      if (!this.selectedIncident) {
-        this.getCase(this.caseId);
-      }
-      const _incident = this.selectedIncident
-
-      this.incidentData.setValue({
-        'caseNo': _incident.case_no,
-        'caseNature': _incident.case_nature,
-        'investigator': _incident.investigator,
-        'requestingParty': _incident.requesting_party,
-        'incidentTitle': _incident.incident_title,
-        'incidentDescription': _incident.incident_description,
-        'disposition': _incident.disposition,
-        'location': _incident.location,
-        'victimName': _incident.victim,
-        'suspectName': _incident.suspect,
-        'reportedBy': _incident.reported_by,
-        'incidentDate': _incident.incident_date,
-        'incidentTime': _incident.incident_time,
-        'incidentDateEdit': _incident.incident_date,
-        'incidentTimeEdit': _incident.incident_time,
-        'engineno': _incident.engineno,
-        'chassisno': ['']
-      })
-
-      this.date = _incident.incident_date
-      // set the ng model of the textarea
-      this.incidentDescription = _incident.incident_description
-      // set the entry mode
-      this.isAdd = false;
-
-      // get evidence related to this case/incident
-      this.getEvidences(this.caseId);
-      this.dataService.evidenceList$.subscribe(e => this.evidences = e)
-
-      this.getVictims(this.caseId)
-      this.getSuspects(this.caseId)
-
-    }
-
+    // clean unsave suspect & victims entries
+    this.caseService.cleanEntries().subscribe(d => console.log(d))
+    
   }
+
+  getSelectedCase(id: number): void {
+    this.caseService.getById(id).subscribe(response => {
+      // if(response.data.data && Array.isArray(response.data.data[0])) 
+      setTimeout(() => {
+        this.selectedIncident = response.data.data[0]
+
+        // case data
+        const _data = response.data.data[0];
+        this.incidentData.setValue({
+          'caseNo': _data.case_no,
+          'caseNature': _data.case_nature,
+          'investigator': _data.investigator,
+          'requestingParty': _data.requesting_party,
+          'incidentTitle': _data.incident_title,
+          'incidentDescription': _data.incident_description,
+          'disposition': _data.disposition,
+          'location': _data.location,
+          'reportedBy': _data.reported_by,
+          'incidentDate': _data.incident_date,
+          'incidentTime': _data.incident_time,
+          'incidentDateEdit': _data.incident_date,
+          'incidentTimeEdit': _data.incident_time,
+          'engineno': _data.engine_no,
+          'chassisno': _data.chassis_no
+        })
+        this.date = _data.incident_date
+        
+
+        this.dataService.setEvidenceList(response.data.evidences);
+        this.dataService.setSuspectsList(response.data.suspects);
+        this.dataService.setVictimsList(response.data.victims);
+        this.dataService.setFilesList(response.data.files);
+        // this.dataService.setFirearmList(response.data.firearms);
+        this.firearms = response.data.firearms;
+
+      }, 0);
+    })
+  }
+
 
   onSelectedProduct(product) {
     this.selectedEvidence = product;
@@ -224,13 +219,15 @@ export class CaseEntryComponent implements OnInit {
     // get the suspects from suspect component
     this.dataService.suspectList$.subscribe((value) => {
       this.suspects = value;
-      console.log(this.suspects)
     });
 
     // get the victims from victims component
     this.dataService.victimList$.subscribe((value) => {
       this.victims = value;
-      console.log(this.victims)
+    });
+
+    this.dataService.evidenceList$.subscribe((value) => {
+      this.evidences = value;
     });
 
     let control = this.incidentData.controls
@@ -244,8 +241,8 @@ export class CaseEntryComponent implements OnInit {
       disposition: this.userDivision === 'soco' || this.userDivision === 'chemistry' ? control['disposition'].value : 'NA',
       incidentTime: this.isAdd ? this.timeConverterPipe.transform(control['incidentTime'].value) : control['incidentTimeEdit'].value,
       location: control['location'].value,
-      victims: this.suspects, //control['victimName'].value,
-      suspects: this.suspects, //control['suspectName'].value,
+      victims: this.isAdd ? '' : this.victims,
+      suspects: this.isAdd ? '' : this.suspects,
       reportedBy: this.userDivision === 'soco' ? control['reportedBy'].value : 'NA',
       incidentDate: this.isAdd ? this.date : control['incidentDateEdit'].value,
       evidences: this.evidences,
@@ -280,7 +277,9 @@ export class CaseEntryComponent implements OnInit {
 
               // clear list after successfull submit
               this.evidences = [];
+              this.dataService.setEvidenceList([]);
               this.dataService.setFilesList([]);
+              this.resetFirearmList();
               this.clearFields();
 
               this.caseService.getCases().subscribe((response: any) => {
@@ -367,11 +366,9 @@ export class CaseEntryComponent implements OnInit {
   getVictims(id: number): void {
     this.victimService.getByCaseId(id).subscribe(
       response => {
-        console.log('response')
-        console.log(response)
-        if(response.data.length > 0 && Array.isArray(response.data)) {
+        if (response.data.length > 0 && Array.isArray(response.data)) {
           this.victims = response.data
-        
+
           this.dataService.setVictimsList(response.data);
         }
       },
@@ -382,7 +379,7 @@ export class CaseEntryComponent implements OnInit {
   getSuspects(id: number): void {
     this.suspectService.getByCaseId(id).subscribe(
       response => {
-        if(response.data && Array.isArray(response.data)) {
+        if (response.data && Array.isArray(response.data)) {
           this.suspects = response.data
           this.dataService.setSuspectsList(response.data);
         }
@@ -406,8 +403,8 @@ export class CaseEntryComponent implements OnInit {
       'disposition': [''],
       'incidentTime': ['', Validators.required],
       'location': [''],
-      'victimName': [''],
-      'suspectName': [''],
+      // 'victimName': [''],
+      // 'suspectName': [''],
       'reportedBy': [''],
       'incidentDate': ['', Validators.required],
       'incidentDateEdit': [''],
@@ -415,6 +412,10 @@ export class CaseEntryComponent implements OnInit {
       'engineno': [''],
       'chassisno': ['']
     })
+  }
+
+  resetFirearmList(){
+    this.firearms = []
   }
 
   isFieldValid(field: string) {

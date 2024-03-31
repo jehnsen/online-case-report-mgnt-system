@@ -1,124 +1,61 @@
 <!-- Main content -->
 <form [formGroup]="formData" (ngSubmit)="onSubmit()">
-    <!-- 1st row -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card card-outline card-primary">
-                <!-- /.card-header -->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card-body">
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <p for="inputName" class="h6">Case Number <b class="text-danger">*</b></p>
-                                            <div class="input-group input-group-sm">
-                                                <input type="text" class="form-control" formControlName="caseNo"
-                                                    placeholder="ex. FAIS-000-XXXX" />
-                                                <!-- <control-messages [control]="incidentData.get('caseNo')"></control-messages> -->
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <p for="" class="h6">Status</p>
-                                            <div class="input-group input-group-sm">
-                                                <select class="form-control custom-select" formControlName="status">
-                                                    <option>ACCOUNTED IN CUSTODY</option>
-                                                    <option>DEPOSITED TO COURT/PROSECUTOR</option>
-                                                    <option>WITHDRAWN BY REQUESTING PARTY</option>
-                                                    <option>TURNED-OVER TO FEO</option>
-                                                    <option>TURNED-OVER TO LSS</option>
-                                                </select>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <p for="inputName" class="h6">Remarks</p>
-                                            <div class="input-group input-group-sm">
-                                                <input type="text" class="form-control" formControlName="remarks" />
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-3">
-                                            <div class="form-group">
-                                                <p for="inputName" class="h6">Requesting Party <b class="text-danger">*</b></p>
-                                                <div class="input-group input-group-sm">
-                                                    <input type="text" class="form-control"
-                                                        formControlName="requestingParty" />
-                                                    <span class="input-group-append">
-                                                        <div class="input-group input-group-sm">
-                                                            <button type="button" class="btn btn-info btn-flat"
-                                                                data-toggle="modal"
-                                                                data-target="#modal-requesting-parties">Select...</button>
-                                                        </div>
-                                                    </span>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- /.card-body -->
-            </div>
-        </div>
-
-    </div>
 
 
     <!-- 2nd row -->
     <div class="row">
 
         <!-- left upper pane -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card card-outline card-primary">
-                <div class="card-header">
+                <!-- <div class="card-header">
                     <h3 class="card-title">Type of Evidence</h3>
                     <div class="card-tools"> </div>
-                </div>
+                </div> -->
                 <!-- /.card-header -->
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-body">
 
-
-
                             <div class="form-group">
-                                <p for="inputDescription" class="h6">Firearm <b class="text-danger">*</b></p>
+                                <p for="inputDescription" class="h6">Name of Firearm <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="firearmName">
+                                    <input type="text" class="form-control" formControlName="firearmName" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <p for="inputDescription" class="h6">Cartridge <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="cartridge">
+                                    <input type="text" class="form-control" formControlName="cartridge" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <p for="inputDescription" class="h6">FCC</p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="fcc">
+                                    <input type="text" class="form-control" formControlName="fcc" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <p for="inputDescription" class="h6">FB</p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="fb">
+                                    <input type="text" class="form-control" formControlName="fb" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <p for="inputDescription" class="h6">Accessories</p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="accessories">
+                                    <input type="text" class="form-control" formControlName="accessories" />
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <p for="inputDescription" class="h6">Physical Inventory</p>
+                                <div class="input-group input-group-sm">
+                                    <input type="number" class="form-control" formControlName="qty"
+                                        placeholder="total quantity" />
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
@@ -129,12 +66,12 @@
         </div>
 
         <!-- right upper pane -->
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="card card-outline card-primary">
-                <div class="card-header">
+                <!-- <div class="card-header">
                     <h3 class="card-title">Description of Firearm</h3>
                     <div class="card-tools"> </div>
-                </div>
+                </div> -->
                 <!-- /.card-header -->
                 <div class="row">
                     <div class="col-md-12">
@@ -146,7 +83,6 @@
                                     <input type="text" class="form-control" formControlName="fcaliber" />
                                 </div>
                             </div>
-
                             <div class="form-group">
                                 <p for="inputName" class="h6">Make <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
@@ -163,13 +99,13 @@
                             <div class="form-group">
                                 <p for="inputName" class="h6">Type <b class="text-danger">*</b></p>
                                 <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="ftype" />
-                                    <span class="input-group-append">
-                                        <div class="input-group input-group-sm">
-                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-handgun-types">Select...</button>
-                                        </div>
-                                    </span>
+
+                                    <select #firearms formControlName="ftype" [(ngModel)]="selectedGunType"
+                                        (change)="selectChangeHandler(firearms.value)" class="form-control" required>
+                                        <option *ngFor="let ft of firearmTypes" value={{ft}}>
+                                            {{ ft }}
+                                        </option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -178,6 +114,20 @@
                                     <input type="text" class="form-control" formControlName="fserialNo" />
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <p for="inputName" class="h6">Status</p>
+                                <div class="input-group input-group-sm">
+                                    <select #statusSelection class="form-control custom-select" formControlName="status"
+                                        [(ngModel)]="selectedStatus"
+                                        (change)="selectStatusHandler(statusSelection.value)">
+                                        <option *ngFor="let fs of firearmStatus" value={{fs}}>
+                                            {{ fs }}
+                                        </option>
+                                    </select>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -185,99 +135,43 @@
 
             </div>
         </div>
-    </div>
-    <!-- end of first row -->
 
-    <!-- 3rd row -->
-    <!-- left lower pane -->
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card card-outline card-success">
-                <div class="card-header">
-                    <h3 class="card-title">DTPO & Suspect/Victim</h3>
-                    <div class="card-tools"> </div>
-                </div>
-                <!-- /.card-header -->
+        <div class="col-md-4">
+
+            <div class="card card-outline card-warning">
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card-body">
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <p for="inputName" class="h6">Date <b class="text-danger">*</b></p>
-                                        <!-- formGroupName="dtpo" -->
-                                        <div *ngIf="isAdd" class="input-group input-group-sm">
-                                            <input class="form-control" placeholder="mm/dd/yyyy" name="dp"
-                                                [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"
-                                                [ngStyle]="{'backgroundColor': 'white'}" formControlName="incidentDate"
-                                                (dateSelect)="onDateSelect($event)" readonly>
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()"
-                                                    type="button">📅</button>
-                                            </div>
-                                        </div>
-                                        <div *ngIf="!isAdd" class="input-group input-group-sm">
-                                            <input type="text" class="form-control"
-                                                formControlName="incidentDateEdit" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p for="inputName" class="h6">Time <b class="text-danger">*</b></p>
-                                        <div *ngIf="isAdd" class="input-group input-group-sm date" id="timepicker"
-                                            data-target-input="nearest">
-                                            <input type="time" class="form-control datetimepicker-input"
-                                                data-target="#timepicker" formControlName="incidentTime" min="09:00"
-                                                max="18:00" required>
-                                        </div>
 
-                                        <div *ngIf="!isAdd" class="input-group input-group-sm">
-                                            <input type="text" class="form-control"
-                                                formControlName="incidentTimeEdit" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p for="inputName" class="h6">Place of Occurence</p>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="location" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p for="inputDescription" class="h6">Victim</p>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="victimName">
-                                    <!-- <span class="input-group-append">
-                                        <div class="input-group input-group-sm">
-                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-persons">Select...</button>
-                                        </div>
-                                    </span> -->
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p for="inputDescription" class="h6">Suspect</p>
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" formControlName="suspectName">
-                                    <!-- <span class="input-group-append">
-                                        <div class="input-group input-group-sm">
-                                                <button type="button" class="btn btn-info btn-flat" data-toggle="modal"
-                                                    data-target="#modal-suspects">Select...</button>
-                                        </div>
-                                    </span> -->
-                                </div>
+                            <div  
+                                *ngIf="formData"
+                                style="overflow: hidden"
+                                data-toggle="modal" 
+                                data-target="#modal-file-viewer"
+                            >
+                                <img style="cursor: pointer;" style="width:430px" height="320px"
+                                    class="img-fluid img-responsive" [src]="imageUrl" />
                             </div>
 
+                            <div class="form-group mt-3">
+                                <p for="inputName" class="text-xs text-info text-wrap">* To update the photo, click "Choose file" and click the <b>Save</b> button to upload.</p>
+                            </div>
+                            <div class="input-group input-group-sm mt-3">
+                                <input class="form-control" type="file" (change)="selectPhoto($event)">
+                            </div>
+                           
                         </div>
                     </div>
                 </div>
                 <!-- /.card-body -->
-
             </div>
+
         </div>
 
     </div>
-    <!-- end: left lower pane  -->
+    <!-- end of first row -->
+
 
     <!-- 4th row -->
     <!-- buttons -->
@@ -292,7 +186,7 @@
                     <span *ngIf="isLoading" class="sr-only">Loading...</span>
                     {{ isLoading ? 'Saving...' : 'Save' }}
                 </button>
-                
+
             </div>
         </div>
     </div>
@@ -317,9 +211,9 @@
                             <td (click)="onTypeSelect(type)" data-dismiss="modal">{{ type }}</td>
                         </tr>
                     </tbody>
-        
+
                 </table>
-                
+
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-outline-danger float-right" data-dismiss="modal">Close</button>

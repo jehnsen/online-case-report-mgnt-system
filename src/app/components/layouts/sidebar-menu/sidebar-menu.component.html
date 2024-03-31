@@ -34,7 +34,7 @@
                     <nav class="mt-2" attr.data-widget="{{ isMobileView ? 'pushmenu' : '' }}">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                             data-accordion="false">
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a 
                                     href="javascript:void(0)" 
                                     class="nav-link" 
@@ -44,8 +44,8 @@
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p> Dashboard</p>
                                 </a>
-                            </li>
-                            <li class="nav-item" *ngIf="userType !== 'Administrator' && division !== 'chemistry'">
+                            </li> -->
+                            <li class="nav-item" *ngIf="userType !== 'Administrator' && division !== 'chemistry' && division !== 'ballisticxxxß'">
                                 <a 
                                     href="javascript:void(0)" 
                                     class="nav-link" 
@@ -82,8 +82,8 @@
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fa fa-flask"></i>
                                     <p>Criminal Drug Test
-                                        <span *ngIf="drugTestCount > 0" class="badge badge-pill badge-primary right">
-                                            {{ drugTestCount > 0 ? drugTestCount : null }}
+                                        <span *ngIf="count > 0" class="badge badge-pill badge-primary right">
+                                            {{ count > 0 ? count : null }}
                                         </span>
                                     </p>
                                 </a>
@@ -102,20 +102,18 @@
                                     </p>
                                 </a>
                             </li>
-                            <li *ngIf="division === 'ballistic'" class="nav-item">
+                            <!-- <li *ngIf="division === 'ballistic'" class="nav-item">
                                 <a href="javascript:void(0)" 
                                     class="nav-link" 
                                     (click)="setPageTitle('FIREARM INVENTORY')"
                                     [routerLink]="['firearm-inventory']"
                                     routerLinkActive="router-link-active">
-                                    <i class="nav-icon fa fa-solid fa-gun"></i>
+                                    <i class="nav-icon fas fa-layer-group"></i>
                                     <p>Firearm Inventory
-                                        <!-- <span *ngIf="drugTestCount > 0" class="badge badge-pill badge-primary right">
-                                            {{ drugTestCount > 0 ? drugTestCount : null }}
-                                        </span> -->
+                                    
                                     </p>
                                 </a>
-                            </li>
+                            </li> -->
                             <li *ngIf="userType === 'Administrator'" class="nav-item">
                                 <a 
                                     href="javascript:void(0)" 
@@ -129,45 +127,27 @@
                                     </p>
                                 </a>
                             </li>
-                            <li *ngIf="userType === 'Administrator'" class="nav-item">
+                            <!-- <li *ngIf="userType === 'Administrator'" class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-copy"></i>
                                     <p>Data Entries<i class="fas fa-angle-left right"></i></p>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview"> -->
                                     <li class="nav-item">
                                         <a href="#" class="nav-link" 
                                         (click)="setPageTitle('MANAGE CASE NATURES')"
                                         [routerLink]="['records/manage/categories']"  
                                         routerLinkActive="router-link-active">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fa fa-code nav-icon"></i>
                                             <p>Nature of Cases</p>
                                         </a>
                                     </li>
-                                    <!-- <li class="nav-item">
-                                        <a href="#" class="nav-link" 
-                                        (click)="setPageTitle('MANAGE LIST OF SUSPECTS')"
-                                        [routerLink]="['manage/persons']"  
-                                        routerLinkActive="router-link-active">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Suspects</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link" 
-                                        (click)="setPageTitle('MANAGE LIST OF VICTIMS')"
-                                        [routerLink]="['manage/persons']"  
-                                        routerLinkActive="router-link-active">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Victims</p>
-                                        </a>
-                                    </li> -->
                                     <li class="nav-item">
                                         <a href="#" class="nav-link" 
                                         (click)="setPageTitle('MANAGE REQUESTING PARTIES')"
                                         [routerLink]="['records/manage/requesting-parties']"  
                                         routerLinkActive="router-link-active">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fa fa-sitemap nav-icon"></i>
                                             <p>Requesting Parties</p>
                                         </a>
                                     </li>
@@ -176,13 +156,13 @@
                                         (click)="setPageTitle('MANAGE DISPOSITIONS')"
                                         [routerLink]="['manage/dispositions']"  
                                         routerLinkActive="router-link-active">
-                                            <i class="far fa-circle nav-icon"></i>
+                                            <i class="fa fa-code nav-icon"></i>
                                             <p>Dispositions</p>
                                         </a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li *ngIf="userType === 'Administrator'" class="nav-item">
+                                <!-- </ul>
+                            </li> -->
+                            <!-- <li *ngIf="userType === 'Administrator'" class="nav-item">
                                 <a 
                                     href="javascript:void(0)" 
                                     class="nav-link" 
@@ -191,18 +171,6 @@
                                     routerLinkActive="router-link-active">
                                     <i class="nav-icon fa fa-book"></i>
                                     <p>Case/Incidents Reports</p>
-                                </a>
-                            </li>
-                            <!-- <li *ngIf="userType === 'Administrator'" class="nav-item">
-                                <a 
-                                    href="javascript:void(0)" 
-                                    class="nav-link" 
-                                    (click)="setPageTitle('BACKUP & RESTORE DATABASE')"
-                                    [routerLink]="['manage/database']" 
-                                    routerLinkActive="router-link-active">
-                                    <i class="nav-icon fa fa-database"></i>
-                                    <p>Manage Database
-                                    </p>
                                 </a>
                             </li> -->
                             <li class="nav-item" (click)="logout()">

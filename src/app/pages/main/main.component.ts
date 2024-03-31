@@ -64,7 +64,6 @@ export class MainComponent implements OnInit {
 
   getDrugTestRecords(){
     this.criminalDrugTestService.get().subscribe(dtests => {
-      console.log('dtests.data',dtests.data)
       if(dtests.data){
         this.dataService.setDrugTestList(dtests.data)
       }

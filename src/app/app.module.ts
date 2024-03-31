@@ -63,7 +63,7 @@ import { SuspectListComponent } from './components/suspect-list/suspect-list.com
 import { VictimListComponent } from './components/victim-list/victim-list.component';
 import { ModalSuspectEntryComponent } from './components/modals/modal-suspect-entry/modal-suspect-entry.component';
 import { ModalVictimEntryComponent } from './components/modals/modal-victim-entry/modal-victim-entry.component';
-
+import { FirearmsInventoryListComponent } from './components/firearms-inventory-list/firearms-inventory-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +117,8 @@ import { ModalVictimEntryComponent } from './components/modals/modal-victim-entr
     SuspectListComponent,
     VictimListComponent,
     ModalSuspectEntryComponent,
-    ModalVictimEntryComponent
+    ModalVictimEntryComponent,
+    FirearmsInventoryListComponent
   ],
   imports: [
     HttpClientModule,

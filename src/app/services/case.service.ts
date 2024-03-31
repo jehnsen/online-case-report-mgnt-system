@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders   } from '@angular/common/http';
-import {  Observable, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { retry, share, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
@@ -34,55 +34,59 @@ export class CaseService {
   }
 
   public create(data): Observable<any> {
-    // console.log(data)
     let newEvidencesArray = []
     data.evidences.map(m => newEvidencesArray.push(m.description))
     return this.httpClient.post(this.URL_ENDPOINT, {
-      division:       data.division,
-      case_no:        data.caseNo,
-      case_nature:    data.caseNature,
-      investigator:   data.investigator,
-      requesting_party:     data.requestingParty,
-      incident_title:       data.incidentTitle,
+      division: data.division,
+      case_no: data.caseNo,
+      case_nature: data.caseNature,
+      investigator: data.investigator,
+      requesting_party: data.requestingParty,
+      incident_title: data.incidentTitle,
       incident_description: data.incidentDescription,
-      disposition:    data.disposition,
-      incident_time:  data.incidentTime,
-      location:       data.location,
-      victims:         data.victims,
-      suspects:        data.suspects,
-      chassis_no:     data.chassisNo,
-      engine_no:      data.engineNo,
-      incident_date:  data.incidentDate,
-      evidences:      newEvidencesArray,
-      reported_by:    data.reportedBy,
+      disposition: data.disposition,
+      incident_time: data.incidentTime,
+      location: data.location,
+      victims: data.victims,
+      suspects: data.suspects,
+      chassis_no: data.chassisNo,
+      engine_no: data.engineNo,
+      incident_date: data.incidentDate,
+      evidences: newEvidencesArray,
+      reported_by: data.reportedBy,
       status: 1
     }, httpOptions)
-    .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public update(data, id): Observable<any> {
-
+    
     return this.httpClient.put(`${this.URL_ENDPOINT}/${id}`, {
-      case_no:        data.caseNo,
-      case_nature:    data.caseNature,
-      investigator:   data.investigator,
-      requesting_party:     data.requestingParty,
-      incident_title:       data.incidentTitle,
-      incident_description: data.incidentDescription,
-      disposition:    data.disposition,
-      incident_time:  data.incidentTime,
-      location:       data.location,
-      victim:         data.victimName,
-      suspect:        data.suspectName,
-      incident_date:  data.incidentDate,
-      reported_by:    data.reportedBy
+      incident: {
+        case_no: data.caseNo,
+        case_nature: data.caseNature,
+        investigator: data.investigator,
+        requesting_party: data.requestingParty,
+        incident_title: data.incidentTitle,
+        incident_description: data.incidentDescription,
+        disposition: data.disposition,
+        incident_time: data.incidentTime,
+        location: data.location,
+        victim: data.victimName,
+        suspect: data.suspectName,
+        incident_date: data.incidentDate,
+        chassis_no: data.chassisNo,
+        engine_no: data.engineNo,
+        reported_by: data.reportedBy
+      },
+      evidences: data.evidences
     }, httpOptions)
-    .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public delete(id): Observable<any> {
     return this.httpClient.delete(`${this.URL_ENDPOINT}/${id}`, httpOptions)
-    .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public getById(id: number): Observable<any> {
@@ -99,15 +103,20 @@ export class CaseService {
 
   public insertEvidenceDuringUpdate(data): Observable<any> {
     return this.httpClient.post(`${environment.apiUrl}/api/evidence`, {
-      case_id:        data.case_id,
-      description:    data.description
+      case_id: data.case_id,
+      description: data.description
     }, httpOptions)
-    .pipe(catchError(this.handleError));
+      .pipe(catchError(this.handleError));
   }
 
   public deleteEvidence(id): Observable<any> {
     return this.httpClient.delete(`${environment.apiUrl}/api/evidence/${id}`, httpOptions)
-    .pipe(catchError(this.handleError));
-  } 
+      .pipe(catchError(this.handleError));
+  }
 
+
+  public cleanEntries(): Observable<any> {
+    return this.httpClient.delete(`${environment.apiUrl}/api/incident/entries/clean`, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 }

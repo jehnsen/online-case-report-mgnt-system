@@ -58,10 +58,8 @@ export class DashboardComponent implements OnInit {
 
     this.dataService.caseList$.subscribe(casesResponse => {
       // if (!Utils.isEmpty(data)) {
-        console.log('casesResponse', casesResponse)
         // data = this.cases
         // return ;
-
       // } else {
         // console.log('triggered')
         // this.caseService.getCases().subscribe(casesResponse => {
@@ -72,9 +70,7 @@ export class DashboardComponent implements OnInit {
             } else {
               this.cases = casesResponse.data.filter(f => f.division === this.userDivision);
             }
-            
-            // this.dataService.setCaseList(this.cases);
-    
+
             this.totalCases = this.cases.length;
             this.totalRobberyIncident = this.cases.filter(f => f.case_nature === 'Robbery').length;
             this.totalShootingIncident = this.cases.filter(s => s.case_nature === 'Shooting Incident').length;
@@ -135,13 +131,11 @@ export class DashboardComponent implements OnInit {
         })
         this.firearmsSubmittedRate = Math.trunc((submitted / this.firearmsInventoryCount) * 100)
 
-        // this.dataService.setFirearmInventoryList(invResponse.data);
       }
     })
   }
 
   getDrugTestRecords(){
-    console.log("getDrugTestRecords")
     this.criminalDrugTestService.get().subscribe((dtests: any) => {
       if(dtests.data){
         this.criminalDrugTestsCount = dtests.data.length
@@ -152,8 +146,7 @@ export class DashboardComponent implements OnInit {
           totalQtysubmitted = totalQtysubmitted + Number(d.qty_turned_over);
         })
         this.criminalDrugTestsRate = Math.trunc((totalQtysubmitted / totalQtyReceived) * 100)
-       
-        // this.dataService.setDrugTestList(dtests.data)
+
       }
       
     })
