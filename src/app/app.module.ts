@@ -64,6 +64,8 @@ import { VictimListComponent } from './components/victim-list/victim-list.compon
 import { ModalSuspectEntryComponent } from './components/modals/modal-suspect-entry/modal-suspect-entry.component';
 import { ModalVictimEntryComponent } from './components/modals/modal-victim-entry/modal-victim-entry.component';
 import { FirearmsInventoryListComponent } from './components/firearms-inventory-list/firearms-inventory-list.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +128,7 @@ import { FirearmsInventoryListComponent } from './components/firearms-inventory-
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    Ng2SearchPipeModule,
+    // Ng2SearchPipeModule,
     NgxPaginationModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot()// ToastrModule added,
