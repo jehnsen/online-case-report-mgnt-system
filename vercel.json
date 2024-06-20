@@ -1,0 +1,19 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "dist/case-report-mgnt-system/**/*",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "dist/case-report-mgnt-system"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ]
+  }
+  
