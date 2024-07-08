@@ -7,9 +7,7 @@ import { environment } from '../../environments/environment';
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
 const urlEndpoint = `${environment.apiUrl}/api/victims`
-
 @Injectable({
     providedIn: 'root'
 })
@@ -26,7 +24,6 @@ export class VictimService {
             // Server-side errors
             errorMessage = `Error Code: ${error.status}\nServer Message: ${error.message}`;
         }
-        // window.alert(errorMessage);
         return throwError(errorMessage);
     }
 
